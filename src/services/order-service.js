@@ -13,8 +13,13 @@ class OrderService {
     const createNewOrder = await this.orderModel.createOrder(newOrderInfo);
     return createNewOrder;
   }
-}
 
+  //db 조회
+  async getOrders() {
+    const orderLisrt = await this.orderModel.findAllOrder();
+    return orderLisrt;
+  }
+}
 const orderService = new OrderService(orderModel);
 
 export { orderService };

@@ -31,4 +31,13 @@ orderRouter.post("/orderCreate", async (req, res, next) => {
   }
 });
 
+orderRouter.get("/getOrderList", async function (req, res, next) {
+  try {
+    const orderList = await orderService.getOrders();
+    res.status(200).json(orderList);
+  } catch (error) {
+    next(error);
+  }
+});
+
 export { orderRouter };
