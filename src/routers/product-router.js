@@ -33,4 +33,13 @@ productRouter.get("/getProductsList", async (req, res) => {
   res.status(201).json(products);
 });
 
+productRouter.get("/getProductsList/:category", async (req, res) => {
+  const productsCategory = req.params.category;
+  const productsCategoryInfo = await productService.getProductsCategory(
+    productsCategory
+  );
+
+  res.status(201).json(productsCategoryInfo);
+});
+
 export { productRouter };

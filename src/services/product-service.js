@@ -17,6 +17,9 @@ class ProductService {
   }
 
   //카테고리 별로 상품 조회
+  async getProductsCategory(category) {
+    return await productModel.findByCategory(category);
+  }
 }
 const productService = new ProductService(productModel);
 

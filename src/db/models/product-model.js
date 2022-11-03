@@ -10,8 +10,8 @@ export class ProductModel {
     return product;
   }
   //카테고리 상품 조회
-  async findByCategory(category) {
-    const productList = await Product.find({ category: category });
+  async findByCategory(categoryList) {
+    const productList = await Product.find({ category: categoryList });
     return productList;
   }
   //전체 제품 조회
