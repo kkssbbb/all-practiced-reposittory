@@ -43,15 +43,24 @@ const getProductDetailApi = () => {
   });
 };
 
-// const IsDuplicate = (id) => {};
+// const isDuplicate = (id) => {
+//   console.log
+//   return store.getLocalStorage().some((data) => data[0].id === id);
+// };
 
 $("#one").addEventListener("click", async (e) => {
   const data = await getProductDetailApi();
-  // if (IsDuplicate(data)) return alert("이미있는값");
+  // if (isDuplicate(data[0]._id)) return alert("이미있는값");
   cart.push({ id: data[0]._id });
   store.setLocalStorage(cart);
 });
 
+$("#two").addEventListener("click", async (e) => {
+  const data = await getProductDetailApi();
+  // if (IsDuplicate(data)) return alert("이미있는값");
+  cart.push({ id: data[0]._id + "1" });
+  store.setLocalStorage(cart);
+});
 // $("#one").addEventListener("click", (e) => {
 //   fetch("./mokData/mokData1.json")
 //     .then((response) => {
