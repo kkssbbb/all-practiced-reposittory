@@ -32,12 +32,18 @@ orderRouter.post("/orderCreate", async (req, res, next) => {
 });
 
 orderRouter.get("/getOrderList", async function (req, res, next) {
-  try {
-    const orderList = await orderService.getOrders();
-    res.status(200).json(orderList);
-  } catch (error) {
-    next(error);
-  }
+  const orderList = await orderService.getOrders();
+  res.status(200).json(orderList);
+});
+
+orderRouter.delete("/deleteOrder/:orderId", async function (req, res, next) {
+  const orderId  = req.params.orderId;
+
+  console.log(`파람 값확인: ${orderId}`);
+
+  const deleteOrderInfo = await orderService.deleteOrder(orderId);
+
+  return res.status(201).json(deleteOrderInfo);
 });
 
 export { orderRouter };
