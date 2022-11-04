@@ -6,7 +6,8 @@ const completeCount = document.querySelector("#completeCount");
 
 const orderListMenu = document.querySelector("#orderListMenu");
 
-const modal = document.querySelector(".modal-overlay");
+const modal = document.querySelector("#modal");
+
 
 /*페이지 로드 시 실행, 삭제할 주문 id를 전역변수로 관리함*/
 async function insertOrders() {
@@ -31,7 +32,7 @@ async function insertOrders() {
     }
 
     /*주문내역 추가*/
-    ordersContainer.insertAdjacentHTML(
+    orderListMenu.insertAdjacentHTML(
       "beforeend",
       `
         <div class="columns orders-item" id="order-${_id}">
@@ -95,16 +96,31 @@ async function insertOrders() {
       orderIdToDelete = _id;
       openModal();
     });
-
-    // 총 요약 값 삽입
-    ordersCount.innerText = addCommas(summary.ordersCount);
-    prepareCount.innerText = addCommas(summary.prepareCount);
-    deliveryCount.innerText = addCommas(summary.deliveryCount);
-    completeCount.innerText = addCommas(summary.completeCount);
   }
+
+  // 총 요약 값 삽입
+  ordersCount.innerText = addCommas(summary.ordersCount);
+  prepareCount.innerText = addCommas(summary.prepareCount);
+  deliveryCount.innerText = addCommas(summary.deliveryCount);
+  completeCount.innerText = addCommas(summary.completeCount);
 }
 
-/**/
+/*모달창*/
+// Modal 창에서 아니오 클릭할 시, 전역 변수를 다시 초기화함.
+function cancelDelete() {
+  orderIdToDelete = "";
+  closeModal();
+}
+
+// Modal 창 열기
+function openModal() {
+  modal.classList.add("is-active");
+}
+
+// Modal 창 닫기
+function closeModal() {
+  modal.classList.remove("is-active");
+}
 
 const orderDeleteBtn = document.querySelector(".order-delete-btn");
 const modalCloseBtn = document.querySelector(".modal-close-btn");
@@ -121,6 +137,7 @@ modalCloseBtn.addEventListener("click", () => {
 
 modalYesBtn.addEventListener("click", () => alert("주문 취소"));
 modalNoBtn.addEventListener("click", () => alert("창닫기"));
+
 
 // 모달창 바깥 영역 클릭시 모달창 닫기
 // modal.addEventListener("click", () => {

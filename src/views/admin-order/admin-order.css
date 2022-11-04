@@ -211,3 +211,7 @@ section a {
   position: relative;
   padding: 2rem;
 }
+
+.modal-btns button {
+  justify-items: center;
+}

@@ -42,8 +42,8 @@
           <p class="order-count-num" id="completeCount">-</p>
         </div>
       </section>
-      <section class="order-lists">
-        <div class="order-list-menu" id="orderListMenu">
+      <section class="order-lists" id="orderListMenu">
+        <div class="order-list-menu">
           <div>날짜</div>
           <div>주문 정보</div>
           <div>주문총액</div>
@@ -64,10 +64,11 @@
     </main>
 
     <!-- 주문 취소를 묻는 Modal창 -->
-    <section class="modal-overlay">
+    <section class="modal-overlay" id="modal">
       <div class="modal-content">
         <p>주문 삭제 시 복구할 수 없습니다. 정말로 취소 하시겠습니까?</p>
         <button class="modal-close-btn">X</button>
+
         <div class="modal-btns">
           <button class="modal-yes-btn">네</button>
           <button class="modal-no-btn">아니오</button>
