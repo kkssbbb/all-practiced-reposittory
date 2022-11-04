@@ -1,9 +1,9 @@
 const store = {
-  setLocalStorage(menu) {
-    localStorage.setItem("menu", JSON.stringify(menu));
+  setLocalStorage(book) {
+    localStorage.setItem("book", JSON.stringify(book));
   },
   getLocalStorage() {
-    return JSON.parse(localStorage.getItem("menu"));
+    return JSON.parse(localStorage.getItem("book"));
   },
 };
 
