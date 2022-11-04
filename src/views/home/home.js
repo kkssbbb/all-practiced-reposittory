@@ -58,3 +58,24 @@ async function getDataFromApi() {
   console.log({ data });
   console.log({ random });
 }
+
+// 제품 상세 페이지로 이동
+const bookRow = document.querySelector(".book-row");
+const book = document.querySelector(".book");
+
+async function clickBook() {
+  const res = await fetch(`http://localhost:3000/api/getProductList`);
+  const data = await res.json();
+  console.log(data);
+
+  const title = data.title;
+  const price = data.price;
+  const category = data.category;
+  const author = data.author;
+  const publisher = data.publisher;
+  const publicationDate = data.publicationDate;
+  const pageNumber = data.pageNumber;
+  const summary = data.summary;
+}
+
+book.addEventListener("click", clickBook);

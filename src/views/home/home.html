@@ -31,7 +31,7 @@
     <nav class="navbar" role="navigation" aria-label="main navigation">
       <div class="container mt-3">
         <div class="navbar-brand">
-          <a class="navbar-item" href="/">
+          <a class="navbar-item" href="./home.html">
             <span class="has-text-link">📖 원 픽</span>
           </a>
 
@@ -50,11 +50,11 @@
 
         <div class="navbar-end breadcrumb my-auto" aria-label="breadcrumbs">
           <ul id="navbar">
-            <li><a href="/login">로그인</a></li>
-            <li><a href="/register">회원가입</a></li>
-            <li><a href="/wishlist">위시리스트</a></li>
+            <li><a href="../login/login.html">로그인</a></li>
+            <li><a href="../register/register.html">회원가입</a></li>
+            <li><a href="#">위시리스트</a></li>
             <li>
-              <a href="#cart" aria-current="page">
+              <a href="../cart/cart.html" aria-current="page">
                 <span class="icon">
                   <i class="fas fa-cart-shopping"></i>
                 </span>
@@ -72,8 +72,8 @@
       <img src="./img/home-ad/pexels-cottonbro-6344231.jpg" alt="책" />
     </div>
 
-    <!--카테고리 필터-->
     <main>
+      <!--카테고리 필터-->
       <aside>
         <form class="category-filter-form" action="" method="get">
           <label
@@ -111,16 +111,61 @@
         </form>
       </aside>
 
-      <!-- 책 이비지-->
+      <!-- 책 이미지-->
       <section>
         <div class="book-container">
-          <a href="#"
-            ><img class="product" src="./img/home-books/best-1.jpg" alt="책"
-          /></a>
-          <a href="#"
-            ><img class="product" src="./img/home-books/best-2.jpg" alt="책"
-          /></a>
-          <img src="./img/home-books/best-3.jpg" alt="" />
+          <div class="book-row">
+            <a href="#" class="book">
+              <img
+                class="product"
+                src="./img/home-books/best-1.jpg"
+                alt="책 표지를 불러오지 못했습니다."
+              />
+            </a>
+            <a href="#" class="book">
+              <img
+                class="product"
+                src="./img/home-books/best-2.jpg"
+                alt="책 표지를 불러오지 못했습니다."
+              />
+            </a>
+            <a href="#" class="book">
+              <img
+                class="product"
+                src="./img/home-books/best-3.jpg"
+                alt="책 표지를 불러오지 못했습니다."
+              />
+            </a>
+            <a href="#" class="book">
+              <img
+                class="product"
+                src="./img/home-books/best-4.jpg"
+                alt="책 표지를 불러오지 못했습니다."
+              />
+            </a>
+            <a href="#" class="book">
+              <img
+                class="product"
+                src="./img/home-books/best-5.jpg"
+                alt="책 표지를 불러오지 못했습니다."
+              />
+            </a>
+          </div>
+
+          <div class="book-row"></div>
+          <div class="book-row"></div>
+          <div class="book-row"></div>
+          <div class="book-row"></div>
+          <div class="book-row"></div>
+        </div>
+      </section>
+    </main>
+    <!-- <script type="module" src="./js/bookDetail.js" defer></script> -->
+    <script type="module" src="./js/index.js" defer></script>
+  </body>
+</html>
+
+<!-- <img src="./img/home-books/best-3.jpg" alt="" />
           <img src="./img/home-books/best-4.jpg" alt="" />
           <img src="./img/home-books/best-5.jpg" alt="" />
           <img src="./img/home-books/best-6.jpg" alt="" />
@@ -129,11 +174,4 @@
           <img src="./img/home-books/best-9.jpg" alt="" />
           <img src="./img/home-books/best-10.jpg" alt="" />
           <img src="./img/home-books/best-11.jpg" alt="" />
-          <img src="./img/home-books/best-12.jpg" alt="" />
-        </div>
-      </section>
-    </main>
-    <!-- <script type="module" src="./js/bookDetail.js" defer></script> -->
-    <script type="module" src="./js/index.js" defer></script>
-  </body>
-</html>
+          <img src="./img/home-books/best-12.jpg" alt="" /> -->
