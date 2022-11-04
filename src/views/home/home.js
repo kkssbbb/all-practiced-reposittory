@@ -64,8 +64,9 @@ const bookRow = document.querySelector(".book-row");
 const book = document.querySelector(".book");
 
 async function clickBook() {
-  // const res = await fetch();
-  // const data = await res.json();
+  const res = await fetch(`http://localhost:3000/api/getProductList`);
+  const data = await res.json();
+  console.log(data);
 
   const title = data.title;
   const price = data.price;
