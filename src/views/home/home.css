@@ -68,3 +68,22 @@ section {
   display: inline-block;
   margin: 1rem;
 }
+
+.book-list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.book-list-item {
+  background-color: tomato;
+  width: 200px;
+  height: 300px;
+  border: 0.1rem solid black;
+  margin: 1rem;
+  color: black;
+}
+
+.book-list-item:hover {
+  background-color: tan;
+  cursor: pointer;
+}
