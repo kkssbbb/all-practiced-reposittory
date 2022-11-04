@@ -1,3 +1,11 @@
+@import "reset.css";
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+/* 무슨 클래스지? */
 .div-container {
   display: flex;
   align-items: center;
@@ -5,15 +13,58 @@
   height: 100vh;
 }
 
-.landing {
-  cursor: pointer;
-  border: 1px solid red;
-  padding: 10px;
+#navbar a {
+  color: black;
 }
 
-.greeting {
-  cursor: pointer;
-  border: 1px solid blue;
-  padding: 10px;
-  margin-left: 3rem;
+.carousel-wrapper {
+  display: flex;
+  margin-bottom: 10%;
+  justify-content: center;
+}
+
+main {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+aside {
+  flex: 1;
+  padding-top: 10%;
+}
+section {
+  flex: 4;
+}
+
+.category-filter-form {
+  display: flex;
+  width: 50%;
+  height: 50%;
+  border: solid;
+  margin: auto;
+  position: sticky;
+  top: 20%;
+  justify-content: space-around;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* .book-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.book-container img {
+  margin-bottom: 5%;
+} */
+
+.book-row img {
+  width: 12.5rem;
+}
+
+.book-row a {
+  display: inline-block;
+  margin: 1rem;
 }
