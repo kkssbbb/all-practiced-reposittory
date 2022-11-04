@@ -28,6 +28,16 @@ class OrderService {
     const deleteOrder = await this.orderModel.deleteById(orderId);
     return deleteOrder;
   }
+
+  async patchOrder(orderId, toUpdate) {
+    console.log(orderId);
+
+    console.log(toUpdate);
+
+    const fatchOrder = await this.orderModel.fatchById(orderId, toUpdate);
+
+    return fatchOrder;
+  }
 }
 
 const orderService = new OrderService(orderModel);

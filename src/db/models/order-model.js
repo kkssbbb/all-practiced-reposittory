@@ -27,6 +27,18 @@ export class OrderModel {
     const deleteOrderId = await Order.remove({ _id: orderId });
     return deleteOrderId;
   }
+
+  async fatchById(orderId, toUpdate) {
+    // const filter = { _id: orderId };
+    const option = { new: true };
+
+    const fatchOrderId = await Order.findByIdAndUpdate(
+      orderId,
+      toUpdate,
+      option
+    );
+    return fatchOrderId;
+  }
 }
 
 const orderModel = new OrderModel();
