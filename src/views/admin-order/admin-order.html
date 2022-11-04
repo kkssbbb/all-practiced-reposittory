@@ -10,9 +10,16 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css"
     /> -->
+    <script type="text/javascript" defer>
+      fetch('/header.html')
+        .then((res) => res.text())
+        .then((text) => {
+          document.querySelector('#header').innerHTML = text;
+        });
+    </script>
   </head>
   <body>
-    <header>헤더</header>
+    <header id="header"></header>
     <main>
       <section class="order-management-header">
         <div class="order-management-header-title">주문 관리</div>
@@ -20,29 +27,30 @@
       <section class="order-count">
         <div>
           <p>총 주문수</p>
-          <p class="order-count-num">10</p>
+          <p class="order-count-num" id="ordersCount">-</p>
         </div>
         <div>
           <p>상품 준비중</p>
-          <p class="order-count-num">5</p>
+          <p class="order-count-num" id="prepareCount">-</p>
         </div>
         <div>
           <p>상품 배송중</p>
-          <p class="order-count-num">3</p>
+          <p class="order-count-num" id="deliveryCount">-</p>
         </div>
         <div>
           <p>배송완료</p>
-          <p class="order-count-num">2</p>
+          <p class="order-count-num" id="completeCount">-</p>
         </div>
       </section>
       <section class="order-lists">
-        <div class="order-list-menu">
+        <div class="order-list-menu" id="orderListMenu">
           <div>날짜</div>
           <div>주문 정보</div>
           <div>주문총액</div>
           <div>상태관리</div>
           <div>주문 취소</div>
         </div>
+        
         <div class="order-list">
           <div>날짜</div>
           <div>주문 정보</div>
@@ -54,6 +62,8 @@
         </div>
       </section>
     </main>
+
+    <!-- 주문 취소를 묻는 Modal창 -->
     <section class="modal-overlay">
       <div class="modal-content">
         <p>주문 삭제 시 복구할 수 없습니다. 정말로 취소 하시겠습니까?</p>
