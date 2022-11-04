@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin order management</title>
+    <link rel="stylesheet" href="admin-order.css" />
+    <!-- <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css"
+    /> -->
+  </head>
+  <body>
+    <header>헤더</header>
+    <main>
+      <section class="order-management-header">
+        <div class="order-management-header-title">주문 관리</div>
+      </section>
+      <section class="order-count">
+        <div>
+          <p>총 주문수</p>
+          <p class="order-count-num">10</p>
+        </div>
+        <div>
+          <p>상품 준비중</p>
+          <p class="order-count-num">5</p>
+        </div>
+        <div>
+          <p>상품 배송중</p>
+          <p class="order-count-num">3</p>
+        </div>
+        <div>
+          <p>배송완료</p>
+          <p class="order-count-num">2</p>
+        </div>
+      </section>
+      <section class="order-lists">
+        <div class="order-list-menu">
+          <div>날짜</div>
+          <div>주문 정보</div>
+          <div>주문총액</div>
+          <div>상태관리</div>
+          <div>주문 취소</div>
+        </div>
+        <div class="order-list">
+          <div>날짜</div>
+          <div>주문 정보</div>
+          <div>주문총액</div>
+          <div>상태관리</div>
+          <div>
+            <a href="#" class="order-delete-btn"> 주문 취소 </a>
+          </div>
+        </div>
+      </section>
+    </main>
+    <section class="modal-overlay">
+      <div class="modal-content">
+        <p>주문 삭제 시 복구할 수 없습니다. 정말로 취소 하시겠습니까?</p>
+        <button class="modal-close-btn">X</button>
+        <div class="modal-btns">
+          <button class="modal-yes-btn">네</button>
+          <button class="modal-no-btn">아니오</button>
+        </div>
+      </div>
+    </section>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script> -->
+    <script defer src="admin-order.js"></script>
+  </body>
+</html>
