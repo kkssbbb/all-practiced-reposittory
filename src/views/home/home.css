@@ -1,16 +1,9 @@
 @import "reset.css";
+@import "../home/color.css";
 
 * {
   box-sizing: border-box;
   margin: 0;
-}
-
-/* 무슨 클래스지? */
-.div-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
 }
 
 #navbar a {
@@ -50,23 +43,13 @@ section {
   align-items: center;
 }
 
-/* .book-container {
+.product {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
 }
 
-.book-container img {
-  margin-bottom: 5%;
-} */
-
-.book-row img {
-  width: 12.5rem;
-}
-
-.book-row a {
-  display: inline-block;
-  margin: 1rem;
+.book-container {
+  width: 1250px;
+  margin-left: 13rem;
 }
 
 .book-list {
@@ -76,10 +59,11 @@ section {
 
 .book-list-item {
   background-color: tomato;
-  width: 200px;
-  height: 300px;
-  border: 0.1rem solid black;
-  margin: 1rem;
+  width: 12.5rem;
+  height: 18.75rem;
+  margin: 2rem 0;
+  margin-right: 3.125rem;
+  border: 0.1rem solid var(--g2);
   color: black;
 }
 
