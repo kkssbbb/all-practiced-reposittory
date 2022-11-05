@@ -1,0 +1,54 @@
+@import "../home/reset.css";
+@import "../home/color.css";
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
+
+main {
+  background-color: var(--bg);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+main section {
+  padding: 0 6rem;
+}
+
+.start-book-img {
+  width: 35rem;
+  border: 0.1rem solid var(--g3);
+  /* box-shadow: 0 0 1.5rem 0.3rem rgb(188, 188, 188); */
+}
+
+.start-btns {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.start-btns a {
+  text-decoration: none;
+  font-size: 2rem;
+  border-radius: 0.6rem;
+  /* box-shadow: 0 0 0.8rem 0.1rem #79b2bf; */
+  margin: 3rem 0;
+  padding: 2rem 4rem;
+  text-align: center;
+}
+
+.start-btns a:link,
+.start-btns a:visited {
+  background-color: var(--main);
+  color: white;
+}
+
+.start-btns a:hover,
+.start-btns a:active {
+  background-color: var(--deep);
+  color: black;
+}
