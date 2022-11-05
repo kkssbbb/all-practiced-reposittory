@@ -42,6 +42,8 @@ orderRouter.get("/orders", async function (req, res, next) {
   }
 });
 
+//주문자 주문조회
+
 //주문 삭제
 orderRouter.delete("/orders/:id", async function (req, res, next) {
   const orderId = req.params.id;

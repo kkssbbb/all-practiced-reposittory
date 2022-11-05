@@ -1,4 +1,4 @@
-import { Schema } from "mongoose";
+import mongoose, { Schema } from "mongoose";
 
 const UserSchema = new Schema({
   email: {
@@ -34,6 +34,10 @@ const UserSchema = new Schema({
     type: String,
     required: false,
     default: "basic-user",
+  },
+  orderInfo: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "order-Schema",
   },
 });
 
