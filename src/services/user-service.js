@@ -80,6 +80,12 @@ class UserService {
     return users;
   }
 
+  //사용자 주문 정보 조회 -승빈 추가
+  async getUserOrderInfo() {
+    const userOrderInfo = await this.userModell.findUserOrderInfo();
+    return userOrderInfo;
+  }
+
   // 유저정보 수정, 현재 비밀번호가 있어야 수정 가능함.
   async setUser(userInfoRequired, toUpdate) {
     // 객체 destructuring
