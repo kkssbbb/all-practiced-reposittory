@@ -10,7 +10,7 @@ export class OrderModel {
     return createNewOrder;
   }
 
-  //조회
+  //주문 전체조회
   async findAllOrder() {
     const orders = await Order.find({});
     return orders;
