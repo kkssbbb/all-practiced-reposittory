@@ -23,6 +23,7 @@ export class OrderModel {
     const updateOrder = await Order.find;
   }
 
+  //한인호코치님 : "_id를 사용하실거면 findByIdAndDelete()를 추천드립니다."
   async deleteById(orderId) {
     const deleteOrderId = await Order.remove({ _id: orderId });
     return deleteOrderId;
