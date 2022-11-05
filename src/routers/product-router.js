@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { productService } from "../services";
-import { imageUpload } from "../middlewares/image-upload";
+import { imageUpload } from "../middlewares";
 const productRouter = Router();
 
 //상품 등록
