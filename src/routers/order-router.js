@@ -5,7 +5,8 @@ import { orderService } from "../services";
 
 const orderRouter = Router();
 
-orderRouter.post("/orders/register", async (req, res, next) => {
+//주문 생성
+orderRouter.post("/orders", async (req, res, next) => {
   try {
     // Content-Type: application/json 설정을 안 한 경우, 에러를 만들도록 함.
     // application/json 설정을 프론트에서 안 하면, body가 비어 있게 됨.
@@ -25,30 +26,37 @@ orderRouter.post("/orders/register", async (req, res, next) => {
       phoneNumber,
     });
 
-    res.status(201).json(newOrder);
+    res.status(201).json({ error: null, data: newOrder });
   } catch (error) {
     next(error);
   }
 });
 
-orderRouter.get("/orderLists", async function (req, res, next) {
-  const orderList = await orderService.getOrders();
-  res.status(200).json(orderList);
+//주문 전체조회
+orderRouter.get("/orders", async function (req, res, next) {
+  try {
+    const orderList = await orderService.getOrders();
+    res.status(200).json({ error: null, data: orderList });
+  } catch (error) {
+    next(error);
+  }
 });
 
-orderRouter.delete("/orders/:orderId", async function (req, res, next) {
-  const orderId = req.params.orderId;
+//주문 삭제
+orderRouter.delete("/orders/:id", async function (req, res, next) {
+  const orderId = req.params.id;
 
   console.log(`파람 값확인: ${orderId}`);
 
   const deleteOrderInfo = await orderService.deleteOrder(orderId);
 
-  return res.status(201).json(deleteOrderInfo);
+  return res.status(200).json({ error: null, data: deleteOrderInfo });
 });
 
-orderRouter.patch("/orders/:orderId", async function (req, res, next) {
+//주문 수정
+orderRouter.patch("/orders/:id", async function (req, res, next) {
   try {
-    const orderId = req.params.orderId;
+    const orderId = req.params.id;
 
     const orderName = req.body.orderName;
     const address = req.body.address;
@@ -63,7 +71,7 @@ orderRouter.patch("/orders/:orderId", async function (req, res, next) {
 
     const patchOrderInfo = await orderService.patchOrder(orderId, toUpdate);
 
-    return res.status(201).json(patchOrderInfo);
+    return res.status(201).json({ error: null, data: patchOrderInfo });
   } catch (error) {
     next(error);
   }
