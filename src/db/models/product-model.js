@@ -24,9 +24,7 @@ export class ProductModel {
 
   //상품정보 수정
   async updateProduct(productId, productInfo) {
-    // const filter = { _id: productId };
     const option = { new: true };
-    console.log(productId, productInfo);
     return await Product.findByIdAndUpdate(productId, productInfo, option);
   }
 
