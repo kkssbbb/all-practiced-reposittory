@@ -7,7 +7,27 @@ const completeCount = document.querySelector("#completeCount");
 const orderListMenu = document.querySelector("#orderListMenu");
 
 const modal = document.querySelector("#modal");
+const modalBackground = document.querySelector("#modalBackground");
+const modalCloseButton = document.querySelector("#modalCloseButton");
+const deleteCompleteButton = document.querySelector("#deleteCompleteButton");
+const deleteCancelButton = document.querySelector("#deleteCancelButton");
 
+addAllElements();
+addAllEvents();
+
+// 요소 삽입 함수들을 묶어주어서 코드를 깔끔하게 하는 역할임.
+function addAllElements() {
+  insertOrders();
+}
+
+// 여러 개의 addEventListener들을 묶어주어서 코드를 깔끔하게 하는 역할임.
+function addAllEvents() {
+  modalBackground.addEventListener("click", closeModal);
+  modalCloseButton.addEventListener("click", closeModal);
+  document.addEventListener("keydown", keyDownCloseModal);
+  deleteCompleteButton.addEventListener("click", deleteOrderData);
+  deleteCancelButton.addEventListener("click", cancelDelete);
+}
 
 /*페이지 로드 시 실행, 삭제할 주문 id를 전역변수로 관리함*/
 async function insertOrders() {
@@ -20,6 +40,7 @@ async function insertOrders() {
 
   for (const order of orders) {
     const { _id, totalPrice, createdAt, summaryTitle, status } = order;
+    const date = createdAt.split("T")[0];
 
     summary.ordersCount += 1;
 
@@ -122,21 +143,21 @@ function closeModal() {
   modal.classList.remove("is-active");
 }
 
-const orderDeleteBtn = document.querySelector(".order-delete-btn");
-const modalCloseBtn = document.querySelector(".modal-close-btn");
-const modalYesBtn = document.querySelector(".modal-yes-btn");
-const modalNoBtn = document.querySelector(".modal-no-btn");
+// const orderDeleteBtn = document.querySelector(".order-delete-btn");
+// const modalCloseBtn = document.querySelector(".modal-close-btn");
+// const modalYesBtn = document.querySelector(".modal-yes-btn");
+// const modalNoBtn = document.querySelector(".modal-no-btn");
 
-orderDeleteBtn.addEventListener("click", () => {
-  modal.style.display = "flex";
-});
+// orderDeleteBtn.addEventListener("click", () => {
+//   modal.style.display = "flex";
+// });
 
-modalCloseBtn.addEventListener("click", () => {
-  modal.style.display = "none";
-});
+// modalCloseBtn.addEventListener("click", () => {
+//   modal.style.display = "none";
+// });
 
-modalYesBtn.addEventListener("click", () => alert("주문 취소"));
-modalNoBtn.addEventListener("click", () => alert("창닫기"));
+// modalYesBtn.addEventListener("click", () => alert("주문 취소"));
+// modalNoBtn.addEventListener("click", () => alert("창닫기"));
 
 
 // 모달창 바깥 영역 클릭시 모달창 닫기

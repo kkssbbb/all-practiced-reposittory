@@ -5,10 +5,6 @@ const addCartBtn = document.querySelector(".add-cart-btn");
 const buyNowBtn = document.querySelector(".buy-now-btn");
 
 // 책 제목 받아와서 title 변경하기
-// title.innerHTML = "mini";
-// title.addEventListener("load", () => {
-//   title.innerHTML = "mini";
-// });
 
 function handleAddCart() {
   Swal.fire({
