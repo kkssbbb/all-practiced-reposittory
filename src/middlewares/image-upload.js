@@ -2,13 +2,13 @@ const multer = require("multer");
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "views/home/img/home-book");
+    cb(null, "src/views/home/img/home-books");
   },
   filename: function (req, file, cb) {
     cb(null, `${Date.now()}_${file.originalname}`);
   },
 });
 
-const imageUpload = multer({ storage: storage });
+const upload = multer({ storage: storage });
 
-export { imageUpload };
+export { upload };

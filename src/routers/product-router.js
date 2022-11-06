@@ -1,40 +1,40 @@
 import { Router } from "express";
 import { productService } from "../services";
-import { imageUpload } from "../middlewares";
 const productRouter = Router();
+import { upload } from "../middlewares";
+
+// productRouter.post("/profile", upload.single("image"), async (req, res) => {
+//   console.log(req.file);
+//   res.send("ok");
+// });
 
 //상품 등록
-productRouter.post(
-  "/products",
-  imageUpload.single("image"),
-  async (req, res) => {
-    const {
-      title,
-      price,
-      category,
-      author,
-      publisher,
-      publicationDate,
-      pageNumber,
-      summary,
-    } = req.body;
+productRouter.post("/products", upload.single("imgUrl"), async (req, res) => {
+  const {
+    title,
+    price,
+    category,
+    author,
+    publisher,
+    publicationDate,
+    pageNumber,
+    summary,
+  } = req.body;
 
-    const imgUrl = `views/home/img/home-book/${req.file.filename}`;
-
-    const content = await productService.addProduct({
-      imgUrl,
-      title,
-      price,
-      category,
-      author,
-      publisher,
-      publicationDate,
-      pageNumber,
-      summary,
-    });
-    res.json(content);
-  }
-);
+  const imgUrl = req.file.path;
+  const content = await productService.addProduct({
+    imgUrl,
+    title,
+    price,
+    category,
+    author,
+    publisher,
+    publicationDate,
+    pageNumber,
+    summary,
+  });
+  res.json(content);
+});
 
 //상품 조회
 productRouter.get("/products/:id", async (req, res) => {
