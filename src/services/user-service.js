@@ -13,7 +13,7 @@ class UserService {
 
   // 사용자 주문 정보 조회
   async getUserOrderInfo() {
-    const userOrderInfo = await this.userModell.findUserOrderInfo();
+    const userOrderInfo = await this.userModel.findUserOrderInfo();
     return userOrderInfo;
   }
 
