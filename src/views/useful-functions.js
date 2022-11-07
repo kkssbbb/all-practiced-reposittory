@@ -3,6 +3,14 @@ export const randomId = () => {
   return Math.random().toString(36).substring(2, 7);
 };
 
+// 해당 주소로 이동하는 콜백함수를 반환함.
+// 이벤트 핸들 함수로 쓰면 유용함
+export const navigate = (pathname) => {
+  return function () {
+    window.location.href = pathname;
+  };
+};
+
 // 이메일 형식인지 확인 (true 혹은 false 반환)
 export const validateEmail = (email) => {
   return String(email)
