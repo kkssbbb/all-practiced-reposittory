@@ -11,9 +11,9 @@
     - [x] 프론트 단에, 장바구니에 속한 상품 관련 데이터가 저장되어서, 페이지를 새로고침해도 장바구니에 상품들이 그대로 남아 있다.
     - [x] 장바구니 추가 - 사용자는 상품을 장바구니에 추가할 수 있다.
       -[x] 장바구니 추가 버튼을 이미 눌렀으면 '이미 담겨있는 상품입니다.'라는 alert를 띄운다
-    - [] 장바구니 수정 - 사용자는 장바구니에 속한 상품의 수량을 수정할 수 있다.
+    - [x] 장바구니 수정 - 사용자는 장바구니에 속한 상품의 수량을 수정할 수 있다.
     - [x] 장바구니 전체 삭제 - 사용자는 장바구니에서, 버튼 1번의 클릭으로, 장바구니 상의 전체 상품을 제거할 수 있다.
-    - [] 장바구니 부분 삭제 - 사용자는 장바구니에서, 일부 상품을 골라서 제거할 수 있다.
+    - [x] 장바구니 부분 삭제 - 사용자는 장바구니에서, 일부 상품을 골라서 제거할 수 있다.
     - [x] 장바구니 조회 - 사용자는 장바구니에 담긴 상품 목록을 확인할 수 있다.
     - [] 장바구니 가격 조회 - 사용자는 장바구니에 담긴 상품들의 총 가격을 확인할 수 있다.
 
@@ -27,6 +27,10 @@
   
   - 로컬스토리지에 저장되는 형태는 배열안에 객체여야함
 
+  해당 상품의 id 값 가져오는방법
+  홈에서 해당 이미지 클릭시 이미지 url 을 통하여 
+  해당 이미지 url 이 포함된 책 한 권의 데이터를 가져온다
+  
 
 */
 
@@ -37,7 +41,7 @@ import store from "./js/store.js";
 const cart = store.getLocalStorage() || [];
 
 const getProductDetailApi = () => {
-  const url = "./mokData/mokData1.json";
+  const url = "http://localhost:3000/api/products";
   return fetch(url).then((response) => {
     return response.json();
   });
@@ -51,6 +55,7 @@ const isDuplicate = (id) => {
 
 $("#one").addEventListener("click", async (e) => {
   const data = await getProductDetailApi();
+  console.log(data);
   console.log(data[0]._id);
   if (isDuplicate(data[0]._id)) return alert("이미 장바구니에 있습니다❗️");
   cart.push({ id: data[0]._id });
