@@ -1,11 +1,14 @@
 import jwt from "jsonwebtoken";
 
 function adminCheck(req, res, next) {
+  //헤더에 토큰을 받는다.
   const checkToken = req.headers["authorization"]?.split(" ")[1];
 
-  //옵셔널체이닝으로 null, undiefined 확인
+  //옵셔널체이닝으로 null, undiefined 확인?
   //어드민미들웨어 맹들고
   //본인이 주문한 주문 확인
+
+  //일단 로그인 먼저 체크
   if (!checkToken || checkToken === "null") {
     res.status(401).json({
       messege: "로그인 먼져 해주세요^^",

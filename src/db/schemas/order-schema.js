@@ -11,6 +11,11 @@ import mongoose, { Schema } from "mongoose";
 
 const OrderSchema = new Schema(
   {
+    userId: {
+      type: Schema.Types.ObjectId,
+      ref: "user-model",
+      required: true,
+    },
     orderName: {
       type: String,
       required: true,
@@ -28,15 +33,10 @@ const OrderSchema = new Schema(
       required: false,
       default: "배송전", //추가
     },
-    owner: {
-      //주문자 오브젝트아이디 저장,
-      type: mongoose.Schema.Types.ObjectId,
-      required: false,
-      ref: "User", //populate
-    },
   },
   {
     timestamps: true,
+    collection: "orders",
   }
 );
 

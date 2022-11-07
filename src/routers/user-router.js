@@ -39,7 +39,7 @@ userRouter.get("/admins/check", adminCheck, async function (req, res, next) {
 /* 승빈 추가 끝 */
 
 // 회원가입 api (아래는 /register이지만, 실제로는 /api/register로 요청해야 함.)
-userRouter.post("/users", async (req, res, next) => {
+userRouter.post("/users-post", async (req, res, next) => {
   try {
     // Content-Type: application/json 설정을 안 한 경우, 에러를 만들도록 함.
     // application/json 설정을 프론트에서 안 하면, body가 비어 있게 됨.

@@ -16,12 +16,15 @@ orderRouter.post("/orders", loginRequired, async (req, res, next) => {
         "headers의 Content-Type을 application/json으로 설정해주세요"
       );
     }
+    console.log(req.body.userId);
 
+    const userId = req.body.userId;
     const orderName = req.body.orderName;
     const address = req.body.address;
     const phoneNumber = req.body.phoneNumber;
 
     const newOrder = await orderService.addOrder({
+      userId,
       orderName,
       address,
       phoneNumber,
@@ -33,10 +36,24 @@ orderRouter.post("/orders", loginRequired, async (req, res, next) => {
   }
 });
 
-//주문 전체조회
-orderRouter.get("/orders", async function (req, res, next) {
+//본인 주문 조회
+orderRouter.get("/orders", loginRequired, async (req, res, next) => {
   try {
-    const orderList = await orderService.getOrders();
+    const userId = req.currentUserId;
+    console.log(userId);
+    const orderInfo = await orderService.getOrders(userId);
+    // console.log(orderInfo);
+
+    res.status(200).json({ error: null, data: orderInfo });
+  } catch (error) {
+    next(error);
+  }
+});
+
+//주문 전체조회(관리자만)
+orderRouter.get("/auth/orders", async function (req, res, next) {
+  try {
+    const orderList = await orderService.getOrdersList();
     res.status(200).json({ error: null, data: orderList });
   } catch (error) {
     next(error);
@@ -45,13 +62,17 @@ orderRouter.get("/orders", async function (req, res, next) {
 
 //주문 삭제
 orderRouter.delete("/orders/:id", async function (req, res, next) {
-  const orderId = req.params.id;
+  try {
+    const orderId = req.params.id;
 
-  console.log(`파람 값확인: ${orderId}`);
+    console.log(`파람 값확인: ${orderId}`);
 
-  const deleteOrderInfo = await orderService.deleteOrder(orderId);
+    const deleteOrderInfo = await orderService.deleteOrder(orderId);
 
-  return res.status(200).json({ error: null, data: deleteOrderInfo });
+    return res.status(200).json({ error: null, data: deleteOrderInfo });
+  } catch (error) {
+    next(error);
+  }
 });
 
 //주문 수정

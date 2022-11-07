@@ -6,22 +6,27 @@ class OrderService {
   }
 
   async addOrder(orderInfo) {
-    const { orderName, address, phoneNumber } = orderInfo;
+    const { userId, orderName, address, phoneNumber } = orderInfo;
 
     //db 저장
-    const newOrderInfo = { orderName, address, phoneNumber };
+    const newOrderInfo = { userId, orderName, address, phoneNumber };
     const createNewOrder = await this.orderModel.createOrder(newOrderInfo);
     return createNewOrder;
   }
 
-  //db 조회
-  async getOrders() {
+  //db 전체조회
+  async getOrdersList() {
     const orderLisrt = await this.orderModel.findAllOrder();
     return orderLisrt;
   }
 
-  // db 업데이트 사용자가 주문내역 조회할 수 있음
-  async setOrder() {}
+  // db 사용자 본인 주문 조회
+  async getOrders(userid) {
+    const orderInfo = await this.orderModel.findOrder(userid);
+    // console.log(orderInfo);
+
+    return orderInfo;
+  }
 
   //db 삭제
   async deleteOrder(orderId) {

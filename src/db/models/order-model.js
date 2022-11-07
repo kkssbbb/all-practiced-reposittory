@@ -16,12 +16,18 @@ export class OrderModel {
     return orders;
   }
 
+  //사용자 본인주문 조회
+  async findOrder(userid) {
+    const findedOrderInfo = await Order.find({ userId: userid });
+    console.log(findedOrderInfo);
+    return findedOrderInfo;
+  }
+
   async updateOrder() {
     const filter = { orderName: orderName };
     const updateOrder = await Order.find;
   }
 
-  //한인호코치님 : "_id를 사용하실거면 findByIdAndDelete()를 추천드립니다."
   async deleteById(orderId) {
     const deleteOrderId = await Order.findByIdAndDelete({ _id: orderId });
     return deleteOrderId;
