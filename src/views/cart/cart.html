@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link rel="stylesheet" href="./cart.css" />
+    <title>장바구니</title>
+  </head>
+  <body>
+    <!-- 헤더 -->
+    <header></header>
+
+    <!-- 메인 -->
+    <main class="main">
+      <div class="container">
+        <!-- 장바구니 헤더 -->
+        <div class="cart-header">
+          <div class="title">
+            <p>장바구니</p>
+          </div>
+          <div class="subtitle">
+            <p>&gt; &nbsp; 주문결제 &nbsp; &gt; &nbsp;주문완료</p>
+          </div>
+        </div>
+
+        <!-- 장바구니 메인 -->
+        <div class="main-container is-ancestor">
+          <div class="main-container is-parent cart-products">
+            <!-- 선택 삭제 버튼 / 계속 쇼핑하기 -->
+            <section class="check-section">
+              <div class="cart-button">
+                <label class="delete-part" id="partDelete">
+                  <p class="partDeletebox">선택 삭제</p>
+                </label>
+                <label class="delete-all" id="allDelete">
+                  <p class="allDeletebox">전체 삭제</p>
+                </label>
+              </div>
+              <a helf="#" class="continue">continue shopping</a>
+            </section>
+
+            <div class="cart-product-container" id="cartProductContainer">
+              <!-- 장바구니 창 -->
+              <section class="cart-container">
+                <div class="header">
+                  <input type="checkbox" />
+                  <div class="info">
+                    <p>이미지</p>
+                    <p>상품명</p>
+                    <p>가격</p>
+                    <p>수량</p>
+                  </div>
+                </div>
+                <!-- js에서 추가되는 상품 리스트 -->
+                <ul class="product-list"></ul>
+                <div class="cart-main"></div>
+              </section>
+
+              <!-- 주문 요약창 -->
+              <div class="main-container is-parent main-order-summary">
+                <div class="order-summary">
+                  <div class="header">
+                    <p>결제정보</p>
+                  </div>
+                  <div class="order-info">
+                    <div class="info">
+                      <p>상품수</p>
+                      <p id="productsCount">0개</p>
+                    </div>
+                    <div class="info">
+                      <p>상품금액</p>
+                      <p id="productsTotal">0원</p>
+                    </div>
+                    <div class="info">
+                      <p>배송비</p>
+                      <p id="deliveryFee">3,000원</p>
+                    </div>
+                  </div>
+                  <div class="total">
+                    <p class="total-label">총 결제금액</p>
+                    <p class="total-price" id="orderTotal">0원</p>
+                  </div>
+                  <div class="purchase">
+                    <button class="button" id="purchaseButton">구매하기</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- 장바구니 푸터 -->
+    <footer id="footer">
+      <div class="footer-head">
+        <h3>(주) 원픽</h3>
+      </div>
+      <div class="list">
+        <p>&nbsp;/*주소*/ &nbsp; 코딩특별시 엘리스구 소프트웨어로3길 1, 22호</p>
+        <p>&nbsp;/*전화*/ &nbsp; 400-200</p>
+      </div>
+      <div class="copyright">
+        <p>Copyright © 2022 1Pick. All right reserved.</p>
+      </div>
+    </footer>
+    <script type="module" src="cart.js" defer></script>
+  </body>
+</html>

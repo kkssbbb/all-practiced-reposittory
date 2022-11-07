@@ -7,7 +7,7 @@
     "browser": true,
     "node": true
   },
-  
+
   "rules": {
     "no-new": "off",
     "no-console": "off",
