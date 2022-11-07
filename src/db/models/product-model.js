@@ -8,7 +8,7 @@ export class ProductModel {
   async findById(productId) {
     return await Product.findOne({ _id: productId });
   }
-  //카테고리 상품 조회
+  //카테고리별 상품 조회
   async findByCategory(category) {
     return await Product.find({ category: category });
   }
