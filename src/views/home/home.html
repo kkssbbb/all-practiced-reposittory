@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>쇼핑-n팀</title>
+    <title>원픽</title>
     <!-- 아이콘 -->
     <link
       rel="icon"
@@ -31,9 +31,8 @@
     <nav class="navbar" role="navigation" aria-label="main navigation">
       <div class="container mt-3">
         <div class="navbar-brand">
-          <a class="navbar-item" href="/">
-            <img src="/elice-rabbit.png" width="30" height="30" />
-            <span class="has-text-link">쇼핑-n팀</span>
+          <a class="navbar-item" href="./home.html">
+            <span class="has-text-link">📖 원 픽</span>
           </a>
 
           <a
@@ -51,10 +50,11 @@
 
         <div class="navbar-end breadcrumb my-auto" aria-label="breadcrumbs">
           <ul id="navbar">
-            <li><a href="/login">로그인</a></li>
-            <li><a href="/register">회원가입</a></li>
+            <li><a href="../login/login.html">로그인</a></li>
+            <li><a href="../register/register.html">회원가입</a></li>
+            <li><a href="#">위시리스트</a></li>
             <li>
-              <a href="#cart" aria-current="page">
+              <a href="../cart/cart.html" aria-current="page">
                 <span class="icon">
                   <i class="fas fa-cart-shopping"></i>
                 </span>
@@ -65,14 +65,60 @@
         </div>
       </div>
     </nav>
-
-    <div class="div-container">
-      <div class="landing" id="landingDiv">
-        <h1>랜딩 페이지</h1>
-      </div>
-      <div class="greeting" id="greetingDiv">
-        <h1>안녕하세요!</h1>
-      </div>
+    <!--배너 슬라이드-->
+    <div class="carousel-wrapper">
+      <!-- <img src="./img/home-ad/olia-gozha-J4kK8b9Fgj8-unsplash.jpg" alt="책" /> -->
+      <!-- <img src="./img/home-ad/pexels-ann-h-1765033.jpg" alt="책" /> -->
+      <img src="./img/home-ad/pexels-cottonbro-6344231.jpg" alt="책" />
     </div>
+
+    <main>
+      <!--카테고리 필터-->
+      <aside>
+        <form class="category-filter-form" action="" method="get">
+          <label
+            ><input
+              id="category-fiction"
+              type="checkbox"
+              name="category[]"
+              value="소설"
+            />
+            소설</label
+          >
+          <label
+            ><input type="checkbox" name="category[]" value="에세이" />
+            에세이</label
+          >
+          <label
+            ><input type="checkbox" name="category[]" value="개발" />
+            개발</label
+          >
+          <label
+            ><input type="checkbox" name="category[]" value="원서" />
+            원서</label
+          >
+          <label
+            ><input type="checkbox" name="category[]" value="경제" />
+            경제</label
+          >
+          <label
+            ><input type="checkbox" name="category[]" value="취미" />
+            취미</label
+          >
+          <label
+            ><input type="checkbox" name="category[]" value="시" /> 시</label
+          >
+        </form>
+      </aside>
+
+      <!-- 책 이미지-->
+      <section class="product">
+        <div class="book-container">
+          <div class="book-list"></div>
+          
+        </div>
+      </section>
+    </main>
+    <script type="module" src="./home.js" defer></script>
   </body>
 </html>

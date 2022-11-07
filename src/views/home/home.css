@@ -1,19 +1,73 @@
-.div-container {
+@import "reset.css";
+@import "../home/color.css";
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+#navbar a {
+  color: black;
+}
+
+.carousel-wrapper {
   display: flex;
-  align-items: center;
+  margin-bottom: 10%;
   justify-content: center;
-  height: 100vh;
 }
 
-.landing {
-  cursor: pointer;
-  border: 1px solid red;
-  padding: 10px;
+main {
+  display: flex;
+  width: 100%;
+  height: 100%;
 }
 
-.greeting {
+aside {
+  flex: 1;
+  padding-top: 10%;
+}
+section {
+  flex: 4;
+}
+
+.category-filter-form {
+  display: flex;
+  width: 50%;
+  height: 50%;
+  border: solid;
+  margin: auto;
+  position: sticky;
+  top: 20%;
+  justify-content: space-around;
+  flex-direction: column;
+  align-items: center;
+}
+
+.product {
+  display: flex;
+}
+
+.book-container {
+  width: 1250px;
+  margin-left: 13rem;
+}
+
+.book-list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.book-list-item {
+  background-color: tomato;
+  width: 12.5rem;
+  height: 18.75rem;
+  margin: 2rem 0;
+  margin-right: 3.125rem;
+  border: 0.1rem solid var(--g2);
+  color: black;
+}
+
+.book-list-item:hover {
+  background-color: tan;
   cursor: pointer;
-  border: 1px solid blue;
-  padding: 10px;
-  margin-left: 3rem;
 }

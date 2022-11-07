@@ -1,0 +1,90 @@
+@import "../home/reset.css";
+@import "../home/color.css";
+
+main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.product-detail {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 0t rem brm;
+}
+
+.book-img img,
+.book-info {
+  width: 25rem;
+  border: 0.1rem solid black;
+  margin: 2rem;
+}
+
+.book-info {
+  padding: 1rem 2.4rem;
+}
+
+.book-info h1,
+.book-info p {
+  padding: 1rem 0;
+}
+
+.book-info p:first-child {
+  color: var(--g3);
+  padding-bottom: 0;
+}
+
+h1 {
+  font-size: 3rem;
+  padding-top: 0;
+}
+
+/* 카테고리 바텀 패딩 삭제 안됨 */
+/* .book-category {
+  padding: 0.1rem;
+} */
+
+.payment-btns {
+  display: flex;
+}
+
+.payment-btns a {
+  text-decoration: none;
+  width: 24rem;
+  text-decoration: none;
+  font-size: 1.5rem;
+  border-radius: 0.6rem;
+  padding: 1.6rem 4rem;
+  text-align: center;
+  margin: 1rem;
+}
+
+.payment-btns a {
+  border: 0.1rem solid var(--g3);
+}
+
+.add-cart-btn:link,
+.add-cart-btn:visited {
+  color: white;
+  background-color: var(--sub1);
+}
+
+.add-cart-btn:hover,
+.add-cart-btn:active {
+  color: black;
+  background-color: var(--sub1-deep);
+}
+
+.buy-now-btn:link,
+.buy-now-btn:visited {
+  color: white;
+  background-color: var(--main);
+}
+
+.buy-now-btn:hover,
+.buy-now-btn:active {
+  color: black;
+  background-color: var(--deep);
+}

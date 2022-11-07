@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin product management</title>
+    <link rel="stylesheet" href="admin-product.css" />
+  </head>
+  <body>
+    <header>헤더</header>
+    <main>
+      <section class="product-management-header">
+        <div class="product-management-header-title">상품 관리</div>
+        <div class="product-add-btn">
+          <a href="#">상품 추가하기</a>
+        </div>
+      </section>
+      <section class="product-management-main">
+        <div class="product-type">
+          <p>책1</p>
+          <a href="#" class="product-update">수정</a>
+          <a href="#" class="product-delete">삭제</a>
+        </div>
+        <div class="product-type">
+          <p>책2</p>
+          <a href="#" class="product-update">수정</a>
+          <a href="#" class="product-delete">삭제</a>
+        </div>
+      </section>
+    </main>
+    <script defer src="admin-product.js"></script>
+    <section class="modal-overlay">
+      <div class="modal-content">
+        <form class="product-add">
+          <p>📚 판매할 제품을 등록하세요 📚</p>
+          <div class="field">
+            <label for="category">카테고리</label>
+            <div class="input-book-info">
+              <select id="category">
+                <option value>카테고리를 선택해 주세요</option>
+                <option value="">소설</option>
+                <option value="">시</option>
+                <option value="">에세이</option>
+                <option value="">경제</option>
+                <option value="">개발</option>
+                <option value="">원서</option>
+                <option value="">취미</option>
+              </select>
+            </div>
+          </div>
+          <div class="field">
+            <label for="title">책 제목</label>
+            <div class="input-book-info">
+              <input
+                type="text"
+                placeholder="미움받을 용기"
+                id="title"
+                autocomplete="on"
+              />
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="author">작가</label>
+            <div class="input-book-info">
+              <input
+                type="text"
+                placeholder="기시미 이치로, 고가 후미타케"
+                id="author"
+                autocomplete="on"
+              />
+            </div>
+          </div>
+          <div class="field">
+            <label for="summary">줄거리</label>
+            <div class="input-book-info">
+              <input
+                type="text"
+                placeholder="독자들로 하여금 책을 읽고 싶게 만드는 소개글을 작성해보세요"
+                id="summary"
+                autocomplete="on"
+              />
+            </div>
+          </div>
+          <div class="field">
+            <label for="publisher">출판사</label>
+            <div class="input-book-info">
+              <input
+                type="text"
+                placeholder="인플루엔셜"
+                id="publisher"
+                autocomplete="on"
+              />
+            </div>
+          </div>
+          <div class="field">
+            <label for="date">발행일</label>
+            <div class="input-book-info">
+              <input type="date" id="date" autocomplete="on" />
+            </div>
+          </div>
+          <div class="field">
+            <label for="page">쪽수</label>
+            <div class="input-book-info">
+              <input
+                type="number"
+                placeholder="000"
+                id="page"
+                autocomplete="on"
+              />
+              <span>쪽</span>
+            </div>
+          </div>
+          <div class="field">
+            <label for="price">가격</label>
+            <div class="input-book-info">
+              <input
+                type="number"
+                placeholder="10000"
+                id="price"
+                autocomplete="on"
+              />
+              <span>원</span>
+            </div>
+          </div>
+          <div class="field">
+            <label for="img">책 표지</label>
+            <div>
+              <label>
+                <input type="file" id="img" />
+              </label>
+            </div>
+          </div>
+          <div>
+            <button class="book">책 등록하기</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- <section class="modal-overlay">
+      <div class="modal-content">
+        <p>주문 삭제 시 복구할 수 없습니다. 정말로 취소 하시겠습니까?</p>
+        <button class="modal-close-btn">X</button>
+        <div class="modal-btns">
+          <button class="modal-yes-btn">네</button>
+          <button class="modal-no-btn">아니오</button>
+        </div>
+      </div>
+    </section> -->
+  </body>
+</html>

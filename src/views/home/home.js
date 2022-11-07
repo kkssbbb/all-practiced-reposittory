@@ -2,59 +2,161 @@
 // 다만, 앞으로 ~.js 파일을 작성할 때 아래의 코드 구조를 참조할 수 있도록,
 // 코드 예시를 남겨 두었습니다.
 
-import * as Api from "/api.js";
-import { randomId } from "/useful-functions.js";
+import * as Api from "../api.js";
+// import { randomId } from "/useful-functions.js";
 
-// 요소(element), input 혹은 상수
-const landingDiv = document.querySelector("#landingDiv");
-const greetingDiv = document.querySelector("#greetingDiv");
+const $ = (selector) => document.querySelector(selector);
 
-addAllElements();
-addAllEvents();
+const bookContainer = document.querySelector("book-container");
+const bookList = document.querySelector(".book-list");
 
-// html에 요소를 추가하는 함수들을 묶어주어서 코드를 깔끔하게 하는 역할임.
-async function addAllElements() {
-  insertTextToLanding();
-  insertTextToGreeting();
-}
+const randomId = () => {
+  return Math.random().toString(36).substring(2, 7);
+};
 
-// 여러 개의 addEventListener들을 묶어주어서 코드를 깔끔하게 하는 역할임.
-function addAllEvents() {
-  landingDiv.addEventListener("click", alertLandingText);
-  greetingDiv.addEventListener("click", alertGreetingText);
-}
+const getUrlParams = () => {
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
 
-function insertTextToLanding() {
-  landingDiv.insertAdjacentHTML(
-    "beforeend",
-    `
-      <h2>n팀 쇼핑몰의 랜딩 페이지입니다. 자바스크립트 파일에서 삽입되었습니다.</h2>
-    `
-  );
-}
+  const result = {};
 
-function insertTextToGreeting() {
-  greetingDiv.insertAdjacentHTML(
-    "beforeend",
-    `
-      <h1>반갑습니다! 자바스크립트 파일에서 삽입되었습니다.</h1>
-    `
-  );
-}
+  for (const [key, value] of urlParams) {
+    result[key] = value;
+  }
 
-function alertLandingText() {
-  alert("n팀 쇼핑몰입니다. 안녕하세요.");
-}
+  return result; //{ category : novel }
+};
 
-function alertGreetingText() {
-  alert("n팀 쇼핑몰에 오신 것을 환영합니다");
-}
+const navigate = (pathname) => {
+  return function () {
+    window.location.href = pathname;
+  };
+};
 
-async function getDataFromApi() {
-  // 예시 URI입니다. 현재 주어진 프로젝트 코드에는 없는 URI입니다.
-  const data = await Api.get("/api/user/data");
-  const random = randomId();
+showProductItemsToContainer();
 
-  console.log({ data });
-  console.log({ random });
+// 홈 화면에 제품들을 보여줌
+async function showProductItemsToContainer() {
+  const products = await Api.get("/api/products");
+  // const products = [
+  //   {
+  //     _id: "1",
+  //     title: "미움받을 용기",
+  //     price: "15,000원",
+  //     category: "인문",
+  //     author: "기시미 이치로 , 고가 후미타케",
+  //     publisher: "인플루엔셜",
+  //     publicationDate: "2014년 11월 17일",
+  //     pageNumber: "197pg",
+  //     summary:
+  //       "인간은 사회적인 존재다. 그렇기에 아들러는 “인간의 고민은 전부 인간관계에서 비롯된 고민”이라고 말한다. 어떤 종류의 고민이든 거기에는 반드시 타인과의 관계가 얽혀 있게 마련이고, 따라서 행복해지기 위해서는 인간관계로부터 자유로워져야 한다는 것이다. 모든 사람에게 좋은 사람이길 원하는 사람은 타인의 눈치를 볼 수밖에 없다. 이에 아들러는 타인에게 ‘미움받을 용기’를 가져야만 비로소 자유로워지고 행복해진다고 거듭 강조한다.",
+  //   },
+  //   {
+  //     _id: "2",
+  //     title: "미움받을 용기",
+  //     price: "15,000원",
+  //     category: "인문",
+  //     author: "기시미 이치로 , 고가 후미타케",
+  //     publisher: "인플루엔셜",
+  //     publicationDate: "2014년 11월 17일",
+  //     pageNumber: "197pg",
+  //     summary:
+  //       "인간은 사회적인 존재다. 그렇기에 아들러는 “인간의 고민은 전부 인간관계에서 비롯된 고민”이라고 말한다. 어떤 종류의 고민이든 거기에는 반드시 타인과의 관계가 얽혀 있게 마련이고, 따라서 행복해지기 위해서는 인간관계로부터 자유로워져야 한다는 것이다. 모든 사람에게 좋은 사람이길 원하는 사람은 타인의 눈치를 볼 수밖에 없다. 이에 아들러는 타인에게 ‘미움받을 용기’를 가져야만 비로소 자유로워지고 행복해진다고 거듭 강조한다.",
+  //   },
+  //   {
+  //     _id: "3",
+  //     title: "미움받을 용기",
+  //     price: "15,000원",
+  //     category: "인문",
+  //     author: "기시미 이치로 , 고가 후미타케",
+  //     publisher: "인플루엔셜",
+  //     publicationDate: "2014년 11월 17일",
+  //     pageNumber: "197pg",
+  //     summary:
+  //       "인간은 사회적인 존재다. 그렇기에 아들러는 “인간의 고민은 전부 인간관계에서 비롯된 고민”이라고 말한다. 어떤 종류의 고민이든 거기에는 반드시 타인과의 관계가 얽혀 있게 마련이고, 따라서 행복해지기 위해서는 인간관계로부터 자유로워져야 한다는 것이다. 모든 사람에게 좋은 사람이길 원하는 사람은 타인의 눈치를 볼 수밖에 없다. 이에 아들러는 타인에게 ‘미움받을 용기’를 가져야만 비로소 자유로워지고 행복해진다고 거듭 강조한다.",
+  //   },
+  //   {
+  //     _id: "4",
+  //     title: "미움받을 용기",
+  //     price: "15,000원",
+  //     category: "인문",
+  //     author: "기시미 이치로 , 고가 후미타케",
+  //     publisher: "인플루엔셜",
+  //     publicationDate: "2014년 11월 17일",
+  //     pageNumber: "197pg",
+  //     summary:
+  //       "인간은 사회적인 존재다. 그렇기에 아들러는 “인간의 고민은 전부 인간관계에서 비롯된 고민”이라고 말한다. 어떤 종류의 고민이든 거기에는 반드시 타인과의 관계가 얽혀 있게 마련이고, 따라서 행복해지기 위해서는 인간관계로부터 자유로워져야 한다는 것이다. 모든 사람에게 좋은 사람이길 원하는 사람은 타인의 눈치를 볼 수밖에 없다. 이에 아들러는 타인에게 ‘미움받을 용기’를 가져야만 비로소 자유로워지고 행복해진다고 거듭 강조한다.",
+  //   },
+  //   {
+  //     _id: "5",
+  //     title: "미움받을 용기",
+  //     price: "15,000원",
+  //     category: "인문",
+  //     author: "기시미 이치로 , 고가 후미타케",
+  //     publisher: "인플루엔셜",
+  //     publicationDate: "2014년 11월 17일",
+  //     pageNumber: "197pg",
+  //     summary:
+  //       "인간은 사회적인 존재다. 그렇기에 아들러는 “인간의 고민은 전부 인간관계에서 비롯된 고민”이라고 말한다. 어떤 종류의 고민이든 거기에는 반드시 타인과의 관계가 얽혀 있게 마련이고, 따라서 행복해지기 위해서는 인간관계로부터 자유로워져야 한다는 것이다. 모든 사람에게 좋은 사람이길 원하는 사람은 타인의 눈치를 볼 수밖에 없다. 이에 아들러는 타인에게 ‘미움받을 용기’를 가져야만 비로소 자유로워지고 행복해진다고 거듭 강조한다.",
+  //   },
+  //   {
+  //     _id: "6",
+  //     title: "미움받을 용기",
+  //     price: "15,000원",
+  //     category: "인문",
+  //     author: "기시미 이치로 , 고가 후미타케",
+  //     publisher: "인플루엔셜",
+  //     publicationDate: "2014년 11월 17일",
+  //     pageNumber: "197pg",
+  //     summary:
+  //       "인간은 사회적인 존재다. 그렇기에 아들러는 “인간의 고민은 전부 인간관계에서 비롯된 고민”이라고 말한다. 어떤 종류의 고민이든 거기에는 반드시 타인과의 관계가 얽혀 있게 마련이고, 따라서 행복해지기 위해서는 인간관계로부터 자유로워져야 한다는 것이다. 모든 사람에게 좋은 사람이길 원하는 사람은 타인의 눈치를 볼 수밖에 없다. 이에 아들러는 타인에게 ‘미움받을 용기’를 가져야만 비로소 자유로워지고 행복해진다고 거듭 강조한다.",
+  //   },
+  //   {
+  //     _id: "7",
+  //     title: "미움받을 용기",
+  //     price: "15,000원",
+  //     category: "인문",
+  //     author: "기시미 이치로 , 고가 후미타케",
+  //     publisher: "인플루엔셜",
+  //     publicationDate: "2014년 11월 17일",
+  //     pageNumber: "197pg",
+  //     summary:
+  //       "인간은 사회적인 존재다. 그렇기에 아들러는 “인간의 고민은 전부 인간관계에서 비롯된 고민”이라고 말한다. 어떤 종류의 고민이든 거기에는 반드시 타인과의 관계가 얽혀 있게 마련이고, 따라서 행복해지기 위해서는 인간관계로부터 자유로워져야 한다는 것이다. 모든 사람에게 좋은 사람이길 원하는 사람은 타인의 눈치를 볼 수밖에 없다. 이에 아들러는 타인에게 ‘미움받을 용기’를 가져야만 비로소 자유로워지고 행복해진다고 거듭 강조한다.",
+  //   },
+  // ];
+  console.log(products);
+
+  products.forEach(async (product) => {
+    // 객체 destructuring
+    const {
+      _id,
+      title,
+      price,
+      category,
+      author,
+      publisher,
+      publicationDate,
+      pageNumber,
+      summary,
+    } = product;
+    // const imageUrl = await getImageUrl(imageKey);
+    console.log(_id, title);
+    const random = randomId();
+
+    bookList.insertAdjacentHTML(
+      "beforeend",
+      `
+          <div class="book-list-item" id="a${random}">
+      <p>${title}</p>
+      <img src="" alt="책 표지" />
+    </div>
+          `
+    );
+
+    // const productItem = document.querySelector(`#a${random}`);
+    // productItem.addEventListener(
+    //   "click",
+    //   navigate(`/product/detail?id=${_id}`)
+    // );
+  });
 }
