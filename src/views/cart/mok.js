@@ -27,6 +27,10 @@
   
   - 로컬스토리지에 저장되는 형태는 배열안에 객체여야함
 
+  해당 상품의 id 값 가져오는방법
+  홈에서 해당 이미지 클릭시 이미지 url 을 통하여 
+  해당 이미지 url 이 포함된 책 한 권의 데이터를 가져온다
+  
 
 */
 
@@ -37,7 +41,7 @@ import store from "./js/store.js";
 const cart = store.getLocalStorage() || [];
 
 const getProductDetailApi = () => {
-  const url = "./mokData/mokData1.json";
+  const url = "http://localhost:3000/api/products";
   return fetch(url).then((response) => {
     return response.json();
   });
@@ -51,6 +55,7 @@ const isDuplicate = (id) => {
 
 $("#one").addEventListener("click", async (e) => {
   const data = await getProductDetailApi();
+  console.log(data);
   console.log(data[0]._id);
   if (isDuplicate(data[0]._id)) return alert("이미 장바구니에 있습니다❗️");
   cart.push({ id: data[0]._id });

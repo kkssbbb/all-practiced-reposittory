@@ -2,7 +2,7 @@ import $ from "../../utils/dom.js";
 // import store from "./js/store.js";
 
 const renderProduct = (producttList) => {
-  return producttList.forEach((book) => {
+  return producttList?.forEach((book) => {
     $(".product-list").insertAdjacentHTML(
       "beforeend",
       `
