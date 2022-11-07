@@ -6,6 +6,30 @@ import { userService } from "../services";
 
 const userRouter = Router();
 
+/* 승빈 추가 */
+
+//사용자 주문 정보 조회 -승빈 추가
+userRouter.get("/userOrders/:id", async (req, res, next) => {
+  const userId = req.params.id;
+
+  const orderInfo = await userService.findUserOrderInfo(userId);
+
+  return res.status(200).json({ error: null, data: orderInfo });
+});
+
+// 사용자본인 회원탈퇴
+
+userRouter.delete("/users/:id", async (req, res, next) => {
+  const userId = req.params.id;
+  console.log(userId);
+
+  await userService.deleteUserId(userId);
+
+  return res.status(200).json({ error: null, messege: "Delete Success" });
+});
+
+/* 승빈 추가 끝 */
+
 // 회원가입 api (아래는 /register이지만, 실제로는 /api/register로 요청해야 함.)
 userRouter.post("/register", async (req, res, next) => {
   try {
@@ -75,15 +99,6 @@ userRouter.get("/userlist", loginRequired, async function (req, res, next) {
   }
 });
 
-//사용자 주문 정보 조회 -승빈 추가
-userRouter.get("userOrders/:id", async (req, res, next) => {
-  const userId = req.params.id;
-
-  const orderInfo = userService.findUserOrderInfo(userId);
-
-  res.status(200).json({ error: null, data: orderInfo });
-});
-
 // 사용자 정보 수정
 // (예를 들어 /api/users/abc12345 로 요청하면 req.params.userId는 'abc12345' 문자열로 됨)
 userRouter.patch(
@@ -101,7 +116,7 @@ userRouter.patch(
 
       // params로부터 id를 가져옴
       const userId = req.params.userId;
-
+      onsole.log(userId);
       // body data 로부터 업데이트할 사용자 정보를 추출함.
       const fullName = req.body.fullName;
       const password = req.body.password;

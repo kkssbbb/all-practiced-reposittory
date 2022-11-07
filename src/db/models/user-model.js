@@ -9,6 +9,14 @@ export class UserModel {
     return user;
   }
 
+  /* 승빈 추가 */
+
+  async deleteUserId(userId) {
+    await User.deleteOne({ _id: userId });
+  }
+
+  /* 승빈 추가 끝 */
+
   async findByCategory(userId) {
     const user = await User.findOne({ _id: userId });
     return user;
