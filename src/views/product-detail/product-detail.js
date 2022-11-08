@@ -1,11 +1,8 @@
-import * as Api from "../api.js";
-import $ from "../utils/dom.js";
-import {
-  getUrlParams,
-  addCommas,
-  checkUrlParams,
-  createNavbar,
-} from "../useful-functions.js";
+import * as Api from "../../api.js";
+// import $ from "../../utils/dom.js";
+import { getUrlParams, addCommas } from "../../useful-functions.js";
+
+console.log("minid");
 
 const title = document.querySelector("title");
 const addCartBtn = document.querySelector(".add-cart-btn");
@@ -20,25 +17,20 @@ const bookPage = document.querySelector(".book-page");
 const bookPrice = document.querySelector(".book-price");
 const bookSummary = document.querySelector(".book-summary");
 
-checkUrlParams("id");
+// checkUrlParams("id");
 getUrlParams();
 showAllElements();
 
 function showAllElements() {
-  console.log("testssss");
-
   //헤더 추가
   productData();
 }
 
 async function productData() {
-  console.log("test");
-
   const { id } = getUrlParams();
-  console.log(id);
-
-  //  const { id } = { id: "1" };
+  console.log("mini");
   const product = await Api.get(`/api/products/${id}`);
+  console.log(product);
 
   const {
     title,
@@ -60,7 +52,7 @@ async function productData() {
   bookSummary.innerText = summary;
   bookPrice.innerText = `${addCommas(price)}원`;
 
-  window.titleChange("load", async () => {
+  window.addEventListener("load", async () => {
     title.innerText = title;
   });
   addCartBtn.addEventListener("click", async () => {});

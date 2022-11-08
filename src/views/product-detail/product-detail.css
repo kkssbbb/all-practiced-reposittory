@@ -1,5 +1,5 @@
-@import "../utils/reset.css";
-@import "../home/color.css";
+@import "../../utils/reset.css";
+@import "../../home/color.css";
 
 main {
   display: flex;
