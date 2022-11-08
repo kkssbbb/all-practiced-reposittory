@@ -1,6 +1,3 @@
-console.log("tese");
-console.log("test");
-
 import * as Api from "../../api.js";
 
 import {
@@ -37,12 +34,13 @@ function showAllElements() {
 async function productData() {
   console.log("test");
 
-  const { id } = getUrlParams();
+  // const { id } = getUrlParams();
 
   //  const { id } = { id: "1" };
 
+  // const product = await Api.get(`/api/products/${id}`);
+  const id = getUrlParams();
   const product = await Api.get(`/api/products/${id}`);
-
   const {
     title,
     price,
@@ -63,7 +61,7 @@ async function productData() {
   bookSummary.innerText = summary;
   bookPrice.innerText = `${addCommas(price)}원`;
 
-  window.titleChange("load", async () => {
+  document.title("load", () => {
     title.innerText = title;
   });
   addCartBtn.addEventListener("click", async () => {});

@@ -5,7 +5,6 @@
 import * as Api from "../api.js";
 import $ from "./js/utils.js/dom.js";
 import { randomId, navigate } from "../useful-functions.js";
-
 showProductItemsToContainer();
 
 async function showProductItemsToContainer() {
@@ -14,6 +13,7 @@ async function showProductItemsToContainer() {
   products.forEach(async (product) => {
     const {
       _id,
+      imgUrl,
       title,
       price,
       category,
@@ -29,11 +29,14 @@ async function showProductItemsToContainer() {
       `
           <div class="book-list-item" id="a${_id}">
       <p>${title}</p>
-      <img src="" alt="책 표지" />
+      <img src="${imgUrl}" alt="책 표지" />
     </div>
           `
     );
+    // /img/home-books/best-11.jpg
 
+    // ./img/home-books/1667840685760_best-1.jpg 되는경로
+    console.log(imgUrl);
     const productItem = document.querySelector(`#a${_id}`);
     ~productItem.addEventListener("click", navigate(`/products/${_id}`));
     //productItem.addEventListener("click", navigate(`/products/test?id=${_id}`));

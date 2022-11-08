@@ -5,7 +5,7 @@ const Category = model("category", CategorySchema);
 
 export class CategoryModel {
   //카테고리 조회
-  async findByCategory(categoryId) {
+  async findById(categoryId) {
     return await Category.findOne({ _id: categoryId });
   }
 

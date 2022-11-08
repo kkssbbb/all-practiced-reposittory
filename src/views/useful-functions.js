@@ -17,7 +17,7 @@ export const navigate2 = (pathname) => {
 };
 
 export const checkUrlParams = (key) => {
-  const { [key]: params } = getUrlParams();
+  const params = getUrlParams();
 
   if (!params) {
     window.location.replace("/page-not-found");
@@ -51,14 +51,24 @@ export const wait = (ms) => {
 
 // 주소창의 url로부터 params를 얻어 객체로 만듦
 export const getUrlParams = () => {
-  const queryString = window.location.search;
-  const urlParams = new URLSearchParams(queryString);
+  const params = window.location.pathname.split("/")[2];
 
-  const result = {};
+  // const urlParams = new URLSearchParams(params);
+  // /products/${_id}
 
-  for (const [key, value] of urlParams) {
-    result[key] = value;
-  }
-
-  return result; //{ id : 12341235 }
+  //3242342
+  return params; //{ id : 12341235 }
 };
+
+// export const getUrlParams = () => {
+//   const queryString = window.location.search;
+//   const urlParams = new URLSearchParams(queryString);
+
+//   const result = {};
+
+//   for (const [key, value] of urlParams) {
+//     result[key] = value;
+//   }
+
+//   return result; //{ id : 12341235 }
+// };
