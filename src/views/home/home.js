@@ -35,10 +35,7 @@ async function showProductItemsToContainer() {
     );
 
     const productItem = document.querySelector(`#a${_id}`);
-    ~productItem.addEventListener(
-      "click",
-      navigate(`/products/userId?id=${_id}`)
-    );
+    ~productItem.addEventListener("click", navigate(`/products/${_id}`));
     //productItem.addEventListener("click", navigate(`/products/test?id=${_id}`));
   });
 }
