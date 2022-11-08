@@ -10,6 +10,11 @@ export const navigate = (pathname) => {
     window.location.href = pathname;
   };
 };
+export const navigate2 = (pathname) => {
+  return function () {
+    window.location.search = pathname;
+  };
+};
 
 // 이메일 형식인지 확인 (true 혹은 false 반환)
 export const validateEmail = (email) => {
