@@ -1,21 +1,19 @@
 import * as Api from "../../api.js";
-// import $ from "../../utils/dom.js";
+import $ from "../../utils/dom.js";
 import { getUrlParams, addCommas } from "../../useful-functions.js";
 
-console.log("minid");
+const webTitle = $("title");
+const addCartBtn = $(".add-cart-btn");
+const buyNowBtn = $(".buy-now-btn");
 
-const webTitle = document.querySelector("title");
-const addCartBtn = document.querySelector(".add-cart-btn");
-const buyNowBtn = document.querySelector(".buy-now-btn");
-
-const bookCategory = document.querySelector(".book-category");
-const bookTitle = document.querySelector(".book-title");
-const bookAuthor = document.querySelector(".book-author");
-const bookPublisher = document.querySelector(".book-publisher");
-const bookPublicationDate = document.querySelector(".book-publicationDate");
-const bookPage = document.querySelector(".book-page");
-const bookPrice = document.querySelector(".book-price");
-const bookSummary = document.querySelector(".book-summary");
+const bookCategory = $(".book-category");
+const bookTitle = $(".book-title");
+const bookAuthor = $(".book-author");
+const bookPublisher = $(".book-publisher");
+const bookPublicationDate = $(".book-publicationDate");
+const bookPage = $(".book-page");
+const bookPrice = $(".book-price");
+const bookSummary = $(".book-summary");
 
 // checkUrlParams("id");
 getUrlParams();
@@ -23,18 +21,17 @@ showAllElements();
 
 function showAllElements() {
   //헤더 추가
-  alert("ehlsk?");
   productData();
 }
 
 async function productData() {
   const { id } = getUrlParams();
-  console.log("mini");
+
   const product = await Api.get(`/api/products/${id}`);
-  console.log(product);
 
   const {
     title,
+    imgUrl,
     price,
     category,
     author,

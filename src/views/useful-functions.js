@@ -54,3 +54,8 @@ export const getUrlParams = () => {
 
   return result; //{ category : novel }
 };
+
+export const getUrlPath = () => {
+  const path = window.location.pathname;
+  console.log(path);
+};

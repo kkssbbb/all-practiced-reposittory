@@ -4,7 +4,7 @@
 
 import * as Api from "../api.js";
 import $ from "./js/utils.js/dom.js";
-import { navigate } from "../useful-functions.js";
+import { navigate, getUrlPath } from "../useful-functions.js";
 
 showProductItemsToContainer();
 
@@ -13,6 +13,8 @@ showProductItemsToContainer();
 //   // window.location.href = `api/products/${id}`;
 // }
 
+getUrlPath();
+console.log("fdf");
 async function showProductItemsToContainer() {
   const products = await Api.get("/api/products");
 
