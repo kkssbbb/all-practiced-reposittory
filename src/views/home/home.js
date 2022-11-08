@@ -4,9 +4,14 @@
 
 import * as Api from "../api.js";
 import $ from "./js/utils.js/dom.js";
-import { randomId, navigate } from "../useful-functions.js";
+import { navigate } from "../useful-functions.js";
 
 showProductItemsToContainer();
+
+// function showProductDetail(id) {
+//   navigate(`api/products/${id}`);
+//   // window.location.href = `api/products/${id}`;
+// }
 
 async function showProductItemsToContainer() {
   const products = await Api.get("/api/products");
@@ -14,6 +19,7 @@ async function showProductItemsToContainer() {
   products.forEach(async (product) => {
     const {
       _id,
+      imgUrl,
       title,
       price,
       category,
@@ -34,6 +40,8 @@ async function showProductItemsToContainer() {
           `
     );
 
+    // navigate(`api/products/${_id}`);
+    // productItem.addEventListener("click", showProductDetail(_id));
     const productItem = document.querySelector(`#a${_id}`);
     ~productItem.addEventListener(
       "click",

@@ -4,7 +4,7 @@ import { getUrlParams, addCommas } from "../../useful-functions.js";
 
 console.log("minid");
 
-const title = document.querySelector("title");
+const webTitle = document.querySelector("title");
 const addCartBtn = document.querySelector(".add-cart-btn");
 const buyNowBtn = document.querySelector(".buy-now-btn");
 
@@ -23,6 +23,7 @@ showAllElements();
 
 function showAllElements() {
   //헤더 추가
+  alert("ehlsk?");
   productData();
 }
 
@@ -53,7 +54,7 @@ async function productData() {
   bookPrice.innerText = `${addCommas(price)}원`;
 
   window.addEventListener("load", async () => {
-    title.innerText = title;
+    webTitle.innerText = title;
   });
   addCartBtn.addEventListener("click", async () => {});
   buyNowBtn.addEventListener("click", async () => {});
