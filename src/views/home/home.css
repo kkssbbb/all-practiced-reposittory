@@ -1,5 +1,5 @@
-@import "reset.css";
-@import "../home/color.css";
+@import "../utils/reset.css";
+@import "./utils/color.css";
 
 * {
   box-sizing: border-box;
@@ -11,45 +11,40 @@
 }
 
 .carousel-wrapper {
-  display: flex;
-  margin-bottom: 10%;
-  justify-content: center;
+  width: 120rem;
+  margin-bottom: 12rem;
 }
 
 main {
   display: flex;
-  width: 100%;
-  height: 100%;
-}
-
-aside {
-  flex: 1;
-  padding-top: 10%;
-}
-section {
-  flex: 4;
-}
-
-.category-filter-form {
-  display: flex;
-  width: 50%;
-  height: 50%;
-  border: solid;
-  margin: auto;
-  position: sticky;
-  top: 20%;
-  justify-content: space-around;
   flex-direction: column;
   align-items: center;
 }
 
-.product {
+.sections {
   display: flex;
+  width: 1920px;
 }
 
-.book-container {
-  width: 1250px;
-  margin-left: 13rem;
+aside {
+  height: 2000px;
+}
+
+.category-filter-form {
+  display: flex;
+  flex-direction: column;
+  border: 0.1rem solid var(--g1);
+  font-size: 1.5rem;
+  margin-right: 5rem;
+  position: sticky;
+  top: 0;
+  padding: 1rem;
+  background-color: var(--bg);
+}
+
+.category-filter-form label {
+  margin: 2rem;
+  width: 6rem;
 }
 
 .book-list {
@@ -61,8 +56,7 @@ section {
   background-color: tomato;
   width: 12.5rem;
   height: 18.75rem;
-  margin: 2rem 0;
-  margin-right: 3.125rem;
+  margin: 0rem 3.5rem 5rem 4rem;
   border: 0.1rem solid var(--g2);
   color: black;
 }
@@ -70,4 +64,5 @@ section {
 .book-list-item:hover {
   background-color: tan;
   cursor: pointer;
+  box-shadow: 0 0 1rem 0.1rem var(--g2);
 }
