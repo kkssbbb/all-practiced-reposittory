@@ -32,6 +32,8 @@ orderRouter.post("/orders/register", async (req, res, next) => {
 });
 
 orderRouter.get("/orderLists", async function (req, res, next) {
+  console.log("호출확인");
+
   const orderList = await orderService.getOrders();
   res.status(200).json(orderList);
 });

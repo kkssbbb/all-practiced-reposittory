@@ -1,16 +1,18 @@
+import $ from "../utils/dom.js";
+
 /*요소, input 혹은 상수*/
-const ordersCount = document.querySelector("#ordersCount");
-const prepareCount = document.querySelector("#prepareCount");
-const deliveryCount = document.querySelector("#deliveryCount");
-const completeCount = document.querySelector("#completeCount");
+const ordersCount = $("#ordersCount");
+const prepareCount = $("#prepareCount");
+const deliveryCount = $("#deliveryCount");
+const completeCount = $("#completeCount");
 
-const orderListMenu = document.querySelector("#orderListMenu");
+const orderListMenu = $("#orderListMenu");
 
-const modal = document.querySelector("#modal");
-const modalBackground = document.querySelector("#modalBackground");
-const modalCloseButton = document.querySelector("#modalCloseButton");
-const deleteCompleteButton = document.querySelector("#deleteCompleteButton");
-const deleteCancelButton = document.querySelector("#deleteCancelButton");
+const modal = $("#modal");
+const modalBackground = $("#modalBackground");
+const modalCloseButton = $("#modalCloseButton");
+const deleteCompleteButton = $("#deleteCompleteButton");
+const deleteCancelButton = $("#deleteCancelButton");
 
 addAllElements();
 addAllEvents();
@@ -24,13 +26,14 @@ function addAllElements() {
 function addAllEvents() {
   modalBackground.addEventListener("click", closeModal);
   modalCloseButton.addEventListener("click", closeModal);
-  document.addEventListener("keydown", keyDownCloseModal);
   deleteCompleteButton.addEventListener("click", deleteOrderData);
   deleteCancelButton.addEventListener("click", cancelDelete);
 }
 
 /*페이지 로드 시 실행, 삭제할 주문 id를 전역변수로 관리함*/
 async function insertOrders() {
+  const orders = await Api.get("/api/orderlist/all");
+
   const summary = {
     ordersCount: 0,
     prepareCount: 0,
@@ -92,8 +95,8 @@ async function insertOrders() {
     );
 
     /*상태관리 요소 선택*/
-    const statusSelectBox = document.querySelector(`#statusSelectBox-${_id}`);
-    const deleteButton = document.querySelector(`#deleteButton-${_id}`);
+    const statusSelectBox = $(`#statusSelectBox-${_id}`);
+    const deleteButton = $(`#deleteButton-${_id}`);
 
     // 상태관리 박스에, 선택되어 있는 옵션의 배경색 반영
     const index = statusSelectBox.selectedIndex;
@@ -116,6 +119,41 @@ async function insertOrders() {
     deleteButton.addEventListener("click", () => {
       orderIdToDelete = _id;
       openModal();
+
+      Swal.fire({
+        title: "주문 취소하시겠습니까?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "주문 취소!",
+      }).then(async (res) => {
+        if (res.inConfirmed) {
+          // 1) 주문취소 YES
+          e.preventDefault();
+
+          try {
+            await Api.delete("/api/orders", orderIdToDelete);
+
+            // 삭제 성공
+            alert("주문 정보가 삭제되었습니다.");
+
+            // 삭제한 아이템 화면에서 지우기
+            const deletedItem = $(`#order-${orderIdToDelete}`);
+            deletedItem.remove();
+
+            // 전역변수 초기화
+            orderIdToDelete = "";
+
+            closeModal();
+          } catch (err) {
+            alert(`주문정보 삭제 과정에서 오류가 발생하였습니다: ${err}`);
+          }
+        } else {
+          // 2) 주문취소 NO
+          orderIdToDelete = "";
+        }
+      });
     });
   }
 
@@ -124,6 +162,29 @@ async function insertOrders() {
   prepareCount.innerText = addCommas(summary.prepareCount);
   deliveryCount.innerText = addCommas(summary.deliveryCount);
   completeCount.innerText = addCommas(summary.completeCount);
+}
+
+// db에서 주문정보 삭제
+async function deleteOrderData(e) {
+  e.preventDefault();
+
+  try {
+    await Api.delete("/api/orders", orderIdToDelete);
+
+    // 삭제 성공
+    alert("주문 정보가 삭제되었습니다.");
+
+    // 삭제한 아이템 화면에서 지우기
+    const deletedItem = document.querySelector(`#order-${orderIdToDelete}`);
+    deletedItem.remove();
+
+    // 전역변수 초기화
+    orderIdToDelete = "";
+
+    closeModal();
+  } catch (err) {
+    alert(`주문정보 삭제 과정에서 오류가 발생하였습니다: ${err}`);
+  }
 }
 
 /*모달창*/
@@ -142,6 +203,11 @@ function openModal() {
 function closeModal() {
   modal.classList.remove("is-active");
 }
+
+
+
+
+
 
 // const orderDeleteBtn = document.querySelector(".order-delete-btn");
 // const modalCloseBtn = document.querySelector(".modal-close-btn");
