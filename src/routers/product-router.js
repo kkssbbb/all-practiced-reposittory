@@ -27,7 +27,7 @@ productRouter.post(
         summary,
       } = req.body;
 
-      const imgUrl = req.file.path;
+      const imgUrl = req.file.path.split("src/views")[1];
       const content = await productService.addProduct({
         imgUrl,
         title,
@@ -45,6 +45,18 @@ productRouter.post(
     }
   }
 );
+
+//랜덤 상품 조회
+productRouter.get("/", async (req, res, next) => {
+  try {
+    const products = await productService.getProducts();
+    const max = products.length;
+    const random = Math.floor(Math.random() * max) + 1;
+    res.status(201).json(products[random]);
+  } catch (error) {
+    next(error);
+  }
+});
 
 //상품 조회
 productRouter.get("/products/:id", async (req, res, next) => {

@@ -27,8 +27,11 @@ function showAllElements() {
 async function productData() {
   const { id } = getUrlParams();
 
-  const product = await Api.get(`/api/products/${id}`);
+  //  const { id } = { id: "1" };
 
+  // const product = await Api.get(`/api/products/${id}`);
+  const id = getUrlParams();
+  const product = await Api.get(`/api/products/${id}`);
   const {
     title,
     imgUrl,
@@ -50,8 +53,8 @@ async function productData() {
   bookSummary.innerText = summary;
   bookPrice.innerText = `${addCommas(price)}원`;
 
-  window.addEventListener("load", async () => {
-    webTitle.innerText = title;
+  document.title("load", () => {
+    title.innerText = title;
   });
   addCartBtn.addEventListener("click", async () => {});
   buyNowBtn.addEventListener("click", async () => {});

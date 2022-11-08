@@ -4,8 +4,7 @@
 
 import * as Api from "../api.js";
 import $ from "./js/utils.js/dom.js";
-import { navigate, getUrlPath } from "../useful-functions.js";
-
+import { randomId, navigate } from "../useful-functions.js";
 showProductItemsToContainer();
 
 // function showProductDetail(id) {
@@ -37,18 +36,16 @@ async function showProductItemsToContainer() {
       `
           <div class="book-list-item" id="a${_id}">
       <p>${title}</p>
-      <img src="" alt="책 표지" />
+      <img src="${imgUrl}" alt="책 표지" />
     </div>
           `
     );
+    // /img/home-books/best-11.jpg
 
-    // navigate(`api/products/${_id}`);
-    // productItem.addEventListener("click", showProductDetail(_id));
+    // ./img/home-books/1667840685760_best-1.jpg 되는경로
+    console.log(imgUrl);
     const productItem = document.querySelector(`#a${_id}`);
-    ~productItem.addEventListener(
-      "click",
-      navigate(`/products/userId?id=${_id}`)
-    );
-    // productItem.addEventListener("click", navigate(`api/products/${_id}`));
+    ~productItem.addEventListener("click", navigate(`/products/${_id}`));
+    //productItem.addEventListener("click", navigate(`/products/test?id=${_id}`));
   });
 }
