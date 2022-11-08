@@ -17,7 +17,7 @@ class CategoryService {
 
   //카테고리 수정
   async updateCategory(categoryId, toUpdate) {
-    let category = await categoryModel.findByCategory(categoryId);
+    let category = await categoryModel.findById(categoryId);
     if (!category) {
       throw new Error("존재하지 않는 카테고리 입니다.");
     }
