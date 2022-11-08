@@ -16,7 +16,6 @@ const bookPage = $(".book-page");
 const bookPrice = $(".book-price");
 const bookSummary = $(".book-summary");
 
-checkUrlParams("id");
 // checkUrlParams("id");
 
 getUrlParams();
@@ -28,7 +27,6 @@ function showAllElements() {
 }
 
 async function productData() {
-  // const { id } = getUrlParams();
   const id = getUrlParams();
   const product = await Api.get(`/api/products/${id}`);
   const {
@@ -52,11 +50,5 @@ async function productData() {
   bookPublicationDate.innerText = `${addDate(publicationDate)}`;
   bookPage.innerText = `${pageNumber} pg`;
   bookSummary.innerText = summary;
-  bookPrice.innerText = `${addCommas(price)}원`;
-  bookImg.src = imgUrl;
-
   bookPrice.innerText = `${addCommas(price)} 원`;
-
-  addCartBtn.addEventListener("click", async () => {});
-  buyNowBtn.addEventListener("click", async () => {});
 }

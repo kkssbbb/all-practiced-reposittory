@@ -5,12 +5,8 @@
 import * as Api from "../api.js";
 import $ from "./js/utils.js/dom.js";
 import { navigate } from "../useful-functions.js";
-showProductItemsToContainer();
 
-// function showProductDetail(id) {
-//   navigate(`api/products/${id}`);
-//   // window.location.href = `api/products/${id}`;
-// }
+showProductItemsToContainer();
 
 async function showProductItemsToContainer() {
   const products = await Api.get("/api/products");
@@ -26,9 +22,8 @@ async function showProductItemsToContainer() {
     </div>
           `
     );
-    console.log(imgUrl);
+
     const productItem = document.querySelector(`#a${_id}`);
     productItem.addEventListener("click", navigate(`/products/${_id}`));
-    //productItem.addEventListener("click", navigate(`/products/test?id=${_id}`));
   });
 }

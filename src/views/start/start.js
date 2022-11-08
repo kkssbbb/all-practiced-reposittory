@@ -1,6 +1,6 @@
 import * as Api from "../api.js";
 import $ from "../utils/dom.js";
-import { navigate } from "../useful-functions.js";
+// import { navigate } from "../useful-functions.js";
 
 const startBookImg = $(".start-book-img");
 
