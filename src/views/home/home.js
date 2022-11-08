@@ -39,6 +39,6 @@ async function showProductItemsToContainer() {
       "click",
       navigate(`/products/userId?id=${_id}`)
     );
-    // productItem.addEventListener("click", navigate(`api/products/${_id}`));
+    //productItem.addEventListener("click", navigate(`/products/test?id=${_id}`));
   });
 }

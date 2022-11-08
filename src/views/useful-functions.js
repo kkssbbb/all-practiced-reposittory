@@ -16,6 +16,14 @@ export const navigate2 = (pathname) => {
   };
 };
 
+export const checkUrlParams = (key) => {
+  const { [key]: params } = getUrlParams();
+
+  if (!params) {
+    window.location.replace("/page-not-found");
+  }
+};
+
 // 이메일 형식인지 확인 (true 혹은 false 반환)
 export const validateEmail = (email) => {
   return String(email)
@@ -52,5 +60,5 @@ export const getUrlParams = () => {
     result[key] = value;
   }
 
-  return result; //{ category : novel }
+  return result; //{ id : 12341235 }
 };

@@ -1,11 +1,14 @@
-import * as Api from "../api.js";
-import $ from "../utils/dom.js";
+console.log("tese");
+console.log("test");
+
+import * as Api from "../../api.js";
+
 import {
   getUrlParams,
   addCommas,
   checkUrlParams,
-  createNavbar,
-} from "../useful-functions.js";
+} from "../../useful-functions.js";
+console.log("test");
 
 const title = document.querySelector("title");
 const addCartBtn = document.querySelector(".add-cart-btn");
@@ -35,9 +38,9 @@ async function productData() {
   console.log("test");
 
   const { id } = getUrlParams();
-  console.log(id);
 
   //  const { id } = { id: "1" };
+
   const product = await Api.get(`/api/products/${id}`);
 
   const {
