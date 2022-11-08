@@ -4,7 +4,7 @@
 
 import * as Api from "../api.js";
 import $ from "./js/utils.js/dom.js";
-import { randomId, navigate } from "../useful-functions.js";
+import { navigate } from "../useful-functions.js";
 showProductItemsToContainer();
 
 // function showProductDetail(id) {
@@ -12,8 +12,6 @@ showProductItemsToContainer();
 //   // window.location.href = `api/products/${id}`;
 // }
 
-getUrlPath();
-console.log("fdf");
 async function showProductItemsToContainer() {
   const products = await Api.get("/api/products");
 
@@ -40,12 +38,9 @@ async function showProductItemsToContainer() {
     </div>
           `
     );
-    // /img/home-books/best-11.jpg
-
-    // ./img/home-books/1667840685760_best-1.jpg 되는경로
     console.log(imgUrl);
     const productItem = document.querySelector(`#a${_id}`);
-    ~productItem.addEventListener("click", navigate(`/products/${_id}`));
+    productItem.addEventListener("click", navigate(`/products/${_id}`));
     //productItem.addEventListener("click", navigate(`/products/test?id=${_id}`));
   });
 }

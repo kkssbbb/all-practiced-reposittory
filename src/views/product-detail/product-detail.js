@@ -1,11 +1,12 @@
 import * as Api from "../../api.js";
 import $ from "../../utils/dom.js";
-import { getUrlParams, addCommas } from "../../useful-functions.js";
+import { getUrlParams, addCommas, addDate } from "../../useful-functions.js";
 
 const webTitle = $("title");
 const addCartBtn = $(".add-cart-btn");
 const buyNowBtn = $(".buy-now-btn");
 
+const bookImg = $("#book-img");
 const bookCategory = $(".book-category");
 const bookTitle = $(".book-title");
 const bookAuthor = $(".book-author");
@@ -25,11 +26,7 @@ function showAllElements() {
 }
 
 async function productData() {
-  const { id } = getUrlParams();
-
-  //  const { id } = { id: "1" };
-
-  // const product = await Api.get(`/api/products/${id}`);
+  // const { id } = getUrlParams();
   const id = getUrlParams();
   const product = await Api.get(`/api/products/${id}`);
   const {
@@ -44,18 +41,17 @@ async function productData() {
     summary,
   } = product;
 
+  webTitle.innerText = title;
+  bookImg.src = imgUrl;
   bookCategory.innerText = category;
   bookTitle.innerText = title;
   bookAuthor.innerText = author;
   bookPublisher.innerText = publisher;
-  bookPublicationDate.innerText = publicationDate;
-  bookPage.innerText = pageNumber;
+  bookPublicationDate.innerText = `${addDate(publicationDate)}`;
+  bookPage.innerText = `${pageNumber} pg`;
   bookSummary.innerText = summary;
-  bookPrice.innerText = `${addCommas(price)}원`;
+  bookPrice.innerText = `${addCommas(price)} 원`;
 
-  document.title("load", () => {
-    title.innerText = title;
-  });
   addCartBtn.addEventListener("click", async () => {});
   buyNowBtn.addEventListener("click", async () => {});
 }
