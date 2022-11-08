@@ -19,6 +19,7 @@ const bookPublicationDate = document.querySelector(".book-publicationDate");
 const bookPage = document.querySelector(".book-page");
 const bookPrice = document.querySelector(".book-price");
 const bookSummary = document.querySelector(".book-summary");
+const bookImg = document.querySelector("#bookimg");
 
 checkUrlParams("id");
 getUrlParams();
@@ -43,6 +44,7 @@ async function productData() {
   const product = await Api.get(`/api/products/${id}`);
   const {
     title,
+    imgUrl,
     price,
     category,
     author,
@@ -60,6 +62,7 @@ async function productData() {
   bookPage.innerText = pageNumber;
   bookSummary.innerText = summary;
   bookPrice.innerText = `${addCommas(price)}원`;
+  bookImg.src = imgUrl;
 
   document.title("load", () => {
     title.innerText = title;
