@@ -6,9 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Admin category management</title>
     <link rel="stylesheet" href="admin-category.css" />
+    <script type="text/javascript" defer>
+      fetch('/header.html')
+        .then((res) => res.text())
+        .then((text) => {
+          document.querySelector('#header').innerHTML = text;
+        });
+    </script>
   </head>
   <body>
-    <header>헤더</header>
     <main>
       <section class="category-management-header">
         <div class="category-management-header-title">카테고리 관리</div>
@@ -17,7 +23,34 @@
         </div>
       </section>
       <section class="category-management-main">
-        <div class="category-type">
+        <p>카테고리 추가</p>
+        <div class="field">
+          <label class="label" for="titleInput">카테고리 이름</label>
+          <div class="control">
+            <input
+              class="input"
+              id="titleInput"
+              type="text"
+              placeholder="Men Clothes"
+              autocomplete="on"
+            />
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label" for="descriptionInput">카테고리 설명</label>
+          <div class="control">
+            <input
+              class="input"
+              id="descriptionInput"
+              type="text"
+              placeholder="센세이셔널한 봄, 여름 코디"
+              autocomplete="on"
+            />
+          </div>
+        </div>
+
+        <!-- <div class="category-type">
           <p>소설</p>
           <a href="#" class="category-update">수정</a>
           <a href="#" class="category-delete">삭제</a>
@@ -26,7 +59,7 @@
           <p>소설</p>
           <a href="#" class="category-update">수정</a>
           <a href="#" class="category-delete">삭제</a>
-        </div>
+        </div> -->
       </section>
     </main>
     <script defer src="admin-category.js"></script>

@@ -10,13 +10,15 @@
       src="https://kit.fontawesome.com/46ecf23ca0.js"
       crossorigin="anonymous"
     ></script>
+    <script type="text/javascript" defer>
+      fetch('/header.html')
+        .then((res) => res.text())
+        .then((text) => {
+          document.querySelector('#header').innerHTML = text;
+        });
+    </script>
   </head>
   <body>
-    <header class="admin-page-header">
-      <span>로고</span>
-      <a href="#">홈</a>
-      <a href="#">로그아웃</a>
-    </header>
     <main>
       <section class="admin-menu">
         <a href="../admin-users/admin-users.html" class="admin-users">
