@@ -1,45 +1,34 @@
 import * as Api from "../../api.js";
+import $ from "../../utils/dom.js";
+import { getUrlParams, addCommas, addDate } from "../../useful-functions.js";
 
-import {
-  getUrlParams,
-  addCommas,
-  checkUrlParams,
-} from "../../useful-functions.js";
-console.log("test");
+const webTitle = $("title");
+const addCartBtn = $(".add-cart-btn");
+const buyNowBtn = $(".buy-now-btn");
 
-const title = document.querySelector("title");
-const addCartBtn = document.querySelector(".add-cart-btn");
-const buyNowBtn = document.querySelector(".buy-now-btn");
-
-const bookCategory = document.querySelector(".book-category");
-const bookTitle = document.querySelector(".book-title");
-const bookAuthor = document.querySelector(".book-author");
-const bookPublisher = document.querySelector(".book-publisher");
-const bookPublicationDate = document.querySelector(".book-publicationDate");
-const bookPage = document.querySelector(".book-page");
-const bookPrice = document.querySelector(".book-price");
-const bookSummary = document.querySelector(".book-summary");
-const bookImg = document.querySelector("#bookimg");
+const bookImg = $("#book-img");
+const bookCategory = $(".book-category");
+const bookTitle = $(".book-title");
+const bookAuthor = $(".book-author");
+const bookPublisher = $(".book-publisher");
+const bookPublicationDate = $(".book-publicationDate");
+const bookPage = $(".book-page");
+const bookPrice = $(".book-price");
+const bookSummary = $(".book-summary");
 
 checkUrlParams("id");
+// checkUrlParams("id");
+
 getUrlParams();
 showAllElements();
 
 function showAllElements() {
-  console.log("testssss");
-
   //헤더 추가
   productData();
 }
 
 async function productData() {
-  console.log("test");
-
   // const { id } = getUrlParams();
-
-  //  const { id } = { id: "1" };
-
-  // const product = await Api.get(`/api/products/${id}`);
   const id = getUrlParams();
   const product = await Api.get(`/api/products/${id}`);
   const {
@@ -54,19 +43,20 @@ async function productData() {
     summary,
   } = product;
 
+  webTitle.innerText = title;
+  bookImg.src = imgUrl;
   bookCategory.innerText = category;
   bookTitle.innerText = title;
   bookAuthor.innerText = author;
   bookPublisher.innerText = publisher;
-  bookPublicationDate.innerText = publicationDate;
-  bookPage.innerText = pageNumber;
+  bookPublicationDate.innerText = `${addDate(publicationDate)}`;
+  bookPage.innerText = `${pageNumber} pg`;
   bookSummary.innerText = summary;
   bookPrice.innerText = `${addCommas(price)}원`;
   bookImg.src = imgUrl;
 
-  document.title("load", () => {
-    title.innerText = title;
-  });
+  bookPrice.innerText = `${addCommas(price)} 원`;
+
   addCartBtn.addEventListener("click", async () => {});
   buyNowBtn.addEventListener("click", async () => {});
 }
