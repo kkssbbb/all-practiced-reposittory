@@ -16,24 +16,12 @@ async function showProductItemsToContainer() {
   const products = await Api.get("/api/products");
 
   products.forEach(async (product) => {
-    const {
-      _id,
-      imgUrl,
-      title,
-      price,
-      category,
-      author,
-      publisher,
-      publicationDate,
-      pageNumber,
-      summary,
-    } = product;
+    const { _id, imgUrl } = product;
 
     $(".book-list").insertAdjacentHTML(
       "beforeend",
       `
           <div class="book-list-item" id="a${_id}">
-      <p>${title}</p>
       <img src="${imgUrl}" alt="책 표지" />
     </div>
           `
