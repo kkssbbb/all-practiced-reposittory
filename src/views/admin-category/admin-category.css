@@ -129,9 +129,9 @@ table {
 }
 
 .category-management-header {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
+  display: block;
+  border-bottom: #ddd 1px solid;
+  padding-bottom: 0.7rem;
 }
 
 .category-management-header-title {
@@ -141,20 +141,16 @@ table {
   font-size: 2rem;
 }
 
-.category-add {
-  background-color: #80b8c5;
-  margin-left: auto;
-  border: 0.1rem solid black;
-  border-radius: 1rem;
-  padding: 0.5rem;
+.register-category-form-box .input:focus {
+  border-color: #80b8c5;
+  box-shadow: 0 0 0 0.125em rgba(68, 91, 158, 0.25);
 }
 
-.category-type {
-  display: flex;
-  height: 3rem;
-  align-items: center;
-  justify-content: space-around;
-  padding: 1rem 0;
+#addCategoryButton {
+  background-color: #80b8c5;
+  border-radius: 1rem;
+  font-weight: bold;
+  color: white;
 }
 
 main a {
