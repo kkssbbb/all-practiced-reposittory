@@ -1,6 +1,5 @@
 import * as Api from "../api.js";
 import $ from "../utils/dom.js";
-import * as Api from "../../api.js";
 console.log("test");
 
 /*요소, input 혹은 상수*/
@@ -46,7 +45,7 @@ async function insertOrders() {
     deliveryCount: 0,
     completeCount: 0,
   };
-// 날짜 0 , 토탈프라이스x, summaryTitle status , 상품가격을 가져와함
+  // 날짜 0 , 토탈프라이스x, summaryTitle status , 상품가격을 가져와함
   for (const order of orders) {
     const { _id, totalPrice, createdAt, summaryTitle, status } = order;
     const date = createdAt.split("T")[0];
