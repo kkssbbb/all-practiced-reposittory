@@ -9,7 +9,6 @@ const orderRouter = Router();
 //주문 생성
 orderRouter.post("/orders", loginRequired, async (req, res, next) => {
   try {
-    // Content-Type: application/json 설정을 안 한 경우, 에러를 만들도록 함.
     // application/json 설정을 프론트에서 안 하면, body가 비어 있게 됨.
     if (is.emptyObject(req.body)) {
       throw new Error(
@@ -17,16 +16,20 @@ orderRouter.post("/orders", loginRequired, async (req, res, next) => {
       );
     }
 
-    const userId = req.body.userId;
-    const orderName = req.body.orderName;
-    const address = req.body.address;
+    // req (request) 에서 데이터 가져오기
+    const userId = req.currentUserId;
+    const summaryTitle = req.body.summaryTitle;
     const phoneNumber = req.body.phoneNumber;
+    const totalPrice = req.body.totalPrice;
+    const address = req.body.address;
 
+    // 위 데이터를 제품 db에 추가하기
     const newOrder = await orderService.addOrder({
       userId,
-      orderName,
-      address,
+      summaryTitle,
       phoneNumber,
+      totalPrice,
+      address,
     });
 
     res.status(201).json({ error: null, data: newOrder });

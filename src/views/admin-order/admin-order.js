@@ -1,4 +1,6 @@
 import $ from "../utils/dom.js";
+import * as Api from "../../api.js";
+console.log("test");
 
 /*요소, input 혹은 상수*/
 const ordersCount = $("#ordersCount");
@@ -13,12 +15,15 @@ const modalBackground = $("#modalBackground");
 const modalCloseButton = $("#modalCloseButton");
 const deleteCompleteButton = $("#deleteCompleteButton");
 const deleteCancelButton = $("#deleteCancelButton");
+console.log("test1");
 
 addAllElements();
+console.log("test2");
 addAllEvents();
 
 // 요소 삽입 함수들을 묶어주어서 코드를 깔끔하게 하는 역할임.
 function addAllElements() {
+  console.log("test3");
   insertOrders();
 }
 
@@ -32,7 +37,9 @@ function addAllEvents() {
 
 /*페이지 로드 시 실행, 삭제할 주문 id를 전역변수로 관리함*/
 async function insertOrders() {
-  const orders = await Api.get("/api/orderlist/all");
+  console.log("test  insertOrders");
+  const orders = await Api.get("/api/auth/orders");
+  console.log(orders);
 
   const summary = {
     ordersCount: 0,
@@ -40,7 +47,7 @@ async function insertOrders() {
     deliveryCount: 0,
     completeCount: 0,
   };
-
+// 날짜 0 , 토탈프라이스x, summaryTitle status , 상품가격을 가져와함
   for (const order of orders) {
     const { _id, totalPrice, createdAt, summaryTitle, status } = order;
     const date = createdAt.split("T")[0];
@@ -204,11 +211,6 @@ function closeModal() {
   modal.classList.remove("is-active");
 }
 
-
-
-
-
-
 // const orderDeleteBtn = document.querySelector(".order-delete-btn");
 // const modalCloseBtn = document.querySelector(".modal-close-btn");
 // const modalYesBtn = document.querySelector(".modal-yes-btn");
@@ -224,7 +226,6 @@ function closeModal() {
 
 // modalYesBtn.addEventListener("click", () => alert("주문 취소"));
 // modalNoBtn.addEventListener("click", () => alert("창닫기"));
-
 
 // 모달창 바깥 영역 클릭시 모달창 닫기
 // modal.addEventListener("click", () => {

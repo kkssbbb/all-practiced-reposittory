@@ -1,23 +1,21 @@
-import mongoose, { Schema } from "mongoose";
-//아이디
-//주문날짜
-//총가격
-//주문정보 상품제목 개수
-//스테터스
-//
-//오더네임
-//주소
-//핸드폰번호
+import { Schema } from "mongoose";
+
+//결제정보 : 입력값이 상품명,개수,상품총액,배송비,총결제금액
+//배송지정보 : 이름 연락처 주소
 
 const OrderSchema = new Schema(
   {
     userId: {
       type: Schema.Types.ObjectId,
-      ref: "user-model",
+      ref: "user-schema",
       required: true,
     },
-    orderName: {
+    summaryTitle: {
       type: String,
+      required: true,
+    },
+    totalPrice: {
+      type: Number,
       required: true,
     },
     address: {
@@ -25,18 +23,18 @@ const OrderSchema = new Schema(
       required: true,
     },
     phoneNumber: {
-      type: Number, //프론트 단에서 번호 입력예시 01012345555
-      required: true,
+      type: Number,
+      reqired: true,
     },
-    state: {
+    status: {
       type: String,
       required: false,
-      default: "배송전", //추가
+      default: "상품 준비중",
     },
   },
   {
-    timestamps: true,
     collection: "orders",
+    timestamps: true,
   }
 );
 
