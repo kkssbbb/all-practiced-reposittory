@@ -51,7 +51,7 @@ productRouter.get("/", async (req, res, next) => {
   try {
     const products = await productService.getProducts();
     const max = products.length;
-    const random = Math.floor(Math.random() * max) + 1;
+    const random = Math.floor(Math.random() * max);
     res.status(201).json(products[random]);
   } catch (error) {
     next(error);
@@ -70,9 +70,23 @@ productRouter.get("/products/:id", async (req, res, next) => {
 });
 
 //상품 전체 조회 및 카테고리 별 조회
+// productRouter.get("/products", async (req, res, next) => {
+//   try {
+//     const { category } = req.query;
+//     if (category !== undefined) {
+//       const product = await productService.getProductsByCategory(category);
+//       res.json({ error: null, data: product });
+//     }
+//     const products = await productService.getProducts();
+//     res.status(201).json(products);
+//   } catch (error) {
+//     next(error);
+//   }
+// });
 productRouter.get("/products", async (req, res, next) => {
   try {
     const { category } = req.query;
+    console.log(category);
     if (category !== undefined) {
       const product = await productService.getProductsByCategory(category);
       res.json({ error: null, data: product });
