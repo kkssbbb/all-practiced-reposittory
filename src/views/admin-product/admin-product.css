@@ -141,22 +141,6 @@ table {
   font-size: 2rem;
 }
 
-.product-add-btn {
-  background-color: #80b8c5;
-  margin-left: auto;
-  border: 0.1rem solid black;
-  border-radius: 1rem;
-  padding: 0.5rem;
-}
-
-.product-type {
-  display: flex;
-  height: 3rem;
-  align-items: center;
-  justify-content: space-around;
-  padding: 1rem 0;
-}
-
 main a {
   text-decoration: none;
 }
@@ -168,9 +152,13 @@ input {
   border-radius: 0.4rem;
 }
 
-.modal-overlay {
+.register-product {
   display: flex;
   justify-content: center;
+}
+
+.register-product-form {
+  width: 40rem;
 }
 
 input,
