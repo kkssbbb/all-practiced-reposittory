@@ -1,0 +1,5 @@
+@import "../utils/reset.css";
+
+.container {
+  display: flex;
+}

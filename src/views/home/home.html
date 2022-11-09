@@ -23,7 +23,7 @@
       crossorigin="anonymous"
     ></script>
     <!-- 커스텀 css, js -->
-    <link rel="stylesheet" href="home.css" />
+    <link rel="stylesheet" href="home.css" type="text/css" />
     <script src="home.js" type="module" defer></script>
   </head>
   <body>
@@ -65,60 +65,60 @@
         </div>
       </div>
     </nav>
-    <!--배너 슬라이드-->
-    <div class="carousel-wrapper">
-      <!-- <img src="./img/home-ad/olia-gozha-J4kK8b9Fgj8-unsplash.jpg" alt="책" /> -->
-      <!-- <img src="./img/home-ad/pexels-ann-h-1765033.jpg" alt="책" /> -->
-      <img src="./img/home-ad/pexels-cottonbro-6344231.jpg" alt="책" />
-    </div>
-
+    <!-- <a href="/src/middlewares/home-books/1667838639459_best-1.jpg"></a> -->
     <main>
-      <!--카테고리 필터-->
-      <aside>
-        <form class="category-filter-form" action="" method="get">
-          <label
-            ><input
-              id="category-fiction"
-              type="checkbox"
-              name="category[]"
-              value="소설"
-            />
-            소설</label
-          >
-          <label
-            ><input type="checkbox" name="category[]" value="에세이" />
-            에세이</label
-          >
-          <label
-            ><input type="checkbox" name="category[]" value="개발" />
-            개발</label
-          >
-          <label
-            ><input type="checkbox" name="category[]" value="원서" />
-            원서</label
-          >
-          <label
-            ><input type="checkbox" name="category[]" value="경제" />
-            경제</label
-          >
-          <label
-            ><input type="checkbox" name="category[]" value="취미" />
-            취미</label
-          >
-          <label
-            ><input type="checkbox" name="category[]" value="시" /> 시</label
-          >
-        </form>
-      </aside>
+      <!--배너 슬라이드-->
+      <div class="carousel-wrapper">
+        <!-- <img src="./img/home-ad/olia-gozha-J4kK8b9Fgj8-unsplash.jpg" alt="책" /> -->
+        <!-- <img src="./img/home-ad/pexels-ann-h-1765033.jpg" alt="책" /> -->
+        <img src="./img/home-ad/pexels-cottonbro-6344231.jpg" alt="책" />
+      </div>
 
-      <!-- 책 이미지-->
-      <section class="product">
-        <div class="book-container">
+      <section class="sections">
+        <!--카테고리 필터-->
+        <aside>
+          <form class="category-filter-form" action="" method="get">
+            <label
+              ><input
+                id="category-fiction"
+                type="checkbox"
+                name="category[]"
+                value="소설"
+              />
+              소설</label
+            >
+            <label
+              ><input type="checkbox" name="category[]" value="에세이" />
+              에세이</label
+            >
+            <label
+              ><input type="checkbox" name="category[]" value="개발" />
+              개발</label
+            >
+            <label
+              ><input type="checkbox" name="category[]" value="원서" />
+              원서</label
+            >
+            <label
+              ><input type="checkbox" name="category[]" value="경제" />
+              경제</label
+            >
+            <label
+              ><input type="checkbox" name="category[]" value="취미" />
+              취미</label
+            >
+            <label
+              ><input type="checkbox" name="category[]" value="시" /> 시</label
+            >
+          </form>
+        </aside>
+        <!--전체 상품-->
+        <section class="product">
           <div class="book-list"></div>
-          
-        </div>
+        </section>
       </section>
     </main>
     <script type="module" src="./home.js" defer></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   </body>
 </html>

@@ -36,10 +36,31 @@ orderRouter.post("/orders", loginRequired, async (req, res, next) => {
   }
 });
 
+<<<<<<< HEAD
 //본인 주문 조회
 // 함수로 만들어서 미들웨어에서 사용해도되는지
 //아니면 근야 미들웨어에서 조회로직을 다시짤지
 orderRouter.get("/orders", loginRequired, async (req, res, next) => {
+=======
+orderRouter.get("/orderLists", async function (req, res, next) {
+  console.log("호출확인");
+
+  const orderList = await orderService.getOrders();
+  res.status(200).json(orderList);
+});
+
+orderRouter.delete("/orders/:orderId", async function (req, res, next) {
+  const orderId = req.params.orderId;
+
+  console.log(`파람 값확인: ${orderId}`);
+
+  const deleteOrderInfo = await orderService.deleteOrder(orderId);
+
+  return res.status(201).json(deleteOrderInfo);
+});
+
+orderRouter.patch("/orders/:orderId", async function (req, res, next) {
+>>>>>>> a946991e3932b77a36e024fb395842eb07ed7f11
   try {
     const userId = req.currentUserId;
     console.log(userId);

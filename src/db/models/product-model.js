@@ -5,10 +5,10 @@ const Product = model("products", ProductSchema);
 
 export class ProductModel {
   //제품 조회
-  async findByProductId(productId) {
+  async findById(productId) {
     return await Product.findOne({ _id: productId });
   }
-  //카테고리 상품 조회
+  //카테고리별 상품 조회
   async findByCategory(category) {
     return await Product.find({ category: category });
   }
@@ -18,18 +18,18 @@ export class ProductModel {
   }
 
   //상품 추가
-  async createProduct(productInfo) {
+  async create(productInfo) {
     return await Product.create(productInfo);
   }
 
   //상품정보 수정
-  async updateProduct(productId, productInfo) {
+  async update(productId, productInfo) {
     const option = { new: true };
     return await Product.findByIdAndUpdate(productId, productInfo, option);
   }
 
   //상품 삭제
-  async deleteProduct(productId) {
+  async delete(productId) {
     return await Product.findOneAndDelete({ _id: productId });
   }
 }
