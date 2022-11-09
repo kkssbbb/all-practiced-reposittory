@@ -1,5 +1,5 @@
 @import "../utils/reset.css";
-@import "./utils/color.css";
+@import "./color.css";
 
 * {
   box-sizing: border-box;
@@ -65,4 +65,8 @@ aside {
   background-color: tan;
   cursor: pointer;
   box-shadow: 0 0 1rem 0.1rem var(--g2);
+}
+
+.non-checked {
+  display: none;
 }

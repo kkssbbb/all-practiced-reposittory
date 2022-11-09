@@ -1,36 +1,27 @@
-// import * as Api from "../api.js";
-// import $ from "../utils/dom.js";
-// import { getUrlParams, addCommas } from "../useful-functions.js";
+import * as Api from "../../api.js";
+import $ from "../../utils/dom.js";
+import store from "../../utils/store.js";
+import {
+  navigate,
+  getUrlParams,
+  addCommas,
+  addDate,
+} from "../../useful-functions.js";
 
-const getUrlParams = () => {
-  const queryString = window.location.search;
-  const urlParams = new URLSearchParams(queryString);
+const cart = store.getLocalStorage() || [];
 
-  const result = {};
+const webTitle = $("title");
+const bookImg = $("#book-img");
+const bookCategory = $(".book-category");
+const bookTitle = $(".book-title");
+const bookAuthor = $(".book-author");
+const bookPublisher = $(".book-publisher");
+const bookPublicationDate = $(".book-publicationDate");
+const bookPage = $(".book-page");
+const bookPrice = $(".book-price");
+const bookSummary = $(".book-summary");
 
-  for (const [key, value] of urlParams) {
-    result[key] = value;
-  }
-
-  return result; //{ category : novel }
-};
-
-const addCommas = (n) => {
-  return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-};
-
-const title = document.querySelector("title");
-const addCartBtn = document.querySelector(".add-cart-btn");
-const buyNowBtn = document.querySelector(".buy-now-btn");
-
-const bookCategory = document.querySelector(".book-category");
-const bookTitle = document.querySelector(".book-title");
-const bookAuthor = document.querySelector(".book-author");
-const bookPublisher = document.querySelector(".book-publisher");
-const bookPublicationDate = document.querySelector(".book-publicationDate");
-const bookPage = document.querySelector(".book-page");
-const bookPrice = document.querySelector(".book-price");
-const bookSummary = document.querySelector(".book-summary");
+// checkUrlParams("id");
 
 getUrlParams();
 showAllElements();
@@ -40,24 +31,18 @@ function showAllElements() {
   productData();
 }
 
-async function productData() {
-  // const { id } = getUrlParams();
-  const { id } = { id: "1" };
-  // const product = await Api.get(`/products/${id}`);
-  const product = {
-    title: "미움받을 용기",
-    price: "15,000원",
-    category: "인문",
-    author: "기시미 이치로 , 고가 후미타케",
-    publisher: "인플루엔셜",
-    publicationDate: "2014년 11월 17일",
-    pageNumber: "197pg",
-    summary:
-      "인간은 사회적인 존재다. 그렇기에 아들러는 “인간의 고민은 전부 인간관계에서 비롯된 고민”이라고 말한다. 어떤 종류의 고민이든 거기에는 반드시 타인과의 관계가 얽혀 있게 마련이고, 따라서 행복해지기 위해서는 인간관계로부터 자유로워져야 한다는 것이다. 모든 사람에게 좋은 사람이길 원하는 사람은 타인의 눈치를 볼 수밖에 없다. 이에 아들러는 타인에게 ‘미움받을 용기’를 가져야만 비로소 자유로워지고 행복해진다고 거듭 강조한다.",
-  };
+const isDuplicate = (id) => {
+  if (store.getLocalStorage())
+    return store.getLocalStorage().some((data) => data.id === id);
+  return false;
+};
 
+async function productData() {
+  const id = getUrlParams();
+  const product = await Api.get(`/api/products/${id}`);
   const {
     title,
+    imgUrl,
     price,
     category,
     author,
@@ -67,18 +52,25 @@ async function productData() {
     summary,
   } = product;
 
+  webTitle.innerText = title;
+  bookImg.src = imgUrl;
   bookCategory.innerText = category;
   bookTitle.innerText = title;
   bookAuthor.innerText = author;
   bookPublisher.innerText = publisher;
-  bookPublicationDate.innerText = publicationDate;
-  bookPage.innerText = pageNumber;
+  bookPublicationDate.innerText = `${addDate(publicationDate)}`;
+  bookPage.innerText = `${pageNumber} pg`;
   bookSummary.innerText = summary;
-  bookPrice.innerText = `${addCommas(price)}원`;
+  bookPrice.innerText = `${addCommas(price)} 원`;
 
-  window.titleChange("load", async () => {
-    title.innerText = title;
+  $(".add-cart-btn").addEventListener("click", navigate(`/cart`));
+  $(".add-cart-btn").addEventListener("click", () => {
+    if (isDuplicate(id)) return alert("이미 장바구니에 있습니다❗️");
+    cart.push({ id: id });
+    store.setLocalStorage(cart);
   });
-  addCartBtn.addEventListener("click", async () => {});
-  buyNowBtn.addEventListener("click", async () => {});
 }
+
+$(".buy-now-btn").addEventListener("click", () => {
+  console.log("dsaf");
+});

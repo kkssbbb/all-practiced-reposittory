@@ -10,6 +10,19 @@ export const navigate = (pathname) => {
     window.location.href = pathname;
   };
 };
+export const navigate2 = (pathname) => {
+  return function () {
+    window.location.search = pathname;
+  };
+};
+
+export const checkUrlParams = (key) => {
+  const params = getUrlParams();
+
+  if (!params) {
+    window.location.replace("/page-not-found");
+  }
+};
 
 // 이메일 형식인지 확인 (true 혹은 false 반환)
 export const validateEmail = (email) => {
@@ -25,6 +38,14 @@ export const addCommas = (n) => {
   return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 };
 
+export const addDate = (date) => {
+  date = date.toString();
+  const year = date.slice(0, 4);
+  const month = date.slice(4, 6);
+  const day = date.slice(6);
+  return `${year}년 ${month}월 ${day}일`;
+};
+
 // 13,000원, 2개 등의 문자열에서 쉼표, 글자 등 제외 후 숫자만 뺴냄
 // 예시: 13,000원 -> 13000, 20,000개 -> 20000
 export const convertToNumber = (string) => {
@@ -38,14 +59,19 @@ export const wait = (ms) => {
 
 // 주소창의 url로부터 params를 얻어 객체로 만듦
 export const getUrlParams = () => {
-  const queryString = window.location.search;
-  const urlParams = new URLSearchParams(queryString);
-
-  const result = {};
-
-  for (const [key, value] of urlParams) {
-    result[key] = value;
-  }
-
-  return result; //{ category : novel }
+  const params = window.location.pathname.split("/")[2];
+  return params; //{ id : 12341235 }
 };
+
+// export const getUrlParams = () => {
+//   const queryString = window.location.search;
+//   const urlParams = new URLSearchParams(queryString);
+
+//   const result = {};
+
+//   for (const [key, value] of urlParams) {
+//     result[key] = value;
+//   }
+
+//   return result; //{ id : 12341235 }
+// };
