@@ -4,8 +4,4 @@
 export * from "./error-handler";
 export * from "./login-required";
 export * from "./image-upload";
-<<<<<<< HEAD
-export * from "./order-hendler";
-=======
 export * from "./product-required";
->>>>>>> a946991e3932b77a36e024fb395842eb07ed7f11
