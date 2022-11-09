@@ -3,7 +3,6 @@ import is from "@sindresorhus/is";
 
 import { loginRequired } from "../middlewares";
 import { orderService } from "../services";
-import { orderHendler } from "../middlewares";
 
 const orderRouter = Router();
 
