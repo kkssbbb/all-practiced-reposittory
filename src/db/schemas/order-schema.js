@@ -1,4 +1,4 @@
-import { Schema } from "mongoose";
+import mongoose, { Schema } from "mongoose";
 //아이디
 //주문날짜
 //총가격
@@ -11,6 +11,11 @@ import { Schema } from "mongoose";
 
 const OrderSchema = new Schema(
   {
+    userId: {
+      type: Schema.Types.ObjectId,
+      ref: "user-model",
+      required: true,
+    },
     orderName: {
       type: String,
       required: true,
@@ -26,10 +31,12 @@ const OrderSchema = new Schema(
     state: {
       type: String,
       required: false,
+      default: "배송전", //추가
     },
   },
   {
     timestamps: true,
+    collection: "orders",
   }
 );
 

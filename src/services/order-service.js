@@ -1,27 +1,31 @@
 import { orderModel } from "../db";
-
 class OrderService {
   constructor(orderModel) {
     this.orderModel = orderModel;
   }
 
   async addOrder(orderInfo) {
-    const { orderName, address, phoneNumber } = orderInfo;
+    const { userId, orderName, address, phoneNumber } = orderInfo;
 
     //db 저장
-    const newOrderInfo = { orderName, address, phoneNumber };
+    const newOrderInfo = { userId, orderName, address, phoneNumber };
     const createNewOrder = await this.orderModel.createOrder(newOrderInfo);
     return createNewOrder;
   }
 
-  //db 조회
-  async getOrders() {
+  //db 전체조회
+  async getOrdersList() {
     const orderLisrt = await this.orderModel.findAllOrder();
     return orderLisrt;
   }
 
-  // db 업데이트 사용자가 주문내역 조회할 수 있음
-  async setOrder() {}
+  // db 사용자 본인 주문 조회
+  async getOrders(userid) {
+    const orderInfo = await this.orderModel.findOrder(userid);
+    // console.log(orderInfo);
+
+    return orderInfo;
+  }
 
   //db 삭제
   async deleteOrder(orderId) {
@@ -29,10 +33,25 @@ class OrderService {
     return deleteOrder;
   }
 
+  //주문 수정 (배송상태 배송전이면 수정 안됨)
   async patchOrder(orderId, toUpdate) {
-    console.log(orderId);
+    //주문 상태 조회
+    const orderInfo = await this.orderModel.getStatus(orderId);
+    const orderStateInfoArr = orderInfo.map((orderState) => orderState.state); //배송상태 정보
+    const orderinfo = orderStateInfoArr.pop();
 
-    console.log(toUpdate);
+    if (orderinfo !== "배송전") {
+      if (orderinfo == "배송중") {
+        throw new Error(
+          `상품이 ${orderinfo}이여서 주문정보를 변경할 수 없습니다.^^늦음ㅅㄱ`
+        );
+      }
+      if (orderinfo == "배송도착") {
+        throw new Error(
+          `상품이 ${orderinfo}해서 주문정보를 변경할 수 없습니다.^^늦음ㅅㄱ`
+        );
+      }
+    }
 
     const fatchOrder = await this.orderModel.fatchById(orderId, toUpdate);
 

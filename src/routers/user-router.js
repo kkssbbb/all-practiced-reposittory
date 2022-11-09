@@ -3,11 +3,43 @@ import is from "@sindresorhus/is";
 // 폴더에서 import하면, 자동으로 폴더의 index.js에서 가져옴
 import { loginRequired } from "../middlewares";
 import { userService } from "../services";
+//어디민 체크 미들웨어 추가
+import { adminCheck } from "../middlewares/adminCheck";
 
 const userRouter = Router();
 
+/* 승빈 추가 */
+
+// 사용자 주문 정보 조회 -승빈 추가
+//restful URL Rules
+userRouter.get("/user-orders/:id", async (req, res, next) => {
+  const userId = req.params.id;
+
+  const orderInfo = await userService.findUserOrderInfo(userId);
+
+  return res.status(200).json({ error: null, data: orderInfo });
+});
+
+// 사용자본인 회원탈퇴
+
+userRouter.delete("/users/:id", async (req, res, next) => {
+  const userId = req.params.id;
+  console.log(userId);
+
+  await userService.deleteUserId(userId);
+
+  return res.status(200).json({ error: null, messege: "Delete Success" });
+});
+
+//admin jwt check
+userRouter.get("/admins/check", adminCheck, async function (req, res, next) {
+  res.status(200).json({ messege: " wellcome admin " });
+});
+
+/* 승빈 추가 끝 */
+
 // 회원가입 api (아래는 /register이지만, 실제로는 /api/register로 요청해야 함.)
-userRouter.post("/register", async (req, res, next) => {
+userRouter.post("/users-post", async (req, res, next) => {
   try {
     // Content-Type: application/json 설정을 안 한 경우, 에러를 만들도록 함.
     // application/json 설정을 프론트에서 안 하면, body가 비어 있게 됨.
@@ -38,7 +70,7 @@ userRouter.post("/register", async (req, res, next) => {
 });
 
 // 로그인 api (아래는 /login 이지만, 실제로는 /api/login로 요청해야 함.)
-userRouter.post("/login", async function (req, res, next) {
+userRouter.post("/users", async function (req, res, next) {
   try {
     // application/json 설정을 프론트에서 안 하면, body가 비어 있게 됨.
     if (is.emptyObject(req.body)) {
@@ -62,11 +94,14 @@ userRouter.post("/login", async function (req, res, next) {
 });
 
 // 전체 유저 목록을 가져옴 (배열 형태임)
-// 미들웨어로 loginRequired 를 썼음 (이로써, jwt 토큰이 없으면 사용 불가한 라우팅이 됨)
-userRouter.get("/userlist", loginRequired, async function (req, res, next) {
+// 사용 안함 미들웨어로 loginRequired 를 썼음 (이로써, jwt 토큰이 없으면 사용 불가한 라우팅이 됨)
+// 어드민체크하여 관리자만 유저리스트 볼 수 있음
+userRouter.get("/users-list", adminCheck, async function (req, res, next) {
   try {
     // 전체 사용자 목록을 얻음
     const users = await userService.getUsers();
+
+    req.headers["authorization"]?.split(" ")[1];
 
     // 사용자 목록(배열)을 JSON 형태로 프론트에 보냄
     res.status(200).json(users);
@@ -92,6 +127,7 @@ userRouter.patch(
 
       // params로부터 id를 가져옴
       const userId = req.params.userId;
+      console.log(userId);
 
       // body data 로부터 업데이트할 사용자 정보를 추출함.
       const fullName = req.body.fullName;
