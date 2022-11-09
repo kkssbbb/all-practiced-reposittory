@@ -22,6 +22,7 @@ const bookPrice = $(".book-price");
 const bookSummary = $(".book-summary");
 
 // checkUrlParams("id");
+
 getUrlParams();
 showAllElements();
 
@@ -37,7 +38,6 @@ const isDuplicate = (id) => {
 };
 
 async function productData() {
-  // const { id } = getUrlParams();
   const id = getUrlParams();
   const product = await Api.get(`/api/products/${id}`);
   const {

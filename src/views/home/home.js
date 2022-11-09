@@ -5,35 +5,19 @@
 import * as Api from "../api.js";
 import $ from "./js/utils.js/dom.js";
 import { navigate } from "../useful-functions.js";
-showProductItemsToContainer();
 
-// function showProductDetail(id) {
-//   navigate(`api/products/${id}`);
-//   // window.location.href = `api/products/${id}`;
-// }
+showProductItemsToContainer();
 
 async function showProductItemsToContainer() {
   const products = await Api.get("/api/products");
 
   products.forEach(async (product) => {
-    const {
-      _id,
-      imgUrl,
-      title,
-      price,
-      category,
-      author,
-      publisher,
-      publicationDate,
-      pageNumber,
-      summary,
-    } = product;
+    const { _id, imgUrl } = product;
 
     $(".book-list").insertAdjacentHTML(
       "beforeend",
       `
           <div class="book-list-item" id="a${_id}">
-      <p>${title}</p>
       <img src="${imgUrl}" alt="책 표지" />
     </div>
           `
@@ -41,6 +25,5 @@ async function showProductItemsToContainer() {
 
     const productItem = document.querySelector(`#a${_id}`);
     productItem.addEventListener("click", navigate(`/products/${_id}`));
-    //productItem.addEventListener("click", navigate(`/products/test?id=${_id}`));
   });
 }
