@@ -46,7 +46,7 @@ orderRouter.get("/orders", loginRequired, async (req, res, next) => {
     const orderInfo = await orderService.getOrders(userId);
     // console.log(orderInfo);
 
-    res.status(200).json({ error: null, data: orderInfo });
+    res.status(200).json(orderInfo);
   } catch (error) {
     next(error);
   }
