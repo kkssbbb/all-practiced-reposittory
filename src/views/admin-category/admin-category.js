@@ -1,4 +1,4 @@
-import * as Api from "../../api.js";
+import * as Api from "../api.js";
 import $ from "../utils/dom.js";
 
 // 요소(element), input 혹은 상수
@@ -11,6 +11,7 @@ addAllEvents();
 // addEventListener들을 묶어주어서 코드를 깔끔하게 하는 역할임.
 function addAllEvents() {
   submitButton.addEventListener("click", handleSubmit);
+  console.log(submitButton);
 }
 
 // 카테고리 추가하기
