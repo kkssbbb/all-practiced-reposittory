@@ -6,24 +6,16 @@ import * as Api from "../../api.js";
 import $ from "../../utils/dom.js";
 import { navigate } from "../../useful-functions.js";
 
-// const categoryFilter = document.querySelectorAll('input[type="checkBox"]');
 const categoryFilters = document.getElementsByName("category[]");
 const non_checked = "non-checked";
 
-const selectAllBtn = document.queryCommandValue("#select-all-btn");
-const deselectAllBtn = document.queryCommandValue("#deselect-all-btn");
+showAllProductItems();
 
-showProductItemsToContainer();
-selectFilter();
-
-async function showProductItemsToContainer() {
+async function showAllProductItems() {
   const products = await Api.get("/api/products");
+  const categoryList = await Api.get("/api/category");
 
-  categoryFilters.forEach(async (categoryFilter) => {
-    categoryFilter.checked = true;
-  });
-
-  products.forEach(async (product) => {
+  products.forEach((product) => {
     const { _id, imgUrl, category } = product;
 
     $(".book-list").insertAdjacentHTML(
@@ -38,27 +30,35 @@ async function showProductItemsToContainer() {
     const productItem = document.querySelector(`#a${_id}`);
     productItem.addEventListener("click", navigate(`/products/${_id}`));
   });
-}
 
-function selectFilter() {
+  categoryList.forEach((categoryListItem) => {
+    const { category } = categoryListItem;
+    $(".category-filter-form").insertAdjacentHTML(
+      "beforeend",
+      `
+      <label>
+              <input
+                id="${category}"
+                type="checkbox"
+                name="category[]"
+                value="${category}"
+              />
+              ${category}
+            </label>
+      `
+    );
+  });
+
+  categoryFilters.forEach((categoryFilter) => {
+    categoryFilter.checked = true;
+  });
+
   for (let i = 0; i < categoryFilters.length; i++) {
     categoryFilters[i].addEventListener("click", (e) => {
-      const isChecked = e.target.checked;
-      const kinds = document.getElementsByClassName(e.target.id);
-      console.log(kinds);
-      for (let i = 0; i < kinds.length; i++) {
-        kinds[i].classList.toggle(non_checked);
-        console.log(kinds[i]);
+      const selectedCategory = document.getElementsByClassName(e.target.id);
+      for (let i = 0; i < selectedCategory.length; i++) {
+        selectedCategory[i].classList.toggle(non_checked);
       }
-      // if (isChecked) {
-      // const { category } = { category: e.target.id };
-      // window.location.search = `?category=${category}`;
-      // const filterDatas = Api.get(`/api/products/${category}`);
-      // e.target.checked = true;
-      //
-      // } else {
-      //
-      // }
     });
   }
 }
