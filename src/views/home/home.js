@@ -38,7 +38,7 @@ async function showProductItemsToContainer() {
     </div>
           `
     );
-    console.log(imgUrl);
+
     const productItem = document.querySelector(`#a${_id}`);
     productItem.addEventListener("click", navigate(`/products/${_id}`));
     //productItem.addEventListener("click", navigate(`/products/test?id=${_id}`));

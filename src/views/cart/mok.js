@@ -33,9 +33,8 @@
   
 
 */
-
+import store from "../utils/store.js";
 import $ from "../utils/dom.js";
-import store from "./js/store.js";
 
 // 로컬스토리지 값 불러오기 value가 비었다면 배열로 초기화
 const cart = store.getLocalStorage() || [];
