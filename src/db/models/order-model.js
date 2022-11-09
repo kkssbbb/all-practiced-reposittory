@@ -19,7 +19,7 @@ export class OrderModel {
   //사용자 본인주문 조회
   async findOrder(userid) {
     const findedOrderInfo = await Order.find({ userId: userid });
-    console.log(findedOrderInfo);
+    // console.log(findedOrderInfo);
     return findedOrderInfo;
   }
 

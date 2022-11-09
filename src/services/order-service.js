@@ -34,10 +34,13 @@ class OrderService {
     return deleteOrder;
   }
 
+  //주문 수정 (배송상태 배송전이면 수정 안됨)
   async patchOrder(orderId, toUpdate) {
-    console.log(orderId);
+    // console.log(orderId);
 
-    console.log(toUpdate);
+    //console.log(toUpdate);
+    const orderStateInfo = this.getOrders(userId);
+    console.log(orderStateInfo);
 
     const fatchOrder = await this.orderModel.fatchById(orderId, toUpdate);
 

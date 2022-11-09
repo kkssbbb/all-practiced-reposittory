@@ -11,7 +11,7 @@ const userRouter = Router();
 /* 승빈 추가 */
 
 // 사용자 주문 정보 조회 -승빈 추가
-//restful URL Rules 을 최대한 지켜 봤다.
+//restful URL Rules
 userRouter.get("/user-orders/:id", async (req, res, next) => {
   const userId = req.params.id;
 
