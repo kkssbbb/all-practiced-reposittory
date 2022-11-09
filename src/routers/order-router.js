@@ -79,16 +79,17 @@ orderRouter.delete("/orders/:orderId", async function (req, res, next) {
   return res.status(201).json(deleteOrderInfo);
 });
 
-orderRouter.patch("/orders/:orderId", async function (req, res, next) {
-  try {
-    const userId = req.currentUserId;
-    const orderInfo = await orderService.getOrders(userId);
+// orderRouter.patch("/orders/:orderId", async function (req, res, next) {
+//   try {
+//     const userId = req.currentUserId;
+//     const orderInfo = await orderService.getOrders(userId);
+//     //console.log(orderInfo);
 
-    res.status(200).json({ error: null, data: orderInfo });
-  } catch (error) {
-    next(error);
-  }
-});
+//     res.status(200).json({ error: null, data: orderInfo });
+//   } catch (error) {
+//     next(error);
+//   }
+// });
 
 //주문 전체조회(관리자만)
 orderRouter.get("/auth/orders", async function (req, res, next) {
@@ -117,34 +118,25 @@ orderRouter.delete("/orders/:id", async function (req, res, next) {
 
 //주문 수정
 // 주문 수정할때 주문상태가 배손전이 아니면 주문 수정 불가 맨들기
-orderRouter.patch(
-  "/orders/:id",
-  /* orderHendler, */ async function (req, res, next) {
-    // const orderState = orderInfo.map((orderState) => {
-    //   return orderState.state;
-    // });
-    //console.log(orderState);
-    try {
-      const orderId = req.params.id;
+orderRouter.patch("/orders/:id", async function (req, res, next) {
+  try {
+    const orderId = req.params.id;
+    const orderName = req.body.orderName;
+    const address = req.body.address;
+    const phoneNumber = req.body.phoneNumber;
 
-      const orderName = req.body.orderName;
-      const address = req.body.address;
-      const phoneNumber = req.body.phoneNumber;
+    const toUpdate = {
+      ...(orderName && { orderName }),
+      ...(address && { address }),
+      ...(phoneNumber && { phoneNumber }),
+    };
 
-      const toUpdate = {
-        ...(orderName && { orderName }),
-        //address,
-        ...(address && { address }),
-        ...(phoneNumber && { phoneNumber }),
-      };
+    const patchOrderInfo = await orderService.patchOrder(orderId, toUpdate);
 
-      const patchOrderInfo = await orderService.patchOrder(orderId, toUpdate);
-
-      return res.status(201).json({ error: null, data: patchOrderInfo });
-    } catch (error) {
-      next(error);
-    }
+    return res.status(201).json({ error: null, data: patchOrderInfo });
+  } catch (error) {
+    next(error);
   }
-);
+});
 
 export { orderRouter };

@@ -28,9 +28,23 @@ export class OrderModel {
     const updateOrder = await Order.find;
   }
 
+  async updateOrder({ orderId, update }) {
+    const filter = { _id: orderId };
+    const option = { returnOriginal: false };
+
+    const updatedOrder = await Order.findOneAndUpdate(filter, update, option);
+    return updatedOrder;
+  }
+
   async deleteById(orderId) {
     const deleteOrderId = await Order.findByIdAndDelete({ _id: orderId });
     return deleteOrderId;
+  }
+
+  async getStatus(orderId) {
+    const orderStatus = await Order.find({ _id: orderId });
+
+    return orderStatus;
   }
 
   async fatchById(orderId, toUpdate) {
