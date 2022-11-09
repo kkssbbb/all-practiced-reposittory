@@ -1,7 +1,6 @@
 import * as Api from "../api.js";
 import $ from "../utils/dom.js";
-import * as Api from "../../api.js";
-console.log("test");
+import { addCommas } from "../useful-functions.js";
 
 /*요소, input 혹은 상수*/
 const ordersCount = $("#ordersCount");
@@ -16,15 +15,12 @@ const modalBackground = $("#modalBackground");
 const modalCloseButton = $("#modalCloseButton");
 const deleteCompleteButton = $("#deleteCompleteButton");
 const deleteCancelButton = $("#deleteCancelButton");
-console.log("test1");
 
 addAllElements();
-console.log("test2");
 addAllEvents();
 
 // 요소 삽입 함수들을 묶어주어서 코드를 깔끔하게 하는 역할임.
 function addAllElements() {
-  console.log("test3");
   insertOrders();
 }
 
@@ -46,8 +42,9 @@ async function insertOrders() {
     deliveryCount: 0,
     completeCount: 0,
   };
-// 날짜 0 , 토탈프라이스x, summaryTitle status , 상품가격을 가져와함
-  for (const order of orders) {
+
+  // 날짜 0 , 토탈프라이스x, summaryTitle status , 상품가격을 가져와함
+  for (const order of orders.data) {
     const { _id, totalPrice, createdAt, summaryTitle, status } = order;
     const date = createdAt.split("T")[0];
 

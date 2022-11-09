@@ -38,24 +38,25 @@
                   class="input"
                   id="titleInput"
                   type="text"
-                  placeholder="미움받을 용기"
+                  placeholder="ex> 미움받을 용기"
                   id="title"
                   autocomplete="on"
                 />
               </div>
             </div>
+            
             <div class="field">
               <label for="category">카테고리</label>
               <div class="input-book-info">
                 <select id="category">
-                  <option value>카테고리를 선택해 주세요</option>
-                  <option value="">소설</option>
+                  <option value="">카테고리를 선택해 주세요</option>
+                  <!-- <option value="">소설</option>
                   <option value="">시</option>
                   <option value="">에세이</option>
                   <option value="">경제</option>
                   <option value="">개발</option>
                   <option value="">원서</option>
-                  <option value="">취미</option>
+                  <option value="">취미</option> -->
                 </select>
               </div>
             </div>
@@ -142,9 +143,16 @@
               <label for="img">책 표지</label>
               <div>
                 <label>
-                  <input type="file" id="img" />
+                  <form action="/products" method="post" enctype="multipart/form-data">
+                    <input type="file" name="imgUrl" />
+                  </form>
                 </label>
               </div>
+              <!-- <div>
+                <label>
+                  <input type="file" id="img" />
+                </label>
+              </div> -->
             </div>
             <div>
               <button class="book">책 등록하기</button>
