@@ -10,6 +10,7 @@ viewsRouter.use("/", serveStatic("start"));
 viewsRouter.use("/home", serveStatic("home"));
 viewsRouter.use("/register", serveStatic("register"));
 viewsRouter.use("/login", serveStatic("login"));
+viewsRouter.use("/admin", serveStatic("admin"));
 
 //댓글 구현할때 사용할 경로
 //viewsRouter.use("/products/:id/coments/:cid", serveStatic("product-detail"));
