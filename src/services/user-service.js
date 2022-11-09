@@ -9,6 +9,20 @@ class UserService {
     this.userModel = userModel;
   }
 
+  /* 승빈 추가 시작 */
+
+  // 사용자 주문 정보 조회
+  async getUserOrderInfo() {
+    const userOrderInfo = await this.userModel.findUserOrderInfo();
+    return userOrderInfo;
+  }
+
+  // 사용자본인 회원탈퇴
+  async deleteUserId(userId) {
+    await this.userModel.deleteUserId(userId);
+  }
+  /*  승빈 추가 끝  */
+
   // 회원가입
   async addUser(userInfo) {
     // 객체 destructuring
