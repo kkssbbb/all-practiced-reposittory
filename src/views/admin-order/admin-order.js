@@ -1,3 +1,4 @@
+import * as Api from "../api.js";
 import $ from "../utils/dom.js";
 import * as Api from "../../api.js";
 console.log("test");
@@ -37,9 +38,7 @@ function addAllEvents() {
 
 /*페이지 로드 시 실행, 삭제할 주문 id를 전역변수로 관리함*/
 async function insertOrders() {
-  console.log("test  insertOrders");
   const orders = await Api.get("/api/auth/orders");
-  console.log(orders);
 
   const summary = {
     ordersCount: 0,
