@@ -63,3 +63,10 @@ async function showAllProductItems() {
     });
   }
 }
+
+const checkAdmin = async () => {
+  await Api.get("/api/admins/check");
+  window.location.href = "/admin";
+};
+
+$("#admin-check").addEventListener("click", checkAdmin);
