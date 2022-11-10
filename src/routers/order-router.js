@@ -35,13 +35,12 @@ orderRouter.post("/orders", loginRequired, async (req, res, next) => {
   }
 });
 
+// 마이페이지 주문 조회!!!!!!!!!!
 //본인 주문 조회
 orderRouter.get("/orders", loginRequired, async (req, res, next) => {
   try {
     const userId = req.currentUserId;
-    console.log(userId);
     const orderInfo = await orderService.getOrders(userId);
-    // console.log(orderInfo);
 
     res.status(200).json({ error: null, data: orderInfo });
   } catch (error) {
@@ -68,16 +67,17 @@ orderRouter.get("/orders-list", async function (req, res, next) {
 });
 
 //주문 삭제
-orderRouter.delete("/orders/:orderId", async function (req, res, next) {
-  const orderId = req.params.orderId;
+// orderRouter.delete("/orders/:orderId", async function (req, res, next) {
+//   const orderId = req.params.orderId;
 
-  console.log(`파람 값확인: ${orderId}`);
+//   console.log(`파람 값확인: ${orderId}`);
 
-  const deleteOrderInfo = await orderService.deleteOrder(orderId);
+//   const deleteOrderInfo = await orderService.deleteOrder(orderId);
 
-  return res.status(201).json(deleteOrderInfo);
-});
+//   return res.status(201).json(deleteOrderInfo);
+// });
 
+// 뭐지
 // orderRouter.patch("/orders/:orderId", async function (req, res, next) {
 //   try {
 //     const userId = req.currentUserId;
@@ -100,7 +100,7 @@ orderRouter.get("/auth/orders", async function (req, res, next) {
   }
 });
 
-//주문 삭제
+//주문 삭제!! 이거임!!!
 orderRouter.delete("/orders/:id", async function (req, res, next) {
   try {
     const orderId = req.params.id;
@@ -114,6 +114,22 @@ orderRouter.delete("/orders/:id", async function (req, res, next) {
     next(error);
   }
 });
+
+// 주문 삭제 : 민희
+// orderRouter.delete(
+//   "/orders/:orderId",
+//   loginRequired,
+//   async function (req, res, next) {
+//     try {
+//       const orderId = req.params.orderId;
+//       const deleteResult = await orderService.deleteOrderData(orderId);
+
+//       res.status(200).json(deleteResult);
+//     } catch (error) {
+//       next(error);
+//     }
+//   }
+// );
 
 //주문 수정
 // 주문 수정할때 주문상태가 배손전이 아니면 주문 수정 불가 맨들기

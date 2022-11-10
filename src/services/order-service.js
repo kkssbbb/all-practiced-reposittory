@@ -22,7 +22,6 @@ class OrderService {
   // db 사용자 본인 주문 조회
   async getOrders(userid) {
     const orderInfo = await this.orderModel.findOrder(userid);
-    // console.log(orderInfo);
 
     return orderInfo;
   }

@@ -1,5 +1,5 @@
-import * as Api from "/api.js";
-import { validateEmail } from "/useful-functions.js";
+import * as Api from "../api.js";
+import { validateEmail } from "../useful-functions.js";
 
 // 요소(element), input 혹은 상수
 const emailInput = document.querySelector("#emailInput");
@@ -36,10 +36,9 @@ async function handleSubmit(e) {
 
   // 로그인 api 요청
   try {
-    const data = { email, password };
-
-    const result = await Api.post("/api/users", data);
-    const token = result.token;
+    const data = { email, password }; // {email: 'mini@naver.com', password: '1234'}
+    const result = await Api.post("/api/users", data); //JSON으로 옴 -> {token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiO…Q0OH0.u1l-xTSHmCqvyVKgrEwMV1tGtgfFqGBtZAXA3hDiPcw'}
+    const token = result.token; //eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MzZjODllYTQwOWJlZmIxMTFhYzZkN2MiLCJyb2xlIjoiYmFzaWMtdXNlciIsImlhdCI6MTY2ODA1ODQ0OH0.u1l-xTSHmCqvyVKgrEwMV1tGtgfFqGBtZAXA3hDiPcw
 
     // 로그인 성공, 토큰을 세션 스토리지에 저장
     // 물론 다른 스토리지여도 됨
@@ -48,6 +47,11 @@ async function handleSubmit(e) {
     alert(`정상적으로 로그인되었습니다.`);
 
     // 로그인 성공
+
+    // admin(관리자) 일 경우, sessionStorage에 기록함 // 민희
+    // if (isAdmin) {
+    //   sessionStorage.setItem("admin", "admin");
+    // }
 
     // 기본 페이지로 이동
     window.location.href = "/";

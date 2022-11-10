@@ -44,6 +44,7 @@ async function insertOrders() {
   for (const order of orders) {
     const { _id, totalPrice, createdAt, summaryTitle, status } = order;
     const date = createdAt.split("T")[0];
+    console.log(oreders);
 
     summary.ordersCount += 1;
 
@@ -204,11 +205,6 @@ function closeModal() {
   modal.classList.remove("is-active");
 }
 
-
-
-
-
-
 // const orderDeleteBtn = document.querySelector(".order-delete-btn");
 // const modalCloseBtn = document.querySelector(".modal-close-btn");
 // const modalYesBtn = document.querySelector(".modal-yes-btn");
@@ -224,7 +220,6 @@ function closeModal() {
 
 // modalYesBtn.addEventListener("click", () => alert("주문 취소"));
 // modalNoBtn.addEventListener("click", () => alert("창닫기"));
-
 
 // 모달창 바깥 영역 클릭시 모달창 닫기
 // modal.addEventListener("click", () => {
