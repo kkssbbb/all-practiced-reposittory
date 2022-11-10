@@ -41,55 +41,59 @@ import $ from "../../utils/dom.js";
 import store from "../../utils/store.js";
 import { navigate, getUrlParams } from "../../useful-functions.js";
 
+<<<<<<< HEAD
 // const order = () => async{
 //     const data = await Api.post('', data)
 // }
 
 
+=======
+>>>>>>> 2d02a4fa46469ffd1322685223f8b90330ace6a0
 const getProductInfo = async () => {
-  const productList = store.getLocalStorage()?.map((book) => book.id);
-  //[1,2,3] -> [new Promise(1), ...] -> [{title: 1, ...}, {title: 2, ...}, ...]
-  // 병렬적으로 데이터를 받지 않는다면 순서가 랜덤하게 들어오기 때문에 병렬화
+  const productList = store.getLocalStorage()?.map((book) => book.id); // 로컬스토리지에서 받아온 데이터를
+  console.log("local = " + store.getLocalStorage());
+  console.log("productlist = " + productList);
   const bookList = await Promise.all(
     productList.map((productId) => {
       return Api.get(`/api/products/${productId}`);
     })
   );
-  console.log(bookList);
-  postUserInfo(bookList);
+  return bookList;
 };
 
-// 책 제목 배열과 배송비를 포함한 총액 받기
+const postUserInfo = async () => {
+  const userName = $("#input-name").value;
+  const userPhoneNumber = $("#input-number").value;
+  const userAddress = $("#input-address").value;
 
-const postUserInfo = async (bookList) => {
-  const name = $("#input-name").value;
-  const phonNumber = $("#input-number").value;
-  const address = $("#input-address").value;
-
-  if (!name || !phonNumber || !address) {
+  if (!userName || !userPhoneNumber || !userAddress) {
     return alert("배송지 정보를 모두 입력해 주세요.");
   }
-  console.log(bookList);
-  //   const titleList = bookList.map((book) => {
-  // book.title;
-  //   });
-  //   console.log(titleList);
-  //   });
+
+  const bookList = await getProductInfo();
+  const titleList = [];
+
+  for (const book of bookList) {
+    titleList.push(book.title);
+  }
+
+  console.log("titleList= " + titleList);
 
   const totalPrice = localStorage.getItem("totalPrice");
   console.log(totalPrice);
 
   const Data = {
-    title, //배열
+    titleList,
     totalPrice,
-    name,
-    phonNumber,
-    address,
+    userName,
+    userPhoneNumber,
+    userAddress,
   };
+  console.log(Data);
   await Api.post("/api/orders", Data);
 
   alert("결제 및 주문이 정상적으로 완료되었습니다.\n감사합니다.");
   window.location.href = "/";
 };
 
-$("#order").addEventListener("click", getProductInfo);
+$("#order").addEventListener("click", postUserInfo);
