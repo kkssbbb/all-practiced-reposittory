@@ -7,7 +7,7 @@ import { orderService } from "../services";
 const orderRouter = Router();
 
 //주문 생성
-orderRouter.post("/orders", loginRequired, async (req, res, next) => {
+orderRouter.post("/orders", async (req, res, next) => {
   try {
     // application/json 설정을 프론트에서 안 하면, body가 비어 있게 됨.
     if (is.emptyObject(req.body)) {
