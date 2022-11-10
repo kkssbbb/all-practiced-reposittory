@@ -42,33 +42,31 @@ async function insertOrders() {
     deliveryCount: 0,
     completeCount: 0,
   };
-<<<<<<< HEAD
+
   // 날짜 0 , 토탈프라이스x, summaryTitle status , 상품가격을 가져와함
   for (const order of orders.data) {
     const { _id, totalPrice, createdAt, summaryTitle, status } = order;
-  //  console.log(_id, totalPrice, createdAt, summaryTitle, status);
-=======
+    //  console.log(_id, totalPrice, createdAt, summaryTitle, status);
 
-  for (const order of orders.data) {
-    const { _id, totalPrice, createdAt, summaryTitle, status } = order;
->>>>>>> 1cebf7f63f6996cb64f87e01ec9fcebd2dafcc1f
+    for (const order of orders.data) {
+      const { _id, totalPrice, createdAt, summaryTitle, status } = order;
 
-    const date = createdAt.split("T")[0];
-    console.log(oreders);
+      const date = createdAt.split("T")[0];
+      console.log(oreders);
 
-    summary.ordersCount += 1;
+      summary.ordersCount += 1;
 
-    if (status === "상품 준비중") {
-      summary.prepareCount += 1;
-    } else if (status === "상품 배송중") {
-      summary.deliveryCount += 1;
-    } else if (status === "배송완료") {
-      summary.completeCount += 1;
-    }
+      if (status === "상품 준비중") {
+        summary.prepareCount += 1;
+      } else if (status === "상품 배송중") {
+        summary.deliveryCount += 1;
+      } else if (status === "배송완료") {
+        summary.completeCount += 1;
+      }
 
-    orderListMenu.insertAdjacentHTML(
-      "beforeend",
-      `
+      orderListMenu.insertAdjacentHTML(
+        "beforeend",
+        `
       <div class="columns orders-item" id="order-${_id}">
         <div class="column is-2">${date}</div>
         <div class="column is-4 order-summary">${summaryTitle}</div>
@@ -102,81 +100,82 @@ async function insertOrders() {
         </div>
       </div>
     `
-    );
+      );
 
-    // 요소 선택
-    const statusSelectBox = document.querySelector(`#statusSelectBox-${_id}`);
-    const deleteButton = document.querySelector(`#deleteButton-${_id}`);
+      // 요소 선택
+      const statusSelectBox = document.querySelector(`#statusSelectBox-${_id}`);
+      const deleteButton = document.querySelector(`#deleteButton-${_id}`);
 
-    // 상태관리 박스에, 선택되어 있는 옵션의 배경색 반영
-    const index = statusSelectBox.selectedIndex;
-    statusSelectBox.className = statusSelectBox[index].className;
-
-    // 이벤트 - 상태관리 박스 수정 시 바로 db 반영
-    statusSelectBox.addEventListener("change", async () => {
-      const newStatus = statusSelectBox.value;
-      const data = { status: newStatus };
-
-      // 선택한 옵션의 배경색 반영
+      // 상태관리 박스에, 선택되어 있는 옵션의 배경색 반영
       const index = statusSelectBox.selectedIndex;
       statusSelectBox.className = statusSelectBox[index].className;
 
-      // api 요청
-      await Api.patch("/api/auth/orders", _id, data);
-    });
+      // 이벤트 - 상태관리 박스 수정 시 바로 db 반영
+      statusSelectBox.addEventListener("change", async () => {
+        const newStatus = statusSelectBox.value;
+        const data = { status: newStatus };
 
-    // 이벤트 - 삭제버튼 클릭 시 Modal 창 띄우고, 동시에, 전역변수에 해당 주문의 id 할당
-    deleteButton.addEventListener("click", () => {
-      orderIdToDelete = _id;
-      openModal();
-    });
+        // 선택한 옵션의 배경색 반영
+        const index = statusSelectBox.selectedIndex;
+        statusSelectBox.className = statusSelectBox[index].className;
+
+        // api 요청
+        await Api.patch("/api/auth/orders", _id, data);
+      });
+
+      // 이벤트 - 삭제버튼 클릭 시 Modal 창 띄우고, 동시에, 전역변수에 해당 주문의 id 할당
+      deleteButton.addEventListener("click", () => {
+        orderIdToDelete = _id;
+        openModal();
+      });
+    }
+
+    // 총 요약 값 삽입
+    ordersCount.innerText = addCommas(summary.ordersCount);
+    prepareCount.innerText = addCommas(summary.prepareCount);
+    deliveryCount.innerText = addCommas(summary.deliveryCount);
+    completeCount.innerText = addCommas(summary.completeCount);
   }
 
-  // 총 요약 값 삽입
-  ordersCount.innerText = addCommas(summary.ordersCount);
-  prepareCount.innerText = addCommas(summary.prepareCount);
-  deliveryCount.innerText = addCommas(summary.deliveryCount);
-  completeCount.innerText = addCommas(summary.completeCount);
-}
+  // db에서 주문정보 삭제
+  async function deleteOrderData(e) {
+    e.preventDefault();
 
-// db에서 주문정보 삭제
-async function deleteOrderData(e) {
-  e.preventDefault();
+    try {
+      await Api.delete("/api/orders", orderIdToDelete);
 
-  try {
-    await Api.delete("/api/orders", orderIdToDelete);
+      // 삭제 성공
+      alert("주문 정보가 삭제되었습니다.");
 
-    // 삭제 성공
-    alert("주문 정보가 삭제되었습니다.");
+      // 삭제한 아이템 화면에서 지우기
+      const deletedItem = document.querySelector(`#order-${orderIdToDelete}`);
+      deletedItem.remove();
 
-    // 삭제한 아이템 화면에서 지우기
-    const deletedItem = document.querySelector(`#order-${orderIdToDelete}`);
-    deletedItem.remove();
+      // 전역변수 초기화
+      orderIdToDelete = "";
 
-    // 전역변수 초기화
+      closeModal();
+    } catch (err) {
+      alert(`주문정보 삭제 과정에서 오류가 발생하였습니다: ${err}`);
+    }
+  }
+
+  /*모달창*/
+  // Modal 창에서 아니오 클릭할 시, 전역 변수를 다시 초기화함.
+  function cancelDelete() {
     orderIdToDelete = "";
-
     closeModal();
-  } catch (err) {
-    alert(`주문정보 삭제 과정에서 오류가 발생하였습니다: ${err}`);
   }
-}
 
-/*모달창*/
-// Modal 창에서 아니오 클릭할 시, 전역 변수를 다시 초기화함.
-function cancelDelete() {
-  orderIdToDelete = "";
-  closeModal();
-}
+  // Modal 창 열기
+  function openModal() {
+    modal.classList.add("is-active");
+  }
 
-// Modal 창 열기
-function openModal() {
-  modal.classList.add("is-active");
-}
-
-// Modal 창 닫기
-function closeModal() {
-  modal.classList.remove("is-active");
+  // Modal 창 닫기
+  function closeModal() {
+    modal.classList.remove("is-active");
+  }
 }
 
 // const orderDeleteBtn = document.querySelector(".order-delete-btn");

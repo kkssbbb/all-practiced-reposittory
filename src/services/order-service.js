@@ -59,8 +59,11 @@ class OrderService {
   async patchOrder(orderId, toUpdate) {
     //주문 상태 조회
     const orderInfo = await this.orderModel.getStatus(orderId);
-    const orderStateInfoArr = orderInfo.map((orderState) => orderState.state); //배송상태 정보
-    const orderinfo = orderStateInfoArr.pop();
+    //console.log(orderInfo[0].status);
+
+    //const orderStateInfoArr = orderInfo.map((orderState) => orderState.status); //배송상태 정보
+    const orderinfo = orderInfo[0].status;
+    console.log(orderinfo);
 
     if (orderinfo !== "배송전") {
       if (orderinfo == "배송중") {
@@ -73,6 +76,9 @@ class OrderService {
           `상품이 ${orderinfo}해서 주문정보를 변경할 수 없습니다.^^늦음ㅅㄱ`
         );
       }
+    }
+    if (orderinfo !== "배송전") {
+      throw new Error("주문 상태가 배송전이 아닙니다.");
     }
 
     const fatchOrder = await this.orderModel.fatchById(orderId, toUpdate);
