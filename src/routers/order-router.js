@@ -21,17 +21,17 @@ orderRouter.post("/orders", loginRequired, async (req, res, next) => {
     //const userId = req.params.id;
     const userName = req.body.userName;
     const titleList = req.body.titleList;
-    const userPhonNumber = req.body.userPhonNumber;
+    const userPhoneNumber = req.body.userPhoneNumber;
     const totalPrice = req.body.totalPrice;
     const userAddress = req.body.userAddress;
-    console.log(userId);
+    console.log(userPhoneNumber);
 
     // 위 데이터를 제품 db에 추가하기
     const newOrder = await orderService.addOrder({
       userId,
       userName,
       titleList,
-      userPhonNumber,
+      userPhoneNumber,
       totalPrice,
       userAddress,
     });

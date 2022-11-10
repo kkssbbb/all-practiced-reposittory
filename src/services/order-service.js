@@ -9,7 +9,7 @@ class OrderService {
       userId,
       userName,
       titleList,
-      userPhonNumber,
+      userPhoneNumber,
       totalPrice,
       userAddress,
     } = orderInfo;
@@ -19,7 +19,7 @@ class OrderService {
       userId,
       userName,
       titleList,
-      userPhonNumber,
+      userPhoneNumber,
       totalPrice,
       userAddress,
     };
