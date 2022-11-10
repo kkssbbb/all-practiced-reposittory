@@ -41,15 +41,14 @@ orderRouter.post("/orders", async (req, res, next) => {
   }
 });
 
+// 마이페이지 주문 조회!!!!!!!!!!
 //본인 주문 조회
 orderRouter.get("/orders", loginRequired, async (req, res, next) => {
   try {
     const userId = req.currentUserId;
-    console.log(userId);
     const orderInfo = await orderService.getOrders(userId);
-    // console.log(orderInfo);
 
-    res.status(200).json(orderInfo);
+    res.status(200).json({ error: null, data: orderInfo });
   } catch (error) {
     next(error);
   }
@@ -71,17 +70,6 @@ orderRouter.get("/orders-list", async function (req, res, next) {
 
   const orderList = await orderService.getOrders();
   res.status(200).json(orderList);
-});
-
-//주문 삭제
-orderRouter.delete("/orders/:orderId", async function (req, res, next) {
-  const orderId = req.params.orderId;
-
-  console.log(`파람 값확인: ${orderId}`);
-
-  const deleteOrderInfo = await orderService.deleteOrder(orderId);
-
-  return res.status(201).json(deleteOrderInfo);
 });
 
 // orderRouter.patch("/orders/:orderId", async function (req, res, next) {
@@ -106,7 +94,7 @@ orderRouter.get("/auth/orders", async function (req, res, next) {
   }
 });
 
-//주문 삭제
+//주문 삭제!! 이거임!!!
 orderRouter.delete("/orders/:id", async function (req, res, next) {
   try {
     const orderId = req.params.id;
@@ -119,6 +107,18 @@ orderRouter.delete("/orders/:id", async function (req, res, next) {
   } catch (error) {
     next(error);
   }
+});
+
+//어드민패이지 에서 주문상태 수정 기능
+orderRouter.patch("/auth/orders/:id", async function (req, res, next) {
+  console.log("상태수정");
+
+  const orderId = req.params.id;
+  const reqUpdateState = req.body.status;
+
+  const updatedState = await orderService.updateState(orderId, reqUpdateState);
+
+  return res.status(201).json({ error: null, data: updatedState });
 });
 
 //주문 수정

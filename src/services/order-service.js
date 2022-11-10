@@ -36,7 +36,6 @@ class OrderService {
   // db 사용자 본인 주문 조회
   async getOrders(userid) {
     const orderInfo = await this.orderModel.findOrder(userid);
-    // console.log(orderInfo);
 
     return orderInfo;
   }
@@ -45,6 +44,15 @@ class OrderService {
   async deleteOrder(orderId) {
     const deleteOrder = await this.orderModel.deleteById(orderId);
     return deleteOrder;
+  }
+
+  //어드민 주문 상태 수정
+  async updateState(orderId, reqUpdateState) {
+    const updatedState = await this.orderModel.updateOrderState(
+      orderId,
+      reqUpdateState
+    );
+    return updatedState;
   }
 
   //주문 수정 (배송상태 배송전이면 수정 안됨)

@@ -13,6 +13,7 @@ showAllProductItems();
 
 async function showAllProductItems() {
   const products = await Api.get("/api/products");
+  console.log(products);
   const categoryList = await Api.get("/api/category");
 
   products.forEach((product) => {

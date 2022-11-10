@@ -6,6 +6,7 @@ const Order = model("order", OrderSchema);
 export class OrderModel {
   //생성
   async createOrder(orderinfo) {
+    console.log(orderinfo);
     const createNewOrder = await Order.create(orderinfo);
     return createNewOrder;
   }
@@ -23,16 +24,32 @@ export class OrderModel {
     return findedOrderInfo;
   }
 
+  //어드민 주문 상태 변경
+  async updateOrderState(orderId, reqUpdateState) {
+    const filter = { _id: orderId };
+    const option = { returnOriginal: false };
+    console.log(orderId, reqUpdateState);
+    const updatedState = await Order.findByIdAndUpdate(
+      filter,
+      { state: reqUpdateState },
+      { new: true }
+    );
+
+    console.log(updatedState);
+
+    return updatedState;
+  }
+
   async updateOrder() {
     const filter = { orderName: orderName };
     const updateOrder = await Order.find;
   }
-
+  //사용자 주문변경
   async updateOrder({ orderId, update }) {
     const filter = { _id: orderId };
     const option = { returnOriginal: false };
 
-    const updatedOrder = await Order.findOneAndUpdate(filter, update, option);
+    const updatedOrder = await Order.findByIdAndUpdate(filter, update, option);
     return updatedOrder;
   }
 

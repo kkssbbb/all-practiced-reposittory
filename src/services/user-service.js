@@ -53,7 +53,6 @@ class UserService {
   async getUserToken(loginInfo) {
     // 객체 destructuring
     const { email, password } = loginInfo;
-
     // 우선 해당 이메일의 사용자 정보가  db에 존재하는지 확인
     const user = await this.userModel.findByEmail(email);
     if (!user) {
@@ -84,6 +83,8 @@ class UserService {
 
     // 2개 프로퍼티를 jwt 토큰에 담음
     const token = jwt.sign({ userId: user._id, role: user.role }, secretKey);
+
+    // const isAdmin = user.role === "admin"; // 민희
 
     return { token };
   }

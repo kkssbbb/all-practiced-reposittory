@@ -8,7 +8,7 @@ const OrderSchema = new Schema(
     userId: {
       type: Schema.Types.ObjectId,
       ref: "user-schema",
-      required: true,
+      required: false,
     },
     type: new Schema({
       titleLisit: [String],
