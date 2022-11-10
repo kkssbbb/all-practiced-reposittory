@@ -6,22 +6,14 @@ import { Schema } from "mongoose";
 const OrderSchema = new Schema(
   {
     userId: {
-      //주문자 오브젝트아이디 저장,
       type: Schema.Types.ObjectId,
-      required: false,
-      ref: "user-schema", //populate
+      ref: "user-schema",
+      required: true,
     },
-
-    type: new Schema({
-      titleLisit: [String],
-    }),
+    titleList: [String],
     totalPrice: {
       type: Number,
       required: true,
-    },
-    userName: {
-      type: String,
-      require: true,
     },
     userAddress: {
       type: String,
