@@ -6,6 +6,7 @@ const Order = model("order", OrderSchema);
 export class OrderModel {
   //생성
   async createOrder(orderinfo) {
+    console.log(orderinfo);
     const createNewOrder = await Order.create(orderinfo);
     return createNewOrder;
   }

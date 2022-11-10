@@ -49,7 +49,6 @@ class OrderService {
 
   //어드민 주문 상태 수정
   async updateState(orderId, reqUpdateState) {
-    
     const updatedState = await this.orderModel.updateOrderState(
       orderId,
       reqUpdateState
