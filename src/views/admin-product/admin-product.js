@@ -13,7 +13,7 @@ const pageNumberInput = $("#pageNumberInput");
 const priceInput = $("#priceInput");
 
 const submitButton = $("#submitButton");
-const registerProductForm = document.querySelector("#registerProductForm");
+const registerProductForm = $("#registerProductForm");
 
 addAllElements();
 addAllEvents();
