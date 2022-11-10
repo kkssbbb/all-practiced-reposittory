@@ -32,7 +32,7 @@ export class OrderModel {
     const updatedState = await Order.findByIdAndUpdate(
       filter,
       { status: reqUpdateState },
-      { new: true }
+      option
     );
 
     console.log(updatedState);
