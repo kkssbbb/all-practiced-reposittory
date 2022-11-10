@@ -51,7 +51,6 @@ const postUserInfo = async () => {
   const userName = $("#input-name").value;
   const userPhoneNumber = Number($("#input-number").value);
   const userAddress = $("#input-address").value;
-  console.log(typeof userPhoneNumber);
 
   if (!userName || !userPhoneNumber || !userAddress) {
     return alert("배송지 정보를 모두 입력해 주세요.");
@@ -64,7 +63,7 @@ const postUserInfo = async () => {
     titleList.push(book.title);
   }
   const totalPrice = localStorage.getItem("totalPrice");
-  console.log(typeof totalPrice);
+
   const orderData = {
     titleList,
     totalPrice,

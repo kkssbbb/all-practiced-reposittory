@@ -9,27 +9,7 @@ import {
 } from "../../useful-functions.js";
 
 const cart = store.getLocalStorage() || [];
-
-// const webTitle = $("title");
-// const bookImg = $("#book-img");
-// const bookCategory = $(".book-category");
-// const bookTitle = $(".book-title");
-// const bookAuthor = $(".book-author");
-// const bookPublisher = $(".book-publisher");
-// const bookPublicationDate = $(".book-publicationDate");
-// const bookPage = $(".book-page");
-// const bookPrice = $(".book-price");
-// const bookSummary = $(".book-summary");
-
-// checkUrlParams("id");
-
-getUrlParams();
-showAllElements();
-
-function showAllElements() {
-  //헤더 추가
-  productData();
-}
+productData();
 
 const isDuplicate = (id) => {
   if (store.getLocalStorage())
