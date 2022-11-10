@@ -13,17 +13,18 @@ export const renderProduct = (prodcutList) => {
         <img src="${imgUrl}" width="5%"/>
         ${title}
         ${addCommas(price)}원
-        <input id = "quantity-${_id}" type = "number" value = "1" min = "1" />
-        
       </li>
       `
   );
 };
 
-export const renderProductInfo = (totalPrice) => {
-  $("#productsTotal").innerHTML = addCommas(totalPrice) + "원";
-  $("#orderTotal").innerHTML = addCommas(totalPrice + 3000) + "원";
-};
+/*
+ <div class="quantity-wrapper">
+          <p id ="quantity">1</p>
+          <button id="plus"type="button"> + </button>
+          <button id="minus"type="button"> - </button>
+        </div>
+ */
 
 // input에 id 값으로 book 을 넣어 해당 상품 개수 확인
 
