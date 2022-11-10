@@ -8,7 +8,7 @@ const summaryInput = $("#summaryInput");
 const publisherInput = $("#publisherInput");
 const publicationDateInput = $("#publicationDateInput");
 
-const imageInput = $("#imageInput");
+const imageFileInput = $("#imageFileInput");
 const pageNumberInput = $("#pageNumberInput");
 const priceInput = $("#priceInput");
 
@@ -40,6 +40,7 @@ async function handleSubmit(e) {
   const publicationDate = publicationDateInput.value;
   const pageNumber = parseInt(pageNumberInput.value);
   const price = parseInt(priceInput.value);
+  const imageFile = imageFileInput.files?.[0] ?? undefined;
 
   // 입력 칸이 비어 있으면 진행 불가
   if (
@@ -50,24 +51,26 @@ async function handleSubmit(e) {
     !publisher ||
     !publicationDate ||
     !pageNumber ||
-    !price
+    !price ||
+    !imageFile
   ) {
     return alert("빈 칸 및 0이 없어야 합니다.");
   }
 
-  try {
-    const data = {
-      title,
-      categoryId,
-      author,
-      summary,
-      publisher,
-      publicationDate,
-      pageNumber,
-      price,
-    };
+  const formData = new FormData();
 
-    await Api.post("/api/products", data);
+  formData.append("title", title);
+  formData.append("categoryId", categoryId);
+  formData.append("author", author);
+  formData.append("summary", summary);
+  formData.append("publisher", publisher);
+  formData.append("publicationDate", publicationDate);
+  formData.append("pageNumber", pageNumber);
+  formData.append("price", price);
+  formData.append("imgUrl", imageFile);
+
+  try {
+    await Api.postFormData("/api/products", formData);
 
     alert(`정상적으로 ${title} 제품이 등록되었습니다.`);
 
@@ -83,14 +86,14 @@ async function handleSubmit(e) {
 // 카테고리 옵션 삽입
 async function addOptionsToSelectBox() {
   const categorys = await Api.get("/api/category");
-  categorys.forEach((category) => {
+  categorys.forEach((item) => {
     // 객체 destructuring
-    const { _id, title } = category;
+    const { _id, category } = item;
 
     categorySelectBox.insertAdjacentHTML(
       "beforeend",
       `
-      <option value=${_id}>${title}</option>`
+      <option value=${_id}>${category}</option>`
     );
   });
 }
