@@ -7,7 +7,7 @@ import { orderService } from "../services";
 const orderRouter = Router();
 
 //주문 생성
-orderRouter.post("/orders", async (req, res, next) => {
+orderRouter.post("/orders", loginRequired, async (req, res, next) => {
   try {
     // application/json 설정을 프론트에서 안 하면, body가 비어 있게 됨.
     if (is.emptyObject(req.body)) {
@@ -18,18 +18,20 @@ orderRouter.post("/orders", async (req, res, next) => {
 
     // req (request) 에서 데이터 가져오기
     const userId = req.currentUserId;
+    //const userId = req.params.id;
     const userName = req.body.userName;
     const titleList = req.body.titleList;
-    const userPhonNumber = req.body.userPhonNumber;
+    const userPhoneNumber = req.body.userPhoneNumber;
     const totalPrice = req.body.totalPrice;
     const userAddress = req.body.userAddress;
+    console.log(userPhoneNumber);
 
     // 위 데이터를 제품 db에 추가하기
     const newOrder = await orderService.addOrder({
       userId,
       userName,
       titleList,
-      userPhonNumber,
+      userPhoneNumber,
       totalPrice,
       userAddress,
     });
@@ -46,6 +48,7 @@ orderRouter.post("/orders", async (req, res, next) => {
 orderRouter.get("/orders", loginRequired, async (req, res, next) => {
   try {
     const userId = req.currentUserId;
+    console.log(userId);
     const orderInfo = await orderService.getOrders(userId);
 
     res.status(200).json({ error: null, data: orderInfo });

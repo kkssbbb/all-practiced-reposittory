@@ -8,18 +8,12 @@ const OrderSchema = new Schema(
     userId: {
       type: Schema.Types.ObjectId,
       ref: "user-schema",
-      required: false,
+      required: true,
     },
-    type: new Schema({
-      titleLisit: [String],
-    }),
+    titleList: [String],
     totalPrice: {
       type: Number,
       required: true,
-    },
-    userName: {
-      type: String,
-      require: true,
     },
     userAddress: {
       type: String,
