@@ -41,10 +41,6 @@ import $ from "../../utils/dom.js";
 import store from "../../utils/store.js";
 import { navigate, getUrlParams } from "../../useful-functions.js";
 
-// const order = () => async{
-//     const data = await Api.post('', data)
-// }
-
 const getProductInfo = async () => {
   const productList = store.getLocalStorage()?.map((book) => book.id); // 로컬스토리지에서 받아온 데이터를
   console.log("local = " + store.getLocalStorage());
@@ -56,8 +52,6 @@ const getProductInfo = async () => {
   );
   return bookList;
 };
-
-// 책 제목 배열과 배송비를 포함한 총액 받기
 
 const postUserInfo = async () => {
   const userName = $("#input-name").value;
