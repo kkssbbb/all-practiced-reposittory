@@ -2,10 +2,16 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta httitleInputtp-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Admin category management</title>
     <link rel="stylesheet" href="admin-category.css" />
+    <!-- bulma css 관련 -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css"
+    />
+
     <script type="text/javascript" defer>
       fetch('/header.html')
         .then((res) => res.text())
@@ -18,50 +24,34 @@
     <main>
       <section class="category-management-header">
         <div class="category-management-header-title">카테고리 관리</div>
-        <div class="category-add">
-          <a href="#">카테고리 추가하기</a>
-        </div>
       </section>
       <section class="category-management-main">
-        <p>카테고리 추가</p>
-        <div class="field">
-          <label class="label" for="titleInput">카테고리 이름</label>
-          <div class="control">
-            <input
-              class="input"
-              id="titleInput"
-              type="text"
-              placeholder="Men Clothes"
-              autocomplete="on"
-            />
+        <form
+          class="box register-category-form-box"
+          id="registerCategoryForm"
+          >
+          <p class="title is-5">카테고리 추가하기</p>
+          <div class="field">
+            <label class="label" for="titleInput">카테고리 이름</label>
+            <div class="control">
+              <input
+                class="input"
+                id="titleInput"
+                type="text"
+                placeholder="Book Category"
+                autocomplete="on"
+              />
+            </div>
           </div>
-        </div>
-
-        <div class="field">
-          <label class="label" for="descriptionInput">카테고리 설명</label>
-          <div class="control">
-            <input
-              class="input"
-              id="descriptionInput"
-              type="text"
-              placeholder="센세이셔널한 봄, 여름 코디"
-              autocomplete="on"
-            />
-          </div>
-        </div>
-
-        <!-- <div class="category-type">
-          <p>소설</p>
-          <a href="#" class="category-update">수정</a>
-          <a href="#" class="category-delete">삭제</a>
-        </div>
-        <div class="category-type">
-          <p>소설</p>
-          <a href="#" class="category-update">수정</a>
-          <a href="#" class="category-delete">삭제</a>
-        </div> -->
+        </form>
+        <button
+          class="button is-fullwidth"
+          id="addCategoryButton"
+        >
+          카테고리 추가하기
+        </button>
       </section>
     </main>
-    <script defer src="admin-category.js"></script>
+    <script type="module" src="admin-category.js" defer></script>
   </body>
 </html>

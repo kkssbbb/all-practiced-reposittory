@@ -1,13 +1,14 @@
 import { Router } from "express";
 import is from "@sindresorhus/is";
 
+import { loginRequired } from "../middlewares";
 import { orderService } from "../services";
 
 const orderRouter = Router();
 
-orderRouter.post("/orders/register", async (req, res, next) => {
+//주문 생성
+orderRouter.post("/orders", async (req, res, next) => {
   try {
-    // Content-Type: application/json 설정을 안 한 경우, 에러를 만들도록 함.
     // application/json 설정을 프론트에서 안 하면, body가 비어 있게 됨.
     if (is.emptyObject(req.body)) {
       throw new Error(
@@ -15,57 +16,129 @@ orderRouter.post("/orders/register", async (req, res, next) => {
       );
     }
 
-    const orderName = req.body.orderName;
-    const address = req.body.address;
-    const phoneNumber = req.body.phoneNumber;
+    // req (request) 에서 데이터 가져오기
+    const userId = req.currentUserId;
+    const userName = req.body.userName;
+    const titleList = req.body.titleList;
+    const userPhonNumber = req.body.userPhonNumber;
+    const totalPrice = req.body.totalPrice;
+    const userAddress = req.body.userAddress;
 
+    // 위 데이터를 제품 db에 추가하기
     const newOrder = await orderService.addOrder({
-      orderName,
-      address,
-      phoneNumber,
+      userId,
+      userName,
+      titleList,
+      userPhonNumber,
+      totalPrice,
+      userAddress,
     });
+    console.log(userAddress);
 
-    res.status(201).json(newOrder);
+    res.status(201).json({ error: null, data: newOrder });
   } catch (error) {
     next(error);
   }
 });
 
-orderRouter.get("/orderLists", async function (req, res, next) {
+// 마이페이지 주문 조회!!!!!!!!!!
+//본인 주문 조회
+orderRouter.get("/orders", loginRequired, async (req, res, next) => {
+  try {
+    const userId = req.currentUserId;
+    const orderInfo = await orderService.getOrders(userId);
+
+    res.status(200).json({ error: null, data: orderInfo });
+  } catch (error) {
+    next(error);
+  }
+});
+
+//주문 전체조회(관리자만)
+orderRouter.get("/auth/orders", async function (req, res, next) {
+  try {
+    const orderList = await orderService.getOrdersList();
+    res.status(200).json({ error: null, data: orderList });
+  } catch (error) {
+    next(error);
+  }
+});
+
+//전체 주문조회(관리자)
+orderRouter.get("/orders-list", async function (req, res, next) {
   console.log("호출확인");
 
   const orderList = await orderService.getOrders();
   res.status(200).json(orderList);
 });
 
-orderRouter.delete("/orders/:orderId", async function (req, res, next) {
-  const orderId = req.params.orderId;
+// orderRouter.patch("/orders/:orderId", async function (req, res, next) {
+//   try {
+//     const userId = req.currentUserId;
+//     const orderInfo = await orderService.getOrders(userId);
+//     //console.log(orderInfo);
 
-  console.log(`파람 값확인: ${orderId}`);
+//     res.status(200).json({ error: null, data: orderInfo });
+//   } catch (error) {
+//     next(error);
+//   }
+// });
 
-  const deleteOrderInfo = await orderService.deleteOrder(orderId);
-
-  return res.status(201).json(deleteOrderInfo);
+//주문 전체조회(관리자만)
+orderRouter.get("/auth/orders", async function (req, res, next) {
+  try {
+    const orderList = await orderService.getOrdersList();
+    res.status(200).json({ error: null, data: orderList });
+  } catch (error) {
+    next(error);
+  }
 });
 
-orderRouter.patch("/orders/:orderId", async function (req, res, next) {
+//주문 삭제!! 이거임!!!
+orderRouter.delete("/orders/:id", async function (req, res, next) {
   try {
-    const orderId = req.params.orderId;
+    const orderId = req.params.id;
 
+    console.log(`파람 값확인: ${orderId}`);
+
+    const deleteOrderInfo = await orderService.deleteOrder(orderId);
+
+    return res.status(200).json({ error: null, data: deleteOrderInfo });
+  } catch (error) {
+    next(error);
+  }
+});
+
+//어드민패이지 에서 주문상태 수정 기능
+orderRouter.patch("/auth/orders/:id", async function (req, res, next) {
+  console.log("상태수정");
+
+  const orderId = req.params.id;
+  const reqUpdateState = req.body.status;
+
+  const updatedState = await orderService.updateState(orderId, reqUpdateState);
+
+  return res.status(201).json({ error: null, data: updatedState });
+});
+
+//주문 수정
+// 주문 수정할때 주문상태가 배손전이 아니면 주문 수정 불가 맨들기
+orderRouter.patch("/orders/:id", async function (req, res, next) {
+  try {
+    const orderId = req.params.id;
     const orderName = req.body.orderName;
     const address = req.body.address;
     const phoneNumber = req.body.phoneNumber;
 
     const toUpdate = {
       ...(orderName && { orderName }),
-      //address,
       ...(address && { address }),
       ...(phoneNumber && { phoneNumber }),
     };
 
     const patchOrderInfo = await orderService.patchOrder(orderId, toUpdate);
 
-    return res.status(201).json(patchOrderInfo);
+    return res.status(201).json({ error: null, data: patchOrderInfo });
   } catch (error) {
     next(error);
   }

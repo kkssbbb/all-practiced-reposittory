@@ -1,4 +1,6 @@
+import * as Api from "../api.js";
 import $ from "../utils/dom.js";
+import { addCommas } from "../useful-functions.js";
 
 /*요소, input 혹은 상수*/
 const ordersCount = $("#ordersCount");
@@ -32,7 +34,7 @@ function addAllEvents() {
 
 /*페이지 로드 시 실행, 삭제할 주문 id를 전역변수로 관리함*/
 async function insertOrders() {
-  const orders = await Api.get("/api/orderlist/all");
+  const orders = await Api.get("/api/auth/orders");
 
   const summary = {
     ordersCount: 0,
@@ -40,10 +42,19 @@ async function insertOrders() {
     deliveryCount: 0,
     completeCount: 0,
   };
-
-  for (const order of orders) {
+<<<<<<< HEAD
+  // 날짜 0 , 토탈프라이스x, summaryTitle status , 상품가격을 가져와함
+  for (const order of orders.data) {
     const { _id, totalPrice, createdAt, summaryTitle, status } = order;
+  //  console.log(_id, totalPrice, createdAt, summaryTitle, status);
+=======
+
+  for (const order of orders.data) {
+    const { _id, totalPrice, createdAt, summaryTitle, status } = order;
+>>>>>>> 1cebf7f63f6996cb64f87e01ec9fcebd2dafcc1f
+
     const date = createdAt.split("T")[0];
+    console.log(oreders);
 
     summary.ordersCount += 1;
 
@@ -55,48 +66,47 @@ async function insertOrders() {
       summary.completeCount += 1;
     }
 
-    /*주문내역 추가*/
     orderListMenu.insertAdjacentHTML(
       "beforeend",
       `
-        <div class="columns orders-item" id="order-${_id}">
-          <div class="column is-2">${date}</div>
-          <div class="column is-4 order-summary">${summaryTitle}</div>
-          <div class="column is-2">${addCommas(totalPrice)}</div>
-          <div class="column is-2">
-            <div class="select" >
-              <select id="statusSelectBox-${_id}">
-                <option 
-                  class="has-background-danger-light has-text-danger"
-                  ${status === "상품 준비중" ? "selected" : ""} 
-                  value="상품 준비중">
-                  상품 준비중
-                </option>
-                <option 
-                  class="has-background-primary-light has-text-primary"
-                  ${status === "상품 배송중" ? "selected" : ""} 
-                  value="상품 배송중">
-                  상품 배송중
-                </option>
-                <option 
-                  class="has-background-grey-light"
-                  ${status === "배송완료" ? "selected" : ""} 
-                  value="배송완료">
-                  배송완료
-                </option>
-              </select>
-            </div>
-          </div>
-          <div class="column is-2">
-            <button class="button" id="deleteButton-${_id}" >주문 취소</button>
+      <div class="columns orders-item" id="order-${_id}">
+        <div class="column is-2">${date}</div>
+        <div class="column is-4 order-summary">${summaryTitle}</div>
+        <div class="column is-2">${addCommas(totalPrice)}</div>
+        <div class="column is-2">
+          <div class="select" >
+            <select id="statusSelectBox-${_id}">
+              <option 
+                class="has-background-danger-light has-text-danger"
+                ${status === "상품 준비중" ? "selected" : ""} 
+                value="상품 준비중">
+                상품 준비중
+              </option>
+              <option 
+                class="has-background-primary-light has-text-primary"
+                ${status === "상품 배송중" ? "selected" : ""} 
+                value="상품 배송중">
+                상품 배송중
+              </option>
+              <option 
+                class="has-background-grey-light"
+                ${status === "배송완료" ? "selected" : ""} 
+                value="배송완료">
+                배송완료
+              </option>
+            </select>
           </div>
         </div>
-      `
+        <div class="column is-2">
+          <button class="button" id="deleteButton-${_id}" >주문 취소</button>
+        </div>
+      </div>
+    `
     );
 
-    /*상태관리 요소 선택*/
-    const statusSelectBox = $(`#statusSelectBox-${_id}`);
-    const deleteButton = $(`#deleteButton-${_id}`);
+    // 요소 선택
+    const statusSelectBox = document.querySelector(`#statusSelectBox-${_id}`);
+    const deleteButton = document.querySelector(`#deleteButton-${_id}`);
 
     // 상태관리 박스에, 선택되어 있는 옵션의 배경색 반영
     const index = statusSelectBox.selectedIndex;
@@ -112,48 +122,13 @@ async function insertOrders() {
       statusSelectBox.className = statusSelectBox[index].className;
 
       // api 요청
-      await Api.patch("/api/orders", _id, data);
+      await Api.patch("/api/auth/orders", _id, data);
     });
 
-    /*이벤트 - 주문취소 버튼 클릭시 모달창, 전역변수에 해당 주문의 id 할당*/
+    // 이벤트 - 삭제버튼 클릭 시 Modal 창 띄우고, 동시에, 전역변수에 해당 주문의 id 할당
     deleteButton.addEventListener("click", () => {
       orderIdToDelete = _id;
       openModal();
-
-      Swal.fire({
-        title: "주문 취소하시겠습니까?",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "주문 취소!",
-      }).then(async (res) => {
-        if (res.inConfirmed) {
-          // 1) 주문취소 YES
-          e.preventDefault();
-
-          try {
-            await Api.delete("/api/orders", orderIdToDelete);
-
-            // 삭제 성공
-            alert("주문 정보가 삭제되었습니다.");
-
-            // 삭제한 아이템 화면에서 지우기
-            const deletedItem = $(`#order-${orderIdToDelete}`);
-            deletedItem.remove();
-
-            // 전역변수 초기화
-            orderIdToDelete = "";
-
-            closeModal();
-          } catch (err) {
-            alert(`주문정보 삭제 과정에서 오류가 발생하였습니다: ${err}`);
-          }
-        } else {
-          // 2) 주문취소 NO
-          orderIdToDelete = "";
-        }
-      });
     });
   }
 
@@ -204,11 +179,6 @@ function closeModal() {
   modal.classList.remove("is-active");
 }
 
-
-
-
-
-
 // const orderDeleteBtn = document.querySelector(".order-delete-btn");
 // const modalCloseBtn = document.querySelector(".modal-close-btn");
 // const modalYesBtn = document.querySelector(".modal-yes-btn");
@@ -224,7 +194,6 @@ function closeModal() {
 
 // modalYesBtn.addEventListener("click", () => alert("주문 취소"));
 // modalNoBtn.addEventListener("click", () => alert("창닫기"));
-
 
 // 모달창 바깥 영역 클릭시 모달창 닫기
 // modal.addEventListener("click", () => {
