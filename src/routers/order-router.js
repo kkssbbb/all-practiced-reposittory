@@ -18,6 +18,7 @@ orderRouter.post("/orders", async (req, res, next) => {
 
     // req (request) 에서 데이터 가져오기
     const userId = req.currentUserId;
+    //const userId = req.params.id;
     const userName = req.body.userName;
     const titleList = req.body.titleList;
     const userPhonNumber = req.body.userPhonNumber;

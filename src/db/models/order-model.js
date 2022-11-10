@@ -31,7 +31,7 @@ export class OrderModel {
     console.log(orderId, reqUpdateState);
     const updatedState = await Order.findByIdAndUpdate(
       filter,
-      { state: reqUpdateState },
+      { status: reqUpdateState },
       { new: true }
     );
 

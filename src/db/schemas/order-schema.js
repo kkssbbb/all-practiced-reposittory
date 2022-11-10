@@ -6,10 +6,12 @@ import { Schema } from "mongoose";
 const OrderSchema = new Schema(
   {
     userId: {
+      //주문자 오브젝트아이디 저장,
       type: Schema.Types.ObjectId,
-      ref: "user-schema",
-      //required: true,
+      required: false,
+      ref: "user-schema", //populate
     },
+
     type: new Schema({
       titleLisit: [String],
     }),
