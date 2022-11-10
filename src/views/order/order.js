@@ -13,22 +13,7 @@
 // address
 // phoneNumber
 
-// 결제 버튼 클릭 시
 
-// post
-// 1. 상품정보
-// title
-// totalPrice
-
-// 2. 사용자정보
-// name
-// address
-// phoneNumber
-
-- 1. 
-- []  
-- [] 
-- [] 
 
 - 결제 완료 모달 띄우기
 - [] 결제하기 버튼 클릭 시 모달 띄우고
