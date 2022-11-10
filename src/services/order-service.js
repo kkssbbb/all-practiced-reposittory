@@ -47,6 +47,16 @@ class OrderService {
     return deleteOrder;
   }
 
+  //어드민 주문 상태 수정
+  async updateState(orderId, reqUpdateState) {
+    
+    const updatedState = await this.orderModel.updateOrderState(
+      orderId,
+      reqUpdateState
+    );
+    return updatedState;
+  }
+
   //주문 수정 (배송상태 배송전이면 수정 안됨)
   async patchOrder(orderId, toUpdate) {
     //주문 상태 조회

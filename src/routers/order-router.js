@@ -73,17 +73,6 @@ orderRouter.get("/orders-list", async function (req, res, next) {
   res.status(200).json(orderList);
 });
 
-//주문 삭제
-orderRouter.delete("/orders/:orderId", async function (req, res, next) {
-  const orderId = req.params.orderId;
-
-  console.log(`파람 값확인: ${orderId}`);
-
-  const deleteOrderInfo = await orderService.deleteOrder(orderId);
-
-  return res.status(201).json(deleteOrderInfo);
-});
-
 // orderRouter.patch("/orders/:orderId", async function (req, res, next) {
 //   try {
 //     const userId = req.currentUserId;
@@ -119,6 +108,18 @@ orderRouter.delete("/orders/:id", async function (req, res, next) {
   } catch (error) {
     next(error);
   }
+});
+
+//어드민패이지 에서 주문상태 수정 기능
+orderRouter.patch("/auth/orders/:id", async function (req, res, next) {
+  console.log("상태수정");
+
+  const orderId = req.params.id;
+  const reqUpdateState = req.body.status;
+
+  const updatedState = await orderService.updateState(orderId, reqUpdateState);
+
+  return res.status(201).json({ error: null, data: updatedState });
 });
 
 //주문 수정

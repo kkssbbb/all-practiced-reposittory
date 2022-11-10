@@ -43,9 +43,9 @@ async function insertOrders() {
     completeCount: 0,
   };
   // 날짜 0 , 토탈프라이스x, summaryTitle status , 상품가격을 가져와함
-  for (const order of orders) {
+  for (const order of orders.data) {
     const { _id, totalPrice, createdAt, summaryTitle, status } = order;
-    console.log(_id, totalPrice, createdAt, summaryTitle, status);
+  //  console.log(_id, totalPrice, createdAt, summaryTitle, status);
 
     const date = createdAt.split("T")[0];
 
@@ -115,7 +115,7 @@ async function insertOrders() {
       statusSelectBox.className = statusSelectBox[index].className;
 
       // api 요청
-      await Api.patch("/api/orders", _id, data);
+      await Api.patch("/api/auth/orders", _id, data);
     });
 
     // 이벤트 - 삭제버튼 클릭 시 Modal 창 띄우고, 동시에, 전역변수에 해당 주문의 id 할당
