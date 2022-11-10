@@ -45,6 +45,7 @@ import { navigate, getUrlParams } from "../../useful-functions.js";
 //     const data = await Api.post('', data)
 // }
 
+
 const getProductInfo = async () => {
   const productList = store.getLocalStorage()?.map((book) => book.id);
   //[1,2,3] -> [new Promise(1), ...] -> [{title: 1, ...}, {title: 2, ...}, ...]
