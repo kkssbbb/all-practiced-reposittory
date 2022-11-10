@@ -42,10 +42,16 @@ async function insertOrders() {
     deliveryCount: 0,
     completeCount: 0,
   };
+<<<<<<< HEAD
   // 날짜 0 , 토탈프라이스x, summaryTitle status , 상품가격을 가져와함
   for (const order of orders.data) {
     const { _id, totalPrice, createdAt, summaryTitle, status } = order;
   //  console.log(_id, totalPrice, createdAt, summaryTitle, status);
+=======
+
+  for (const order of orders.data) {
+    const { _id, totalPrice, createdAt, summaryTitle, status } = order;
+>>>>>>> 1cebf7f63f6996cb64f87e01ec9fcebd2dafcc1f
 
     const date = createdAt.split("T")[0];
 
