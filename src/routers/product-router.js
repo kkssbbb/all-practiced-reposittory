@@ -51,7 +51,7 @@ productRouter.get("/", async (req, res, next) => {
   try {
     const products = await productService.getProducts();
     const max = products.length;
-    const random = Math.floor(Math.random() * max) + 1;
+    const random = Math.floor(Math.random() * max);
     res.status(201).json(products[random]);
   } catch (error) {
     next(error);

@@ -54,7 +54,7 @@
             <div class="input-book-info">
               <input
                 type="text"
-                placeholder="미움받을 용기"
+                placeholder="책 제목을 입력하세요."
                 id="title"
                 autocomplete="on"
               />
@@ -66,7 +66,7 @@
             <div class="input-book-info">
               <input
                 type="text"
-                placeholder="기시미 이치로, 고가 후미타케"
+                placeholder="작가 이름을 입력하세요"
                 id="author"
                 autocomplete="on"
               />
@@ -88,7 +88,7 @@
             <div class="input-book-info">
               <input
                 type="text"
-                placeholder="인플루엔셜"
+                placeholder="출판사를 입력하세요."
                 id="publisher"
                 autocomplete="on"
               />
@@ -105,7 +105,7 @@
             <div class="input-book-info">
               <input
                 type="number"
-                placeholder="000"
+                placeholder="쪽수를 입력하세요."
                 id="page"
                 autocomplete="on"
               />
@@ -117,7 +117,7 @@
             <div class="input-book-info">
               <input
                 type="number"
-                placeholder="10000"
+                placeholder="가격을 입력하세요."
                 id="price"
                 autocomplete="on"
               />
@@ -128,7 +128,10 @@
             <label for="img">책 표지</label>
             <div>
               <label>
-                <input type="file" id="img" />
+                <form action="/products" method="post" enctype="multipart/form-data">
+                  <input type="file" name="imgUrl" />
+                </form>
+                  <button type="submit">전송</button> 
               </label>
             </div>
           </div>
