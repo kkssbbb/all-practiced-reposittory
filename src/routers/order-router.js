@@ -7,9 +7,8 @@ import { orderService } from "../services";
 const orderRouter = Router();
 
 //주문 생성
-orderRouter.post("/orders", loginRequired, async (req, res, next) => {
+orderRouter.post("/orders", async (req, res, next) => {
   try {
-    // Content-Type: application/json 설정을 안 한 경우, 에러를 만들도록 함.
     // application/json 설정을 프론트에서 안 하면, body가 비어 있게 됨.
     if (is.emptyObject(req.body)) {
       throw new Error(
@@ -17,17 +16,24 @@ orderRouter.post("/orders", loginRequired, async (req, res, next) => {
       );
     }
 
-    const userId = req.body.userId;
-    const orderName = req.body.orderName;
-    const address = req.body.address;
-    const phoneNumber = req.body.phoneNumber;
+    // req (request) 에서 데이터 가져오기
+    const userId = req.currentUserId;
+    const userName = req.body.userName;
+    const titleList = req.body.titleList;
+    const userPhonNumber = req.body.userPhonNumber;
+    const totalPrice = req.body.totalPrice;
+    const userAddress = req.body.userAddress;
 
+    // 위 데이터를 제품 db에 추가하기
     const newOrder = await orderService.addOrder({
       userId,
-      orderName,
-      address,
-      phoneNumber,
+      userName,
+      titleList,
+      userPhonNumber,
+      totalPrice,
+      userAddress,
     });
+    console.log(userAddress);
 
     res.status(201).json({ error: null, data: newOrder });
   } catch (error) {
@@ -66,18 +72,6 @@ orderRouter.get("/orders-list", async function (req, res, next) {
   res.status(200).json(orderList);
 });
 
-//주문 삭제
-// orderRouter.delete("/orders/:orderId", async function (req, res, next) {
-//   const orderId = req.params.orderId;
-
-//   console.log(`파람 값확인: ${orderId}`);
-
-//   const deleteOrderInfo = await orderService.deleteOrder(orderId);
-
-//   return res.status(201).json(deleteOrderInfo);
-// });
-
-// 뭐지
 // orderRouter.patch("/orders/:orderId", async function (req, res, next) {
 //   try {
 //     const userId = req.currentUserId;
@@ -115,21 +109,17 @@ orderRouter.delete("/orders/:id", async function (req, res, next) {
   }
 });
 
-// 주문 삭제 : 민희
-// orderRouter.delete(
-//   "/orders/:orderId",
-//   loginRequired,
-//   async function (req, res, next) {
-//     try {
-//       const orderId = req.params.orderId;
-//       const deleteResult = await orderService.deleteOrderData(orderId);
+//어드민패이지 에서 주문상태 수정 기능
+orderRouter.patch("/auth/orders/:id", async function (req, res, next) {
+  console.log("상태수정");
 
-//       res.status(200).json(deleteResult);
-//     } catch (error) {
-//       next(error);
-//     }
-//   }
-// );
+  const orderId = req.params.id;
+  const reqUpdateState = req.body.status;
+
+  const updatedState = await orderService.updateState(orderId, reqUpdateState);
+
+  return res.status(201).json({ error: null, data: updatedState });
+});
 
 //주문 수정
 // 주문 수정할때 주문상태가 배손전이 아니면 주문 수정 불가 맨들기

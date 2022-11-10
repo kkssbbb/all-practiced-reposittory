@@ -5,10 +5,24 @@ class OrderService {
   }
 
   async addOrder(orderInfo) {
-    const { userId, orderName, address, phoneNumber } = orderInfo;
+    const {
+      userId,
+      userName,
+      titleList,
+      userPhonNumber,
+      totalPrice,
+      userAddress,
+    } = orderInfo;
 
     //db 저장
-    const newOrderInfo = { userId, orderName, address, phoneNumber };
+    const newOrderInfo = {
+      userId,
+      userName,
+      titleList,
+      userPhonNumber,
+      totalPrice,
+      userAddress,
+    };
     const createNewOrder = await this.orderModel.createOrder(newOrderInfo);
     return createNewOrder;
   }
@@ -30,6 +44,16 @@ class OrderService {
   async deleteOrder(orderId) {
     const deleteOrder = await this.orderModel.deleteById(orderId);
     return deleteOrder;
+  }
+
+  //어드민 주문 상태 수정
+  async updateState(orderId, reqUpdateState) {
+    
+    const updatedState = await this.orderModel.updateOrderState(
+      orderId,
+      reqUpdateState
+    );
+    return updatedState;
   }
 
   //주문 수정 (배송상태 배송전이면 수정 안됨)
