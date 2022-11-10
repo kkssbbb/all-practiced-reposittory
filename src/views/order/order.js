@@ -24,26 +24,25 @@
 import * as Api from "../../api.js";
 import $ from "../../utils/dom.js";
 import store from "../../utils/store.js";
-import { navigate, getUrlParams } from "../../useful-functions.js";
+import { navigate } from "../../useful-functions.js";
 
-<<<<<<< HEAD
-// const order = () => async{
-//     const data = await Api.post('', data)
-// }
-
-
-=======
->>>>>>> 2d02a4fa46469ffd1322685223f8b90330ace6a0
 const getProductInfo = async () => {
-  const productList = store.getLocalStorage()?.map((book) => book.id); // 로컬스토리지에서 받아온 데이터를
-  console.log("local = " + store.getLocalStorage());
-  console.log("productlist = " + productList);
+  const productList = store.getLocalStorage()?.map((book) => book.id);
   const bookList = await Promise.all(
     productList.map((productId) => {
       return Api.get(`/api/products/${productId}`);
     })
   );
   return bookList;
+};
+
+const renderOrder = async () => {
+  const orderProdcut = await getProductInfo();
+  const orderProdcuttitleList = [];
+  for (const book of orderProdcut) {
+    $(".order-product").innerText += book.title;
+  }
+  $(".order-total-price").innerText = localStorage.getItem("totalPrice");
 };
 
 const postUserInfo = async () => {
@@ -61,24 +60,20 @@ const postUserInfo = async () => {
   for (const book of bookList) {
     titleList.push(book.title);
   }
-
-  console.log("titleList= " + titleList);
-
   const totalPrice = localStorage.getItem("totalPrice");
-  console.log(totalPrice);
-
-  const Data = {
+  const orderData = {
     titleList,
     totalPrice,
     userName,
     userPhoneNumber,
     userAddress,
   };
-  console.log(Data);
-  await Api.post("/api/orders", Data);
+  console.log(orderData);
+  await Api.post("/api/orders", orderData);
 
   alert("결제 및 주문이 정상적으로 완료되었습니다.\n감사합니다.");
-  window.location.href = "/";
+  navigate(`/`);
 };
 
+renderOrder();
 $("#order").addEventListener("click", postUserInfo);
