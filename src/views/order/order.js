@@ -26,6 +26,14 @@ import $ from "../../utils/dom.js";
 import store from "../../utils/store.js";
 import { navigate, getUrlParams } from "../../useful-functions.js";
 
+<<<<<<< HEAD
+// const order = () => async{
+//     const data = await Api.post('', data)
+// }
+
+
+=======
+>>>>>>> 2d02a4fa46469ffd1322685223f8b90330ace6a0
 const getProductInfo = async () => {
   const productList = store.getLocalStorage()?.map((book) => book.id); // 로컬스토리지에서 받아온 데이터를
   console.log("local = " + store.getLocalStorage());

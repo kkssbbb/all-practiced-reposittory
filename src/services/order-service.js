@@ -5,16 +5,23 @@ class OrderService {
   }
 
   async addOrder(orderInfo) {
-    const { userId, summaryTitle, phoneNumber, totalPrice, address } =
-      orderInfo;
+    const {
+      userId,
+      userName,
+      titleList,
+      userPhonNumber,
+      totalPrice,
+      userAddress,
+    } = orderInfo;
 
     //db 저장
     const newOrderInfo = {
       userId,
-      summaryTitle,
-      phoneNumber,
+      userName,
+      titleList,
+      userPhonNumber,
       totalPrice,
-      address,
+      userAddress,
     };
     const createNewOrder = await this.orderModel.createOrder(newOrderInfo);
     return createNewOrder;

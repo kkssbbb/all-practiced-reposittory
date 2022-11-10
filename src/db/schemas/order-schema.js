@@ -10,19 +10,22 @@ const OrderSchema = new Schema(
       ref: "user-schema",
       required: true,
     },
-    summaryTitle: {
-      type: String,
-      required: true,
-    },
+    type: new Schema({
+      titleLisit: [String],
+    }),
     totalPrice: {
       type: Number,
       required: true,
     },
-    address: {
+    userName: {
+      type: String,
+      require: true,
+    },
+    userAddress: {
       type: String,
       required: true,
     },
-    phoneNumber: {
+    userPhoneNumber: {
       type: Number,
       reqired: true,
     },
