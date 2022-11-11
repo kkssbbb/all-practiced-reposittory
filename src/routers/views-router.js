@@ -14,8 +14,8 @@ viewsRouter.use("/admin", serveStatic("admin"));
 
 //댓글 구현할때 사용할 경로
 //viewsRouter.use("/products/:id/coments/:cid", serveStatic("product-detail"));
-viewsRouter.use("/products/:id", serveStatic("product-detail"));
 
+viewsRouter.use("/products/:id", serveStatic("product-detail"));
 viewsRouter.use("/cart", serveStatic("cart"));
 viewsRouter.use("/order", serveStatic("order"));
 
