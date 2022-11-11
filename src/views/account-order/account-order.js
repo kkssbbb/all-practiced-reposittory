@@ -36,6 +36,7 @@ async function insertOrders() {
 
   for (const order of orders.data) {
     const { _id, createdAt, titleList, status } = order;
+    console.log(_id);
     const date = createdAt.split("T")[0];
 
     ordersContainer.insertAdjacentHTML(
