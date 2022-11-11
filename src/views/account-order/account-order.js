@@ -68,7 +68,7 @@ async function deleteOrderData(e) {
   e.preventDefault();
 
   try {
-    await Api.delete("/api/orders", orderIdToDelete);
+    await Api.patch("/api/orders", orderIdToDelete);
 
     // 삭제 성공
     alert("주문 정보가 삭제되었습니다.");

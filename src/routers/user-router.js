@@ -119,6 +119,7 @@ userRouter.post("/users", async function (req, res, next) {
       throw new Error(
         "headers의 Content-Type을 application/json으로 설정해주세요"
       );
+      ㅞ;
     }
 
     // req (request) 에서 데이터 가져오기
