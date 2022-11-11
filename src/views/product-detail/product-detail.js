@@ -9,27 +9,7 @@ import {
 } from "../../useful-functions.js";
 
 const cart = store.getLocalStorage() || [];
-
-const webTitle = $("title");
-const bookImg = $("#book-img");
-const bookCategory = $(".book-category");
-const bookTitle = $(".book-title");
-const bookAuthor = $(".book-author");
-const bookPublisher = $(".book-publisher");
-const bookPublicationDate = $(".book-publicationDate");
-const bookPage = $(".book-page");
-const bookPrice = $(".book-price");
-const bookSummary = $(".book-summary");
-
-// checkUrlParams("id");
-
-getUrlParams();
-showAllElements();
-
-function showAllElements() {
-  //헤더 추가
-  productData();
-}
+productData();
 
 const isDuplicate = (id) => {
   if (store.getLocalStorage())
@@ -52,16 +32,16 @@ async function productData() {
     summary,
   } = product;
 
-  webTitle.innerText = title;
-  bookImg.src = imgUrl;
-  bookCategory.innerText = category;
-  bookTitle.innerText = title;
-  bookAuthor.innerText = author;
-  bookPublisher.innerText = publisher;
-  bookPublicationDate.innerText = `${addDate(publicationDate)}`;
-  bookPage.innerText = `${pageNumber} pg`;
-  bookSummary.innerText = summary;
-  bookPrice.innerText = `${addCommas(price)} 원`;
+  $("title").innerText = title;
+  $("#book-img").src = imgUrl;
+  $(".book-category").innerText = category;
+  $(".book-title").innerText = title;
+  $(".book-author").innerText = author;
+  $(".book-publisher").innerText = publisher;
+  $(".book-publicationDate").innerText = `${addDate(publicationDate)}`;
+  $(".book-page").innerText = `${pageNumber} pg`;
+  $(".book-summary").innerText = summary;
+  $(".book-price").innerText = `${addCommas(price)} 원`;
 
   $(".add-cart-btn").addEventListener("click", navigate(`/cart`));
   $(".add-cart-btn").addEventListener("click", () => {
@@ -71,6 +51,4 @@ async function productData() {
   });
 }
 
-$(".buy-now-btn").addEventListener("click", () => {
-  console.log("dsaf");
-});
+$(".buy-now-btn").addEventListener("click", () => {});

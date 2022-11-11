@@ -2,10 +2,14 @@
 - 공통
 
 - 상품상세에서 결제하기 버튼 누를 시
-- [] 해당 상품의 정보를 서버에서 받아옴
+-[] 해당 상품의 정보를 서버에서 받아옴
+-[] 해당 상품의 정보를 랜더링시켜주고 보내주기만 하면됨
 
-- 장바구니에서 결제하기 버튼 누를 시
-- [] 로컬스토리지에서 정보를 받아옴 ??
+
+
+- [x] 장바구니에서 결제하기 버튼 누를 시 
+  오더페이지에서 두 가지 기능을 하기위해 로컬스토리지에 데이터있을시 로직 실행
+
 
 // get
 // - 페이지 시작 시
@@ -24,7 +28,6 @@
 import * as Api from "../../api.js";
 import $ from "../../utils/dom.js";
 import store from "../../utils/store.js";
-import { navigate } from "../../useful-functions.js";
 
 const getProductInfo = async () => {
   const productList = store.getLocalStorage()?.map((book) => book.id);
@@ -47,7 +50,7 @@ const renderOrder = async () => {
 
 const postUserInfo = async () => {
   const userName = $("#input-name").value;
-  const userPhoneNumber = $("#input-number").value;
+  const userPhoneNumber = Number($("#input-number").value);
   const userAddress = $("#input-address").value;
 
   if (!userName || !userPhoneNumber || !userAddress) {
@@ -61,6 +64,7 @@ const postUserInfo = async () => {
     titleList.push(book.title);
   }
   const totalPrice = localStorage.getItem("totalPrice");
+
   const orderData = {
     titleList,
     totalPrice,
@@ -72,8 +76,9 @@ const postUserInfo = async () => {
   await Api.post("/api/orders", orderData);
 
   alert("결제 및 주문이 정상적으로 완료되었습니다.\n감사합니다.");
-  navigate(`/`);
+  window.location.href = "/home";
 };
 
 renderOrder();
+
 $("#order").addEventListener("click", postUserInfo);

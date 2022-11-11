@@ -4,11 +4,6 @@ const productRouter = Router();
 import { upload } from "../middlewares";
 import { productRequired } from "../middlewares";
 
-// productRouter.post("/profile", upload.single("image"), async (req, res) => {
-//   console.log(req.file);
-//   res.send("ok");
-// });
-
 //상품 등록
 productRouter.post(
   "/products",
@@ -52,7 +47,7 @@ productRouter.get("/", async (req, res, next) => {
     const products = await productService.getProducts();
     const max = products.length;
     const random = Math.floor(Math.random() * max);
-    res.status(201).json(products[random]);
+    res.json(products[random]);
   } catch (error) {
     next(error);
   }
@@ -63,7 +58,7 @@ productRouter.get("/products/:id", async (req, res, next) => {
   try {
     const productId = req.params.id;
     const product = await productService.getProduct(productId);
-    res.status(200).json(product);
+    res.json(product);
   } catch (error) {
     next(error);
   }
@@ -78,7 +73,7 @@ productRouter.get("/products", async (req, res, next) => {
       res.json({ error: null, data: product });
     }
     const products = await productService.getProducts();
-    res.status(201).json(products);
+    res.json(products);
   } catch (error) {
     next(error);
   }

@@ -1,4 +1,4 @@
-import { Schema } from "mongoose";
+import mongoose, { Schema } from "mongoose";
 
 const ProductSchema = new Schema({
   imgUrl: {
@@ -14,7 +14,7 @@ const ProductSchema = new Schema({
     required: true,
   },
   category: {
-    type: String,
+    type: [{ type: mongoose.Schema.Types.ObjectID, ref: "Category" }],
     required: true,
   },
   author: {

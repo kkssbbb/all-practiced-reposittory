@@ -8,7 +8,7 @@ const summaryInput = $("#summaryInput");
 const publisherInput = $("#publisherInput");
 const publicationDateInput = $("#publicationDateInput");
 
-const imageInput = $("#imageInput");
+const imgUrlInput = $("#imgUrlInput");
 const pageNumberInput = $("#pageNumberInput");
 const priceInput = $("#priceInput");
 
@@ -33,42 +33,45 @@ async function handleSubmit(e) {
   e.preventDefault();
 
   const title = titleInput.value;
-  const categoryId = categorySelectBox.value;
+  // const categoryId = categorySelectBox.options[target.selectedIndex].text;
+  const category = categorySelectBox.value;
   const author = authorInput.value;
   const summary = summaryInput.value;
   const publisher = publisherInput.value;
   const publicationDate = publicationDateInput.value;
   const pageNumber = parseInt(pageNumberInput.value);
   const price = parseInt(priceInput.value);
-
+  const imgUrl = imgUrlInput.files?.[0] ?? undefined;
+  console.log(imgUrl);
   // 입력 칸이 비어 있으면 진행 불가
   if (
     !title ||
-    !categoryId ||
+    !category ||
     !author ||
     !summary ||
     !publisher ||
     !publicationDate ||
     !pageNumber ||
-    !price
+    !price ||
+    !imgUrl
   ) {
     return alert("빈 칸 및 0이 없어야 합니다.");
   }
 
+  const formData = new FormData();
+
+  formData.append("title", title);
+  formData.append("category", category);
+  formData.append("author", author);
+  formData.append("summary", summary);
+  formData.append("publisher", publisher);
+  formData.append("publicationDate", publicationDate);
+  formData.append("pageNumber", pageNumber);
+  formData.append("price", price);
+  formData.append("imgUrl", imgUrl);
+
   try {
-    const data = {
-      title,
-      categoryId,
-      author,
-      summary,
-      publisher,
-      publicationDate,
-      pageNumber,
-      price,
-    };
-
-    await Api.post("/api/products", data);
-
+    await Api.postFormData("/api/products", formData);
     alert(`정상적으로 ${title} 제품이 등록되었습니다.`);
 
     // 폼 초기화
@@ -83,14 +86,14 @@ async function handleSubmit(e) {
 // 카테고리 옵션 삽입
 async function addOptionsToSelectBox() {
   const categorys = await Api.get("/api/category");
-  categorys.forEach((category) => {
+  categorys.forEach((item) => {
     // 객체 destructuring
-    const { _id, title } = category;
+    const { _id, category } = item;
 
     categorySelectBox.insertAdjacentHTML(
       "beforeend",
       `
-      <option value=${_id}>${title}</option>`
+      <option value=${_id}>${category}</option>`
     );
   });
 }

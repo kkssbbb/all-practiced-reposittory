@@ -18,7 +18,18 @@ class UserService {
   }
 
   // 사용자본인 회원탈퇴
-  async deleteUserId(userId) {
+  async deleteUserId(userId, currentPassword) {
+    const correctPasswordHash = user.password;
+    const isPasswordCorrect = await bcrypt.compare(
+      currentPassword,
+      correctPasswordHash
+    );
+
+    if (!isPasswordCorrect) {
+      throw new Error(
+        "현재 비밀번호가 일치하지 않습니다. 다시 한 번 확인해 주세요."
+      );
+    }
     await this.userModel.deleteUserId(userId);
   }
   /*  승빈 추가 끝  */
