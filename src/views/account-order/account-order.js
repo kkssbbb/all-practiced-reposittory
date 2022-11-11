@@ -33,18 +33,6 @@ let orderIdToDelete;
 
 async function insertOrders() {
   const orders = await Api.get("/api/orders"); // {error: null, data: Array(0)}
-  console.log(orders);
-  // const orders = {
-  //   error: null,
-  //   data: [
-  //     {
-  //       _id: 12345,
-  //       createdAt: "2022-11-09T16:10:45.911+00:00",
-  //       summaryTitle: "하하",
-  //       status: "상품 준비중",
-  //     },
-  //   ],
-  // };
 
   for (const order of orders.data) {
     const { _id, createdAt, titleList, status } = order;
