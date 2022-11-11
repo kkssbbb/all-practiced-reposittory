@@ -55,7 +55,7 @@ userRouter.post(
         );
       }
 
-      // req (request) 에서 데이터 가져오기
+      // req (request) 에서 데이터 가져오기 
       const userId = req.currentUserId;
       const password = req.body.password;
 
