@@ -203,12 +203,16 @@ async function handleSave(e) {
 
   const isPasswordLong = password.length >= 4;
   const isPasswordSame = password === currentPassword;
-  // const isPostalCodeChanged = address !== (userData.address?.address || "");
-  // const {fullName, password}
 
   const datas = { fullName, password, currentPassword, address, phoneNumber };
-  const id = await Api.get("/api/users")
-  await Api.patch(/users,)
+  console.log(datas);
+
+  const userData1 = await Api.get("/api/users");
+  //console.log(auserData);
+  const { _id } = userData1;
+  console.log(_id);
+
+  await Api.patch("/api/users", _id, datas);
 
   // 비밀번호를 새로 작성한 경우
   if (password && !isPasswordLong) {

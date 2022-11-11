@@ -10,6 +10,17 @@ const userRouter = Router();
 
 /* 승빈 추가 */
 
+userRouter.get("/users", loginRequired, async function (req, res, next) {
+  try {
+    const userId = req.currentUserId;
+    const currentUserInfo = await userService.getUserData(userId);
+
+    res.status(200).json(currentUserInfo);
+  } catch (error) {
+    next(error);
+  }
+});
+
 // 사용자 주문 정보 조회 -승빈 추가
 //restful URL Rules
 userRouter.get("/user-orders/:id", async (req, res, next) => {
@@ -158,19 +169,13 @@ userRouter.patch(
 
       // params로부터 id를 가져옴
       const userId = req.params.userId;
-      console.log(userId);
 
       // body data 로부터 업데이트할 사용자 정보를 추출함.
       const fullName = req.body.fullName;
       const password = req.body.password;
       const address = req.body.address;
       const phoneNumber = req.body.phoneNumber;
-      const role = req.body.role;
-      console.log(fullName);
-      console.log(password);
-      console.log(address);
-      console.log(phoneNumber);
-      console.log(role);
+
       // body data로부터, 확인용으로 사용할 현재 비밀번호를 추출함.
       const currentPassword = req.body.currentPassword;
 
@@ -188,7 +193,6 @@ userRouter.patch(
         ...(password && { password }),
         ...(address && { address }),
         ...(phoneNumber && { phoneNumber }),
-        ...(role && { role }),
       };
 
       // 사용자 정보를 업데이트함.
