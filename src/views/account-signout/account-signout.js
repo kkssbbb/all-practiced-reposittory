@@ -34,9 +34,14 @@ async function deleteUserData(e) {
   const password = passwordInput.value;
   const data = { password };
 
+  console.log(data);
   try {
+    // 우선 입력된 비밀번호가 맞는지 확인 (틀리면 에러 발생함)
+    const userToDelete = await Api.post("/api/users/password/check", data);
+    const { _id } = userToDelete;
+
     // 삭제 진행
-    await Api.delete("/api/users");
+    await Api.delete("/api/users", _id);
 
     // 삭제 성공
     alert("회원 정보가 안전하게 삭제되었습니다.");
@@ -51,7 +56,6 @@ async function deleteUserData(e) {
     closeModal();
   }
 }
-
 // Modal 창 열기
 function openModal(e) {
   if (e) {
