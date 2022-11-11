@@ -7,7 +7,8 @@
 
 
 
-- [x] 장바구니에서 결제하기 버튼 누를 시
+- [x] 장바구니에서 결제하기 버튼 누를 시 
+  오더페이지에서 두 가지 기능을 하기위해 로컬스토리지에 데이터있을시 로직 실행
 
 
 // get
@@ -79,4 +80,5 @@ const postUserInfo = async () => {
 };
 
 renderOrder();
+
 $("#order").addEventListener("click", postUserInfo);
