@@ -25,11 +25,11 @@ function productRequired(req, res, next) {
     error.statusCode = 400;
     throw error;
   }
-  if (category === undefined) {
-    const error = new Error(`카테고리를 입력하세요.`);
-    error.statusCode = 400;
-    throw error;
-  }
+  // if (category === undefined) {
+  //   const error = new Error(`카테고리를 입력하세요.`);
+  //   error.statusCode = 400;
+  //   throw error;
+  // }
   if (author === undefined) {
     const error = new Error(`작가를 입력하세요.`);
     error.statusCode = 400;

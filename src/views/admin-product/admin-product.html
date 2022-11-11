@@ -28,8 +28,8 @@
       </section>
       
       <section class="register-product">
-        <div class="box register-product-form" id="registerProductForm">
-          <form class="product-add">
+        <div class="box register-product-form">
+          <form class="product-add" id="registerProductForm">
             <p>📚 판매할 제품을 등록하세요 📚</p>
             <div class="field">
               <label for="title">책 제목</label>
@@ -142,11 +142,6 @@
                   <input type="file" name="imgUrl" id="imgUrlInput" />
                 </label>
               </div>
-              <!-- <div>
-                <label>
-                  <input type="file" id="img" />
-                </label>
-              </div> -->
             </div>
             <div>
               <button class="new-book" id="submitButton">책 등록하기</button>
@@ -155,6 +150,11 @@
         </div>
       </section>
     </main>
+    
+    <div class="container" id="nowProductInput">
+      <!--현재 상품 삽입-->
+    </div>
     <script type="module" src="admin-product.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9" defer></script>
   </body>
 </html>

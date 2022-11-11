@@ -12,12 +12,10 @@ const deleteCancelButton = document.querySelector("#deleteCancelButton");
 addAllElements();
 addAllEvents();
 
-// html에 요소를 추가하는 함수들을 묶어주어서 코드를 깔끔하게 하는 역할임.
 async function addAllElements() {
   createNavbar();
 }
 
-// 여러 개의 addEventListener들을 묶어주어서 코드를 깔끔하게 하는 역할임.
 function addAllEvents() {
   submitButton.addEventListener("click", openModal);
   modalBackground.addEventListener("click", closeModal);
@@ -34,9 +32,10 @@ async function deleteUserData(e) {
   const password = passwordInput.value;
   const data = { password };
 
+  console.log(data);
   try {
     // 우선 입력된 비밀번호가 맞는지 확인 (틀리면 에러 발생함)
-    const userToDelete = await Api.post("/api/user/password/check", data);
+    const userToDelete = await Api.post("/api/users/password/check", data);
     const { _id } = userToDelete;
 
     // 삭제 진행
@@ -55,7 +54,6 @@ async function deleteUserData(e) {
     closeModal();
   }
 }
-
 // Modal 창 열기
 function openModal(e) {
   if (e) {

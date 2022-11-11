@@ -1,8 +1,12 @@
 export const createNavbar = () => {
   const pathname = window.location.pathname;
+  // console.log("path:", pathname); // 트래일링 술래시???
 
   switch (pathname) {
-    case "/":
+    // case "/":
+    //   addNavElements("admin register login account logout");
+    //   break;
+    case "/home/":
       addNavElements("admin register login account logout");
       break;
     case "/account/orders/":
@@ -94,7 +98,7 @@ const addNavElements = (keyString) => {
             sessionStorage.removeItem('token');
             sessionStorage.removeItem('admin');
   
-            window.location.href = '/';
+            window.location.href = '/home';
           });
         }
     `;

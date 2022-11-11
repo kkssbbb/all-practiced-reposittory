@@ -9,6 +9,17 @@ import { adminCheck } from "../middlewares/adminCheck";
 const userRouter = Router();
 
 /* 승빈 추가 */
+//유저종보죄회
+userRouter.get("/users", loginRequired, async function (req, res, next) {
+  try {
+    const userId = req.currentUserId;
+    const currentUserInfo = await userService.getUserData(userId);
+
+    res.status(200).json(currentUserInfo);
+  } catch (error) {
+    next(error);
+  }
+});
 
 // 사용자 주문 정보 조회 -승빈 추가
 //restful URL Rules
@@ -22,13 +33,17 @@ userRouter.get("/user-orders/:id", async (req, res, next) => {
 
 // 사용자본인 회원탈퇴
 
-userRouter.delete("/users/:id", async (req, res, next) => {
-  const userId = req.params.id;
-  console.log(userId);
+userRouter.delete("/users/:Id", loginRequired, async function (req, res, next) {
+  try {
+    // params로부터 id를 가져옴
+    const userId = req.params.Id;
 
-  await userService.deleteUserId(userId);
+    const deleteResult = await userService.deleteUserData(userId);
 
-  return res.status(200).json({ error: null, messege: "Delete Success" });
+    res.status(200).json(deleteResult);
+  } catch (error) {
+    next(error);
+  }
 });
 
 //admin jwt check
@@ -37,6 +52,33 @@ userRouter.get("/admins/check", adminCheck, async function (req, res, next) {
 });
 
 /* 승빈 추가 끝 */
+
+//비번 체크
+userRouter.post(
+  "/users/password/check",
+  loginRequired,
+  async function (req, res, next) {
+    try {
+      // application/json 설정을 프론트에서 안 하면, body가 비어 있게 됨.
+      if (is.emptyObject(req.body)) {
+        throw new Error(
+          "headers의 Content-Type을 application/json으로 설정해주세요"
+        );
+      }
+
+      // req (request) 에서 데이터 가져오기
+      const userId = req.currentUserId;
+      const password = req.body.password;
+
+      // 비밀번호가 알맞는지 여부를 체크함
+      const checkResult = await userService.checkUserPassword(userId, password);
+
+      res.status(200).json(checkResult);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
 
 // 회원가입 api (아래는 /register이지만, 실제로는 /api/register로 요청해야 함.)
 userRouter.post("/users-post", async (req, res, next) => {
@@ -77,6 +119,7 @@ userRouter.post("/users", async function (req, res, next) {
       throw new Error(
         "headers의 Content-Type을 application/json으로 설정해주세요"
       );
+      ㅞ;
     }
 
     // req (request) 에서 데이터 가져오기
@@ -127,14 +170,12 @@ userRouter.patch(
 
       // params로부터 id를 가져옴
       const userId = req.params.userId;
-      console.log(userId);
 
       // body data 로부터 업데이트할 사용자 정보를 추출함.
       const fullName = req.body.fullName;
       const password = req.body.password;
       const address = req.body.address;
       const phoneNumber = req.body.phoneNumber;
-      const role = req.body.role;
 
       // body data로부터, 확인용으로 사용할 현재 비밀번호를 추출함.
       const currentPassword = req.body.currentPassword;
@@ -153,7 +194,6 @@ userRouter.patch(
         ...(password && { password }),
         ...(address && { address }),
         ...(phoneNumber && { phoneNumber }),
-        ...(role && { role }),
       };
 
       // 사용자 정보를 업데이트함.

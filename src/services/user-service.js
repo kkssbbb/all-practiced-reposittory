@@ -10,6 +10,17 @@ class UserService {
   }
 
   /* 승빈 추가 시작 */
+  //사용자 정보 조회
+  async getUserData(userId) {
+    const user = await this.userModel.findById(userId);
+
+    // db에서 찾지 못한 경우, 에러 메시지 반환
+    if (!user) {
+      throw new Error("가입 내역이 없습니다. 다시 한 번 확인해 주세요.");
+    }
+
+    return user;
+  }
 
   // 사용자 주문 정보 조회
   async getUserOrderInfo() {
@@ -18,10 +29,40 @@ class UserService {
   }
 
   // 사용자본인 회원탈퇴
-  async deleteUserId(userId) {
-    await this.userModel.deleteUserId(userId);
+  async deleteUserData(userId) {
+    const { deletedCount } = await this.userModel.deleteById(userId);
+
+    // 삭제에 실패한 경우, 에러 메시지 반환
+    if (deletedCount === 0) {
+      throw new Error(`${userId} 사용자 데이터의 삭제에 실패하였습니다.`);
+    }
+
+    return { result: "success" };
+  }
+  // 비밀번호 맞는지 여부만 확인
+  async checkUserPassword(userId, password) {
+    // 이메일 db에 존재 여부 확인
+    const user = await this.userModel.findById(userId);
+
+    // 비밀번호 일치 여부 확인
+    const correctPasswordHash = user.password;
+    const isPasswordCorrect = await bcrypt.compare(
+      password,
+      correctPasswordHash
+    );
+
+    if (!isPasswordCorrect) {
+      throw new Error(
+        "비밀번호가 일치하지 않습니다. 다시 한 번 확인해 주세요."
+      );
+    }
+
+    // 비밀번호 일치함. 유저 정보 반환
+    return user;
   }
   /*  승빈 추가 끝  */
+
+  //비번 확인
 
   // 회원가입
   async addUser(userInfo) {

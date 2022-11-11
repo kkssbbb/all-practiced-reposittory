@@ -4,11 +4,6 @@ const productRouter = Router();
 import { upload } from "../middlewares";
 import { productRequired } from "../middlewares";
 
-// productRouter.post("/profile", upload.single("image"), async (req, res) => {
-//   console.log(req.file);
-//   res.send("ok");
-// });
-
 //상품 등록
 productRouter.post(
   "/products",
@@ -28,6 +23,7 @@ productRouter.post(
       } = req.body;
 
       const imgUrl = req.file.path.split("src/views")[1];
+
       const content = await productService.addProduct({
         imgUrl,
         title,

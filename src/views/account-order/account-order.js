@@ -33,20 +33,10 @@ let orderIdToDelete;
 
 async function insertOrders() {
   const orders = await Api.get("/api/orders"); // {error: null, data: Array(0)}
-  // const orders = {
-  //   error: null,
-  //   data: [
-  //     {
-  //       _id: 12345,
-  //       createdAt: "2022-11-09T16:10:45.911+00:00",
-  //       summaryTitle: "하하",
-  //       status: "상품 준비중",
-  //     },
-  //   ],
-  // };
 
   for (const order of orders.data) {
-    const { _id, createdAt, summaryTitle, status } = order;
+    const { _id, createdAt, titleList, status } = order;
+    console.log(_id);
     const date = createdAt.split("T")[0];
 
     ordersContainer.insertAdjacentHTML(
@@ -54,7 +44,7 @@ async function insertOrders() {
       `
         <div class="columns orders-item" id="order-${_id}">
           <div class="column is-2">${date}</div>
-          <div class="column is-6 order-summary">${summaryTitle}</div>
+          <div class="column is-6 order-summary">${titleList}</div>
           <div class="column is-2">${status}</div>
           <div class="column is-2">
             <button class="button" id="deleteButton-${_id}" >주문 취소</button>
@@ -78,7 +68,7 @@ async function deleteOrderData(e) {
   e.preventDefault();
 
   try {
-    await Api.delete("/api/orders", orderIdToDelete);
+    await Api.patch("/api/orders", orderIdToDelete);
 
     // 삭제 성공
     alert("주문 정보가 삭제되었습니다.");

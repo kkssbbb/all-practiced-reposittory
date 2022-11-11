@@ -4,20 +4,22 @@
 
 import * as Api from "../../api.js";
 import $ from "../../utils/dom.js";
-import { navigate } from "../../useful-functions.js";
+import { navigate } from "../../useful-functions.js"; //, createNavbar
 
 const categoryFilters = document.getElementsByName("category[]");
 const non_checked = "non-checked";
 
+// createNavbar();
 showAllProductItems();
 
 async function showAllProductItems() {
   const products = await Api.get("/api/products");
   console.log(products);
   const categoryList = await Api.get("/api/category");
-
+  console.log(products);
   products.forEach((product) => {
     const { _id, imgUrl, category } = product;
+    console.log(category);
 
     $(".book-list").insertAdjacentHTML(
       "beforeend",
@@ -34,6 +36,7 @@ async function showAllProductItems() {
 
   categoryList.forEach((categoryListItem) => {
     const { category } = categoryListItem;
+    console.log("2", category);
     $(".category-filter-form").insertAdjacentHTML(
       "beforeend",
       `

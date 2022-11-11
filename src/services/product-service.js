@@ -1,4 +1,5 @@
 import { productModel } from "../db";
+import { categoryService } from "./category-service";
 
 class ProductService {
   constructor(productModel) {
@@ -16,7 +17,34 @@ class ProductService {
 
   //상품등록
   async addProduct(productInfo) {
-    return await productModel.create(productInfo);
+    const {
+      title,
+      category,
+      price,
+      author,
+      publisher,
+      publicationDate,
+      pageNumber,
+      summary,
+      imgUrl,
+    } = productInfo;
+    console.log(category);
+    // const categoryId = await categoryService.getCategoryId(category);
+
+    const newProductInfo = {
+      category,
+      title,
+      price,
+      author,
+      publisher,
+      publicationDate,
+      pageNumber,
+      summary,
+      imgUrl,
+    };
+
+    const createNewProduct = await productModel.create(newProductInfo);
+    return createNewProduct;
   }
 
   //카테고리 별로 상품 조회

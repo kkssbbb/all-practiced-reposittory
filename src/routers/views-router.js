@@ -19,7 +19,7 @@ viewsRouter.use("/products/:id", serveStatic("product-detail"));
 viewsRouter.use("/cart", serveStatic("cart"));
 viewsRouter.use("/order", serveStatic("order"));
 
-//??
+//마이페이지
 viewsRouter.use("/account", serveStatic("account"));
 viewsRouter.use("/account/order", serveStatic("account-order"));
 viewsRouter.use("/account/security", serveStatic("account-security"));

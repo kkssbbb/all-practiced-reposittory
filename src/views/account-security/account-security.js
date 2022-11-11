@@ -19,84 +19,81 @@ const saveButton = document.querySelector("#saveButton");
 const modal = document.querySelector("#modal");
 const modalBackground = document.querySelector("#modalBackground");
 const modalCloseButton = document.querySelector("#modalCloseButton");
-const currentPasswordInput = document.querySelector("#currentPasswordInput");
-const saveCompleteButton = document.querySelector("#saveCompleteButton");
+// const currentPasswordInput = document.querySelector("#currentPasswordInput");
+// const saveCompleteButton = document.querySelector("#saveCompleteButton");
 
 checkLogin();
-addAllElements();
+// addAllElements();
 addAllEvents();
 
 // 요소 삽입 함수들을 묶어주어서 코드를 깔끔하게 하는 역할임.
-function addAllElements() {
-  createNavbar();
-  insertUserData();
-}
+// function addAllElements() {
+//   createNavbar();
+//   insertUserData();
+// }
 
 // 여러 개의 addEventListener들을 묶어주어서 코드를 깔끔하게 하는 역할임.
 function addAllEvents() {
-  fullNameToggle.addEventListener("change", toggleTargets);
-  passwordToggle.addEventListener("change", toggleTargets);
-  addressToggle.addEventListener("change", toggleTargets);
-  phoneNumberToggle.addEventListener("change", toggleTargets);
-  searchAddressButton.addEventListener("click", searchAddress);
-  saveButton.addEventListener("click", openModal);
+  saveButton.addEventListener("click", handleSave);
   modalBackground.addEventListener("click", closeModal);
   modalCloseButton.addEventListener("click", closeModal);
   document.addEventListener("keydown", keyDownCloseModal);
-  saveCompleteButton.addEventListener("click", saveUserData);
+  // saveCompleteButton.addEventListener("click", saveUserData);
 }
 
 // input 및 주소찾기 버튼의 disabled <-> abled 상태를 토글함.
-function toggleTargets(e) {
-  const toggleId = e.target.id;
-  const isChecked = e.target.checked;
+// function toggleTargets(e) {
+//   const toggleId = e.target.id;
+//   const isChecked = e.target.checked;
+//   console.log(toggleId);
+//   console.log(isChecked);
 
-  // 어떤 요소들의 토글인지 확인
-  let targets;
+//   // 어떤 요소들의 토글인지 확인
+//   let targets;
 
-  if (toggleId.includes("fullName")) {
-    targets = [fullNameInput];
-  }
-  if (toggleId.includes("password")) {
-    targets = [passwordInput, passwordConfirmInput];
-  }
-  if (toggleId.includes("address")) {
-    targets = [
-      postalCodeInput,
-      address1Input,
-      address2Input,
-      searchAddressButton,
-    ];
-  }
-  if (toggleId.includes("phoneNumber")) {
-    targets = [phoneNumberInput];
-  }
+//   if (toggleId.includes("fullName")) {
+//     targets = [fullNameInput];
+//   }
+//   if (toggleId.includes("password")) {
+//     targets = [passwordInput, passwordConfirmInput];
+//   }
+//   if (toggleId.includes("address")) {
+//     targets = [
+//       postalCodeInput,
+//       address1Input,
+//       address2Input,
+//       searchAddressButton,
+//     ];
+//   }
+//   if (toggleId.includes("phoneNumber")) {
+//     targets = [phoneNumberInput];
+//   }
 
-  // 여러 개의 타겟이 있을 때, 첫 타겟만 focus 시키기 위한 flag
-  let isFocused;
+//   // 여러 개의 타겟이 있을 때, 첫 타겟만 focus 시키기 위한 flag
+//   let isFocused;
 
-  // 토글 진행
-  for (const target of targets) {
-    if (isChecked) {
-      target.removeAttribute("disabled");
+//   // 토글 진행
+//   for (const target of targets) {
+//     if (isChecked) {
+//       target.removeAttribute("disabled");
 
-      !isFocused && target.focus();
-      isFocused = true;
+//       !isFocused && target.focus();
+//       isFocused = true;
 
-      continue;
-    }
-  }
+//       continue;
+//     }
+//   }
 
-  // 열림 토글인 경우는 여기서 끝
-  if (isChecked) {
-    return;
-  }
+//   // 열림 토글인 경우는 여기서 끝
+//   if (isChecked) {
+//     return;
+//   }
 
-  // 닫힘 토글인 경우임. disabled 처리를 위해 다시 한번 for 루프 씀.
-  for (const target of targets) {
-    target.setAttribute("disabled", "");
-  }
-}
+//   // 닫힘 토글인 경우임. disabled 처리를 위해 다시 한번 for 루프 씀.
+//   for (const target of targets) {
+//     target.setAttribute("disabled", "");
+//   }
+// }
 
 // 페이지 로드 시 실행
 // 나중에 사용자가 데이터를 변경했는지 확인하기 위해, 전역 변수로 userData 설정
@@ -104,7 +101,7 @@ let userData;
 async function insertUserData() {
   userData = await Api.get("/api/user");
 
-  // 객체 destructuring
+  //객체 destructuring
   const { fullName, email, address, phoneNumber } = userData;
 
   // 서버에서 온 비밀번호는 해쉬 문자열인데, 이를 빈 문자열로 바꿈
@@ -136,77 +133,24 @@ async function insertUserData() {
   disableForm();
 }
 
-function disableForm() {
-  fullNameInput.setAttribute("disabled", "");
-  fullNameToggle.checked = false;
-  passwordInput.setAttribute("disabled", "");
-  passwordToggle.checked = false;
-  passwordConfirmInput.setAttribute("disabled", "");
-  postalCodeInput.setAttribute("disabled", "");
-  addressToggle.checked = false;
-  searchAddressButton.setAttribute("disabled", "");
-  address1Input.setAttribute("disabled", "");
-  address2Input.setAttribute("disabled", "");
-  phoneNumberToggle.checked = false;
-  phoneNumberInput.setAttribute("disabled", "");
-}
-
-// Daum 주소 API (사용 설명 https://postcode.map.daum.net/guide)
-function searchAddress(e) {
-  e.preventDefault();
-
-  new daum.Postcode({
-    oncomplete: function (data) {
-      let addr = "";
-      let extraAddr = "";
-
-      if (data.userSelectedType === "R") {
-        addr = data.roadAddress;
-      } else {
-        addr = data.jibunAddress;
-      }
-
-      if (data.userSelectedType === "R") {
-        if (data.bname !== "" && /[동|로|가]$/g.test(data.bname)) {
-          extraAddr += data.bname;
-        }
-        if (data.buildingName !== "" && data.apartment === "Y") {
-          extraAddr +=
-            extraAddr !== "" ? ", " + data.buildingName : data.buildingName;
-        }
-        if (extraAddr !== "") {
-          extraAddr = " (" + extraAddr + ")";
-        }
-      } else {
-      }
-
-      postalCodeInput.value = data.zonecode;
-      address1Input.value = `${addr} ${extraAddr}`;
-      address2Input.placeholder = "상세 주소를 입력해 주세요.";
-      address2Input.focus();
-    },
-  }).open();
-}
-
-// db에 정보 저장
-async function saveUserData(e) {
-  e.preventDefault();
-
+async function realSave() {
   const fullName = fullNameInput.value;
   const password = passwordInput.value;
-  const passwordConfirm = passwordConfirmInput.value;
-  const postalCode = postalCodeInput.value;
-  const address1 = address1Input.value;
-  const address2 = address2Input.value;
+  const currentPassword = passwordConfirmInput.value;
+  const address = postalCodeInput.value;
   const phoneNumber = phoneNumberInput.value;
-  const currentPassword = currentPasswordInput.value;
 
   const isPasswordLong = password.length >= 4;
-  const isPasswordSame = password === passwordConfirm;
-  const isPostalCodeChanged =
-    postalCode !== (userData.address?.postalCode || "");
-  const isAddress2Changed = address2 !== (userData.address?.address2 || "");
-  const isAddressChanged = isPostalCodeChanged || isAddress2Changed;
+  const isPasswordSame = password === currentPassword;
+
+  const datas = { fullName, password, currentPassword, address, phoneNumber };
+
+  const userData1 = await Api.get("/api/users");
+  const { _id } = userData1;
+
+  await Api.patch("/api/users", _id, datas);
+
+  window.location.href = "/home";
 
   // 비밀번호를 새로 작성한 경우
   if (password && !isPasswordLong) {
@@ -238,8 +182,6 @@ async function saveUserData(e) {
   if (isAddressChanged) {
     data.address = {
       postalCode,
-      address1,
-      address2,
     };
   }
 
@@ -266,6 +208,29 @@ async function saveUserData(e) {
   } catch (err) {
     alert(`회원정보 저장 과정에서 오류가 발생하였습니다: ${err}`);
   }
+
+  console.log("sdfsdf");
+  alert("the end!!");
+}
+
+// db에 정보 저장
+async function handleSave(e) {
+  e.preventDefault();
+
+  Swal.fire({
+    title: "정말로 수정 하시겠습니까?",
+    text: "",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Yes",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      Swal.fire("수정되었습니다!", "", "success");
+      realSave();
+    }
+  });
 }
 
 // Modal 창 열기

@@ -5,6 +5,11 @@ class CategoryService {
     this.categoryModel = categoryModel;
   }
 
+  //카테고리 조회
+  async getCategoryId(categoryId) {
+    return categoryModel.findById(categoryId);
+  }
+
   //전체 카테고리 조회
   async getCategory() {
     return await categoryModel.findAll();
