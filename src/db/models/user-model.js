@@ -11,8 +11,9 @@ export class UserModel {
 
   /* 승빈 추가 */
 
-  async deleteUserId(userId) {
-    await User.deleteOne({ _id: userId });
+  async deleteById(userId) {
+    const result = await User.deleteOne({ _id: userId });
+    return result;
   }
 
   async findById(userId) {
