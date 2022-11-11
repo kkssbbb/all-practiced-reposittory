@@ -65,8 +65,15 @@ async function showAllProductItems() {
 }
 
 const checkAdmin = async () => {
-  await Api.get("/api/admins/check");
-  window.location.href = "/admin";
+  try {
+    const checkAdmin = await Api.get("/api/admins/check");
+    window.location.href = "/admin";
+    if (window.location.href == "/") {
+      throw new Error(error);
+    }
+  } catch (error) {
+    alert("관리자만 접근 가능한 페이지 입니다.");
+  }
 };
 
 $("#admin-check").addEventListener("click", checkAdmin);
