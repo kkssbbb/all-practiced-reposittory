@@ -33,6 +33,7 @@ let orderIdToDelete;
 
 async function insertOrders() {
   const orders = await Api.get("/api/orders"); // {error: null, data: Array(0)}
+  console.log(orders);
   // const orders = {
   //   error: null,
   //   data: [
@@ -46,7 +47,7 @@ async function insertOrders() {
   // };
 
   for (const order of orders.data) {
-    const { _id, createdAt, summaryTitle, status } = order;
+    const { _id, createdAt, titleList, status } = order;
     const date = createdAt.split("T")[0];
 
     ordersContainer.insertAdjacentHTML(
@@ -54,7 +55,7 @@ async function insertOrders() {
       `
         <div class="columns orders-item" id="order-${_id}">
           <div class="column is-2">${date}</div>
-          <div class="column is-6 order-summary">${summaryTitle}</div>
+          <div class="column is-6 order-summary">${titleList}</div>
           <div class="column is-2">${status}</div>
           <div class="column is-2">
             <button class="button" id="deleteButton-${_id}" >주문 취소</button>

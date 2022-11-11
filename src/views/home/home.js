@@ -4,16 +4,16 @@
 
 import * as Api from "../../api.js";
 import $ from "../../utils/dom.js";
-import { navigate } from "../../useful-functions.js";
+import { navigate, createNavbar } from "../../useful-functions.js";
 
 const categoryFilters = document.getElementsByName("category[]");
 const non_checked = "non-checked";
 
+createNavbar();
 showAllProductItems();
 
 async function showAllProductItems() {
   const products = await Api.get("/api/products");
-  console.log(products);
   const categoryList = await Api.get("/api/category");
 
   products.forEach((product) => {

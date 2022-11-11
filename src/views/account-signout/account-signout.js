@@ -32,11 +32,14 @@ async function deleteUserData(e) {
   e.preventDefault();
 
   const password = passwordInput.value;
-  const data = { password };
+  const currentPassword = { password };
 
   try {
     // 우선 입력된 비밀번호가 맞는지 확인 (틀리면 에러 발생함)
-    const userToDelete = await Api.post("/api/user/password/check", data);
+    const userToDelete = await Api.post(
+      "/api/user/password/check",
+      currentPassword
+    );
     const { _id } = userToDelete;
 
     // 삭제 진행

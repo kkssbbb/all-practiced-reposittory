@@ -25,46 +25,24 @@
     <!-- 커스텀 css, js -->
     <link rel="stylesheet" href="home.css" type="text/css" />
     <script src="home.js" type="module" defer></script>
+    <script type="text/javascript" defer>
+      fetch("/header.html")
+        .then((res) => res.text())
+        .then((text) => {
+          document.querySelector(".header").innerHTML = text;
+        });
+    </script>
+    <script type="text/javascript" defer>
+      fetch("/footer.html")
+        .then((res) => res.text())
+        .then((text) => {
+          document.querySelector(".footer").innerHTML = text;
+        });
+    </script>
   </head>
   <body>
     <!-- 헤더 -->
-    <nav class="navbar" role="navigation" aria-label="main navigation">
-      <div class="container mt-3">
-        <div class="navbar-brand">
-          <a class="navbar-item" href="/home">
-            <span class="has-text-link">📖 원 픽</span>
-          </a>
-
-          <a
-            role="button"
-            class="navbar-burger"
-            aria-label="menu"
-            aria-expanded="false"
-            data-target="navbarBasicExample"
-          >
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-          </a>
-        </div>
-
-        <div class="navbar-end breadcrumb my-auto" aria-label="breadcrumbs">
-          <ul id="navbar">
-            <li><a href="/login">로그인</a></li>
-            <li><a href="/register">회원가입</a></li>
-            <li><a href="/">위시리스트</a></li>
-            <li>
-              <a href="/cart" aria-current="page">
-                <span class="icon">
-                  <i class="fas fa-cart-shopping"></i>
-                </span>
-                <span>카트</span>
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+    <header class="header"></header>
     <!-- <a href="/src/middlewares/home-books/1667838639459_best-1.jpg"></a> -->
     <main>
       <!--배너 슬라이드-->
@@ -77,76 +55,14 @@
       <section class="sections">
         <!--카테고리 필터-->
         <aside>
-          <form class="category-filter-form" action="" method="get">
-            <!-- <button id="select-all-btn">전체 선택</button>
-            <button id="deselect-all-btn">전체 해체</button> -->
-            <!-- <label>
-              <input
-                id="novel"
-                type="checkbox"
-                name="category[]"
-                value="소설"
-              />
-              소설
-            </label>
-            <label
-              ><input
-                id="essay"
-                type="checkbox"
-                name="category[]"
-                value="에세이"
-              />
-              에세이</label
-            >
-            <label
-              ><input
-                id="development"
-                type="checkbox"
-                name="category[]"
-                value="개발"
-              />
-              개발</label
-            >
-            <label
-              ><input
-                id="foreign"
-                type="checkbox"
-                name="category[]"
-                value="원서"
-              />
-              원서</label
-            >
-            <label
-              ><input
-                id="economy"
-                type="checkbox"
-                name="category[]"
-                value="경제"
-              />
-              경제</label
-            >
-            <label
-              ><input
-                id="interest"
-                type="checkbox"
-                name="category[]"
-                value="취미"
-              />
-              취미</label
-            >
-            <label
-              ><input id="poem" type="checkbox" name="category[]" value="시" />
-              시</label
-            > -->
-          </form>
+          <form class="category-filter-form" action="" method="get"></form>
         </aside>
         <!--전체 상품-->
         <section class="product">
           <div class="book-list"></div>
         </section>
       </section>
+      <footer class="footer"></footer>
     </main>
-    <script type="module" src="./home.js" defer></script>
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   </body>
 </html>

@@ -88,4 +88,4 @@ export const checkLogin = () => {
   }
 };
 
-// export { createNavbar } from "./navbar.js";
+export { createNavbar } from "./navbar.js";

@@ -50,6 +50,8 @@ function addAllEvents() {
 function toggleTargets(e) {
   const toggleId = e.target.id;
   const isChecked = e.target.checked;
+  console.log(toggleId);
+  console.log(isChecked);
 
   // 어떤 요소들의 토글인지 확인
   let targets;
@@ -100,12 +102,12 @@ function toggleTargets(e) {
 
 // 페이지 로드 시 실행
 // 나중에 사용자가 데이터를 변경했는지 확인하기 위해, 전역 변수로 userData 설정
-let userData;
+// let userData;
 async function insertUserData() {
-  userData = await Api.get("/api/user");
+  // userData = await Api.get("/api/user");
 
   // 객체 destructuring
-  const { fullName, email, address, phoneNumber } = userData;
+  // const { fullName, email, address, phoneNumber } = userData;
 
   // 서버에서 온 비밀번호는 해쉬 문자열인데, 이를 빈 문자열로 바꿈
   // 나중에 사용자가 비밀번호 변경을 위해 입력했는지 확인하기 위함임.
