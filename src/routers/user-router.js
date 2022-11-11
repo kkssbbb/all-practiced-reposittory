@@ -26,6 +26,7 @@ userRouter.delete("/users", async (req, res, next) => {
   const userId = req.currentUserId;
   console.log(userId);
   const currentPassword = req.body.currentPassword;
+  console.log(currentPassword);
   await userService.deleteUserId(userId, currentPassword);
 
   return res.status(200).json({ error: null, messege: "Delete Success" });
