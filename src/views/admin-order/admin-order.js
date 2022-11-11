@@ -97,7 +97,6 @@ async function insertOrders() {
 
     // 이벤트 - 삭제버튼 클릭 시 Modal 창 띄우고, 동시에, 전역변수에 해당 주문의 id 할당
     deleteButton.addEventListener("click", () => {
-      console.log("테스트", _id);
       orderIdToDelete = _id;
 
       // openModal

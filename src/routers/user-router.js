@@ -9,7 +9,7 @@ import { adminCheck } from "../middlewares/adminCheck";
 const userRouter = Router();
 
 /* 승빈 추가 */
-
+//유저종보죄회
 userRouter.get("/users", loginRequired, async function (req, res, next) {
   try {
     const userId = req.currentUserId;
@@ -119,6 +119,7 @@ userRouter.post("/users", async function (req, res, next) {
       throw new Error(
         "headers의 Content-Type을 application/json으로 설정해주세요"
       );
+      ㅞ;
     }
 
     // req (request) 에서 데이터 가져오기
