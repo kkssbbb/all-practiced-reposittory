@@ -23,23 +23,23 @@ const currentPasswordInput = document.querySelector("#currentPasswordInput");
 const saveCompleteButton = document.querySelector("#saveCompleteButton");
 
 checkLogin();
-addAllElements();
+// addAllElements();
 addAllEvents();
 
 // 요소 삽입 함수들을 묶어주어서 코드를 깔끔하게 하는 역할임.
-function addAllElements() {
-  createNavbar();
-  insertUserData();
-}
+// function addAllElements() {
+//   createNavbar();
+//   insertUserData();
+// }
 
 // 여러 개의 addEventListener들을 묶어주어서 코드를 깔끔하게 하는 역할임.
 function addAllEvents() {
-  fullNameToggle.addEventListener("change", toggleTargets);
-  passwordToggle.addEventListener("change", toggleTargets);
-  addressToggle.addEventListener("change", toggleTargets);
-  phoneNumberToggle.addEventListener("change", toggleTargets);
-  searchAddressButton.addEventListener("click", searchAddress);
-  saveButton.addEventListener("click", openModal);
+  // fullNameToggle.addEventListener("change", toggleTargets);
+  // passwordToggle.addEventListener("change", toggleTargets);
+  // addressToggle.addEventListener("change", toggleTargets);
+  // phoneNumberToggle.addEventListener("change", toggleTargets);
+  // searchAddressButton.addEventListener("click", searchAddress);
+  saveButton.addEventListener("click", handleSave);
   modalBackground.addEventListener("click", closeModal);
   modalCloseButton.addEventListener("click", closeModal);
   document.addEventListener("keydown", keyDownCloseModal);
@@ -102,12 +102,14 @@ function toggleTargets(e) {
 
 // 페이지 로드 시 실행
 // 나중에 사용자가 데이터를 변경했는지 확인하기 위해, 전역 변수로 userData 설정
-// let userData;
+let userData;
 async function insertUserData() {
-  // userData = await Api.get("/api/user");
+  console.log("Dffd");
+  userData = await Api.get("/api/user");
+  console.log(userData);
 
-  // 객체 destructuring
-  // const { fullName, email, address, phoneNumber } = userData;
+  //객체 destructuring
+  const { fullName, email, address, phoneNumber } = userData;
 
   // 서버에서 온 비밀번호는 해쉬 문자열인데, 이를 빈 문자열로 바꿈
   // 나중에 사용자가 비밀번호 변경을 위해 입력했는지 확인하기 위함임.
@@ -191,24 +193,22 @@ function searchAddress(e) {
 }
 
 // db에 정보 저장
-async function saveUserData(e) {
+async function handleSave(e) {
   e.preventDefault();
-
   const fullName = fullNameInput.value;
   const password = passwordInput.value;
-  const passwordConfirm = passwordConfirmInput.value;
-  const postalCode = postalCodeInput.value;
-  const address1 = address1Input.value;
-  const address2 = address2Input.value;
+  const currentPassword = passwordConfirmInput.value;
+  const address = postalCodeInput.value;
   const phoneNumber = phoneNumberInput.value;
-  const currentPassword = currentPasswordInput.value;
 
   const isPasswordLong = password.length >= 4;
-  const isPasswordSame = password === passwordConfirm;
-  const isPostalCodeChanged =
-    postalCode !== (userData.address?.postalCode || "");
-  const isAddress2Changed = address2 !== (userData.address?.address2 || "");
-  const isAddressChanged = isPostalCodeChanged || isAddress2Changed;
+  const isPasswordSame = password === currentPassword;
+  // const isPostalCodeChanged = address !== (userData.address?.address || "");
+  // const {fullName, password}
+
+  const datas = { fullName, password, currentPassword, address, phoneNumber };
+  const id = await Api.get("/api/users")
+  await Api.patch(/users,)
 
   // 비밀번호를 새로 작성한 경우
   if (password && !isPasswordLong) {
