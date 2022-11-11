@@ -49,6 +49,5 @@ async function productData() {
     cart.push({ id: id });
     store.setLocalStorage(cart);
   });
+  $(".buy-now-btn").addEventListener("click", navigate(`/order?id=${id}`));
 }
-
-$(".buy-now-btn").addEventListener("click", () => {});
