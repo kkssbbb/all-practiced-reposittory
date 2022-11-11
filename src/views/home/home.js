@@ -16,7 +16,7 @@ async function showAllProductItems() {
   const products = await Api.get("/api/products");
   console.log(products);
   const categoryList = await Api.get("/api/category");
-
+  console.log(products);
   products.forEach((product) => {
     const { _id, imgUrl, category } = product;
     console.log(category);

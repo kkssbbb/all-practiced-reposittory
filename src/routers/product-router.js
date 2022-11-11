@@ -23,6 +23,7 @@ productRouter.post(
       } = req.body;
 
       const imgUrl = req.file.path.split("src/views")[1];
+
       const content = await productService.addProduct({
         imgUrl,
         title,

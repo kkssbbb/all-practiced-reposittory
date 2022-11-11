@@ -28,10 +28,11 @@ class ProductService {
       summary,
       imgUrl,
     } = productInfo;
+    console.log(category);
+    // const categoryId = await categoryService.getCategoryId(category);
 
-    const categoryId = await categoryService.getCategoryId(category);
     const newProductInfo = {
-      categoryId,
+      category,
       title,
       price,
       author,
