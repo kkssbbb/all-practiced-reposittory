@@ -42,7 +42,7 @@ async function handleSubmit(e) {
   const pageNumber = parseInt(pageNumberInput.value);
   const price = parseInt(priceInput.value);
   const imgUrl = imgUrlInput.files?.[0] ?? undefined;
-  console.log(imgUrl);
+  console.log(category);
   // 입력 칸이 비어 있으면 진행 불가
   if (
     !title ||
