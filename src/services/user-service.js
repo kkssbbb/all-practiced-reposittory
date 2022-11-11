@@ -33,6 +33,9 @@ class UserService {
   }
   /*  승빈 추가 끝  */
 
+  //비번 확인
+  
+
   // 회원가입
   async addUser(userInfo) {
     // 객체 destructuring

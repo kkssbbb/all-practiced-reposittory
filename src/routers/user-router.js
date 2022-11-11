@@ -22,8 +22,8 @@ userRouter.get("/user-orders/:id", async (req, res, next) => {
 
 // 사용자본인 회원탈퇴
 
-userRouter.delete("/users/:id", async (req, res, next) => {
-  const userId = req.params.id;
+userRouter.delete("/users", async (req, res, next) => {
+  const userId = req.currentUserId;
   console.log(userId);
   const currentPassword = req.body.currentPassword;
   await userService.deleteUserId(userId, currentPassword);
@@ -37,6 +37,33 @@ userRouter.get("/admins/check", adminCheck, async function (req, res, next) {
 });
 
 /* 승빈 추가 끝 */
+
+//비번 체크
+userRouter.post(
+  "/user/password/check",
+  loginRequired,
+  async function (req, res, next) {
+    try {
+      // application/json 설정을 프론트에서 안 하면, body가 비어 있게 됨.
+      if (is.emptyObject(req.body)) {
+        throw new Error(
+          "headers의 Content-Type을 application/json으로 설정해주세요"
+        );
+      }
+
+      // req (request) 에서 데이터 가져오기
+      const userId = req.currentUserId;
+      const password = req.body.password;
+
+      // 비밀번호가 알맞는지 여부를 체크함
+      const checkResult = await userService.checkUserPassword(userId, password);
+
+      res.status(200).json(checkResult);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
 
 // 회원가입 api (아래는 /register이지만, 실제로는 /api/register로 요청해야 함.)
 userRouter.post("/users-post", async (req, res, next) => {
