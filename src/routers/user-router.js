@@ -22,14 +22,17 @@ userRouter.get("/user-orders/:id", async (req, res, next) => {
 
 // 사용자본인 회원탈퇴
 
-userRouter.delete("/users", async (req, res, next) => {
-  const userId = req.currentUserId;
-  console.log(userId);
-  const currentPassword = req.body.currentPassword;
-  console.log(currentPassword);
-  await userService.deleteUserId(userId, currentPassword);
+userRouter.delete("/users/:Id", loginRequired, async function (req, res, next) {
+  try {
+    // params로부터 id를 가져옴
+    const userId = req.params.Id;
 
-  return res.status(200).json({ error: null, messege: "Delete Success" });
+    const deleteResult = await userService.deleteUserData(userId);
+
+    res.status(200).json(deleteResult);
+  } catch (error) {
+    next(error);
+  }
 });
 
 //admin jwt check
@@ -41,7 +44,7 @@ userRouter.get("/admins/check", adminCheck, async function (req, res, next) {
 
 //비번 체크
 userRouter.post(
-  "/user/password/check",
+  "/users/password/check",
   loginRequired,
   async function (req, res, next) {
     try {
