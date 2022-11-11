@@ -87,16 +87,6 @@ orderRouter.get("/orders-list", async function (req, res, next) {
 //   }
 // });
 
-//주문 전체조회(관리자만)
-orderRouter.get("/auth/orders", async function (req, res, next) {
-  try {
-    const orderList = await orderService.getOrdersList();
-    res.status(200).json({ error: null, data: orderList });
-  } catch (error) {
-    next(error);
-  }
-});
-
 //주문 삭제!! 이거임!!!
 orderRouter.delete("/orders/:id", async function (req, res, next) {
   try {

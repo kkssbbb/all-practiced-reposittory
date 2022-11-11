@@ -9,7 +9,7 @@ import { adminCheck } from "../middlewares/adminCheck";
 const userRouter = Router();
 
 /* 승빈 추가 */
-
+//유저종보죄회
 userRouter.get("/users", loginRequired, async function (req, res, next) {
   try {
     const userId = req.currentUserId;
