@@ -51,7 +51,7 @@ class OrderService {
     const orderinfo = orderInfo[0].status;
     console.log(orderinfo);
 
-    if (orderinfo !== "배송전") {
+    if (orderinfo !== "상품 준비중") {
       if (orderinfo == "배송중") {
         throw new Error(
           `상품이 ${orderinfo}이여서 주문정보를 변경할 수 없습니다.^^늦음ㅅㄱ`
@@ -63,8 +63,8 @@ class OrderService {
         );
       }
     }
-    if (orderinfo !== "배송전") {
-      throw new Error("주문 상태가 배송전이 아닙니다.");
+    if (orderinfo !== "상품 준비중") {
+      throw new Error("주문 상태가 상품 준비중이 아닙니다.");
     }
 
     const deleteOrder = await this.orderModel.deleteById(orderId);
@@ -90,7 +90,7 @@ class OrderService {
     const orderinfo = orderInfo[0].status;
     console.log(orderinfo);
 
-    if (orderinfo !== "배송전") {
+    if (orderinfo !== "상품 준비중") {
       if (orderinfo == "배송중") {
         throw new Error(
           `상품이 ${orderinfo}이여서 주문정보를 변경할 수 없습니다.^^늦음ㅅㄱ`
@@ -102,8 +102,8 @@ class OrderService {
         );
       }
     }
-    if (orderinfo !== "배송전") {
-      throw new Error("주문 상태가 배송전이 아닙니다.");
+    if (orderinfo !== "상품 준비중") {
+      throw new Error("주문 상태가 상품 준비중이 아닙니다.");
     }
 
     const fatchOrder = await this.orderModel.fatchById(orderId, toUpdate);
