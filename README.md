@@ -1,8 +1,8 @@
-# 쇼핑몰 웹 서비스 - 기본 코드
+# 쇼핑몰 웹 서비스 - 원픽 (책 추천 서점)
 
 <div>
 
-<img alt="쇼핑-데모 로고" src="https://i.ibb.co/xSZHxmy/image.png">
+<img alt="원픽 로고" src="/uploads/5c01f912e74faded4750a755793083fd/원픽_로고.png" width="400px">
 
 </div>
 
@@ -98,8 +98,7 @@
 
 - **Vanilla javascript**, html, css (**Bulma css**)
 - Font-awesome 
-- Daum 도로명 주소 api 
-- 이외
+- Figma, sweetalert2
 
 ### 2-2. 백엔드 
 
