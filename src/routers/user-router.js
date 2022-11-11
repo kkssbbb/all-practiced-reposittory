@@ -25,8 +25,8 @@ userRouter.get("/user-orders/:id", async (req, res, next) => {
 userRouter.delete("/users/:id", async (req, res, next) => {
   const userId = req.params.id;
   console.log(userId);
-
-  await userService.deleteUserId(userId);
+  const currentPassword = req.body.currentPassword;
+  await userService.deleteUserId(userId, currentPassword);
 
   return res.status(200).json({ error: null, messege: "Delete Success" });
 });
