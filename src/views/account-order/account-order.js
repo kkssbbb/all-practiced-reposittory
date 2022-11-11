@@ -7,7 +7,7 @@ const modal = document.querySelector("#modal");
 const modalBackground = document.querySelector("#modalBackground");
 const modalCloseButton = document.querySelector("#modalCloseButton");
 const deleteCompleteButton = document.querySelector("#deleteCompleteButton");
-const deleteCancelButton = document.querySelector("#deleteCancelButton");
+const deleteCancelModifyButton = document.querySelector("#deleteCancelButton");
 
 checkLogin();
 addAllElements();
@@ -25,7 +25,7 @@ function addAllEvents() {
   modalCloseButton.addEventListener("click", closeModal);
   document.addEventListener("keydown", keyDownCloseModal);
   deleteCompleteButton.addEventListener("click", deleteOrderData);
-  deleteCancelButton.addEventListener("click", cancelDelete);
+  deleteCancelModifyButton.addEventListener("click", cancelDelete);
 }
 
 // 페이지 로드 시 실행, 삭제할 주문 id를 전역변수로 관리함
@@ -36,7 +36,6 @@ async function insertOrders() {
 
   for (const order of orders.data) {
     const { _id, createdAt, titleList, status } = order;
-    console.log(_id);
     const date = createdAt.split("T")[0];
 
     ordersContainer.insertAdjacentHTML(
@@ -47,7 +46,7 @@ async function insertOrders() {
           <div class="column is-6 order-summary">${titleList}</div>
           <div class="column is-2">${status}</div>
           <div class="column is-2">
-            <button class="button" id="deleteButton-${_id}" >주문 취소</button>
+            <button class="button" id="deleteButton-${_id}" >주문 수정</button>
           </div>
         </div>
       `
@@ -55,7 +54,6 @@ async function insertOrders() {
 
     const deleteButton = document.querySelector(`#deleteButton-${_id}`);
 
-    // Modal 창 띄우고, 동시에, 전역변수에 해당 주문의 id 할당
     deleteButton.addEventListener("click", () => {
       orderIdToDelete = _id;
       openModal();
@@ -68,16 +66,13 @@ async function deleteOrderData(e) {
   e.preventDefault();
 
   try {
-    await Api.patch("/api/orders", orderIdToDelete);
+    await Api.delete("/api/orders", orderIdToDelete);
 
-    // 삭제 성공
     alert("주문 정보가 삭제되었습니다.");
 
-    // 삭제한 아이템 화면에서 지우기
     const deletedItem = document.querySelector(`#order-${orderIdToDelete}`);
     deletedItem.remove();
 
-    // 전역변수 초기화
     orderIdToDelete = "";
 
     closeModal();
@@ -87,7 +82,7 @@ async function deleteOrderData(e) {
 }
 
 // Modal 창에서 아니오 클릭할 시, 전역 변수를 다시 초기화함.
-function cancelDelete() {
+async function cancelDelete() {
   orderIdToDelete = "";
   closeModal();
 }

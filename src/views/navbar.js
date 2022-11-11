@@ -3,9 +3,6 @@ export const createNavbar = () => {
   // console.log("path:", pathname); // 트래일링 술래시???
 
   switch (pathname) {
-    // case "/":
-    //   addNavElements("admin register login account logout");
-    //   break;
     case "/home/":
       addNavElements("admin register login account logout");
       break;
@@ -80,8 +77,8 @@ const addNavElements = (keyString) => {
   const itemsAfterLogin = {
     account: '<li><a href="/account">계정관리</a></li>',
     logout: '<li><a href="#" id="logout">로그아웃</a></li>',
-    productAdd: '<li><a href="/product/add">제품 추가</a></li>',
-    categoryAdd: '<li><a href="/category/add">카테고리 추가</a></li>',
+    // productAdd: '<li><a href="/product/add">제품 추가</a></li>',
+    // categoryAdd: '<li><a href="/category/add">카테고리 추가</a></li>',
   };
 
   const itemsForAdmin = {
