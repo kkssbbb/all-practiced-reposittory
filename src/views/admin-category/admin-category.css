@@ -141,13 +141,21 @@ table {
   font-size: 2rem;
 }
 
-.register-category-form-box .input:focus {
+.register-category-form-box .input:focus,
+.delete-category-form-box .input:focus {
   border-color: #80b8c5;
   box-shadow: 0 0 0 0.125em rgba(68, 91, 158, 0.25);
 }
 
 #addCategoryButton {
   background-color: #80b8c5;
+  border-radius: 1rem;
+  font-weight: bold;
+  color: white;
+}
+
+#deleteCategoryButton {
+  background-color: #c58080;
   border-radius: 1rem;
   font-weight: bold;
   color: white;
