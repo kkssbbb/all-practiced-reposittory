@@ -154,13 +154,6 @@ table {
   color: white;
 }
 
-#deleteCategoryButton {
-  background-color: #c58080;
-  border-radius: 1rem;
-  font-weight: bold;
-  color: white;
-}
-
 main a {
   text-decoration: none;
 }

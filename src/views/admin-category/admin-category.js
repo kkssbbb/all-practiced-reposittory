@@ -47,6 +47,7 @@ async function handleSubmit(e) {
 }
 
 // 카테고리 가져오기
+let categoryIdToDelete;
 async function addNowCategory() {
   const categorys = await Api.get("/api/category");
   categorys.forEach((item) => {
@@ -56,10 +57,54 @@ async function addNowCategory() {
     nowCategoryInput.insertAdjacentHTML(
       "beforeend",
       `
-        <div id="order-${_id}">
+        <div id="category-${_id}">
           <div>${category}</div>
+        </div>
+        <div class="column is-2">
+          <button class="button" id="deleteButton-${_id}" >카테고리 삭제</button>
         </div>
       `
     );
+
+    // 요소 선택
+    const deleteButton = $(`#deleteButton-${_id}`);
+
+    // 이벤트 - 삭제버튼 클릭 시 Modal 창 띄우고, 동시에, 전역변수에 해당 주문의 id 할당
+    deleteButton.addEventListener("click", () => {
+      categoryIdToDelete = _id;
+
+      // openModal
+      Swal.fire({
+        title: "정말 삭제하시겠습니까?",
+        text: "진짜로~~?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes",
+      }).then(async (res) => {
+        if (res.isConfirmed) {
+          // Yes, // db에서 카테고리 삭제
+          try {
+            await Api.delete("/api/category", categoryIdToDelete);
+
+            // 삭제 성공
+            alert("카테고리가 삭제되었습니다.");
+
+            // 삭제한 아이템 화면에서 지우기
+            const deletedItem = $(`#category-${categoryIdToDelete}`);
+            deletedItem.remove();
+
+            // 전역변수 초기화
+            categoryIdToDelete = "";
+          } catch (err) {
+            alert(`주문정보 삭제 과정에서 오류가 발생하였습니다: ${err}`);
+          }
+        } else {
+          // No
+          categoryIdToDelete = "";
+        }
+      });
+    });
   });
 }
