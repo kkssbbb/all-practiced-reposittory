@@ -12,13 +12,13 @@
       href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css"
     />
 
-    <script type="text/javascript" defer>
+    <!-- <script type="text/javascript" defer>
       fetch('/header.html')
         .then((res) => res.text())
         .then((text) => {
           document.querySelector('#header').innerHTML = text;
         });
-    </script>
+    </script> -->
   </head>
   <body>
     <main>
@@ -30,7 +30,7 @@
           class="box register-category-form-box"
           id="registerCategoryForm"
           >
-          <p class="title is-5">카테고리 추가하기</p>
+          <p class="title is-5">카테고리 추가</p>
           <div class="field">
             <label class="label" for="titleInput">카테고리 이름</label>
             <div class="control">
@@ -51,6 +51,24 @@
           카테고리 추가하기
         </button>
       </section>
+
+      <div class="category-delete">
+        <div
+          class="box delete-category-form-box"
+          id="deleteCategoryForm"
+          >
+          <p class="title is-5">현재 카테고리</p>
+          <div class="field" id="nowCategoryInput">
+            <!--현재 카테고리 삽입-->
+          </div>
+        </div>
+        <button
+          class="button is-fullwidth"
+          id="deleteCategoryButton"
+        >
+          카테고리 삭제하기
+        </button>
+      </div>
     </main>
     <script type="module" src="admin-category.js" defer></script>
   </body>
