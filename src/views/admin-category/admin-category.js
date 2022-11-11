@@ -98,7 +98,7 @@ async function addNowCategory() {
             // 전역변수 초기화
             categoryIdToDelete = "";
           } catch (err) {
-            alert(`주문정보 삭제 과정에서 오류가 발생하였습니다: ${err}`);
+            alert(`카테고리 삭제 과정에서 오류가 발생하였습니다: ${err}`);
           }
         } else {
           // No
