@@ -10,7 +10,7 @@ import {
 import { errorHandler } from "./middlewares";
 
 const app = express();
-
+//test
 // CORS 에러 방지
 app.use(cors());
 
